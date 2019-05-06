@@ -1,0 +1,87 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Chaitin!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+    <section>
+        <title>Iteratív és rekurzív faktoriális Lisp-ben</title>
+        <para>
+                
+        </para>
+        <para>
+            Megoldás videó: <link xlink:href="https://youtu.be/z6NJE2a1zIA">https://youtu.be/z6NJE2a1zIA</link>      
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Lispben két fő szintaktikai különbség van a híresebb programozási nyelvekhez képest. Az első az, hogy maga a program egymásba ágyazott S-kifejezések sorozata,
+            a nyelv egyik nagy előnye és hátránya is egyben: egyszerű hozzá elemző programokat írni de az emberi szem hamar belekavarodik a sok zárójelbe. Második pedig hogy a 
+            nyelv prefix jelölést használ. Ez azt jelenti hogy egy például egy összeadásban elöször kell az összeadásjelet leírni és utána a művelet argumentumait(pl: + 2 2).
+        </para>
+        <para>
+            Rekurzív faktoriális
+        </para>
+        <programlisting language="lisp"><![CDATA[
+            
+           (defun fakt_r (n) (if(< n 1)1(* n (fakt_r(- n 1)))))   
+            
+            ]]>
+        </programlisting>
+         <para>
+            Definiáljuk a fügvényünket a defun kulcsszó után fakt_r néven, ahol n-re helyetessíjük be a kívánt faktoriálist.
+            Ha n kiseb mint 1 akkor 1-et adunk vissza eredményül, egyébként n-et megszorozzuk a rekurzívan meghívott a fakt_r függvénnyel az n-1 elemre.
+        </para>
+         <para>
+            Iteratív faktoriális
+        </para>
+        <programlisting language="lisp"><![CDATA[
+            
+           (defun fakt_i (n)(loop for i from 1 to n for result = 1 then (* result i) finally return result) 
+            
+            ]]>
+        </programlisting>
+         <para>
+            Definiáljuk a fügvényünket fakt_i néven
+            Majd egy  loop for-al kezdünk, ami lényegében a lisp megfelelője az átlagos for-nak, ebben a ciklusváltozó i=1-től n-ig fut le a ciklus.
+            Minden iterációban megszorozzuk a result változót (amivel a végeredményt számoljuk) i-vel és így a vegére megkapjuk az adott faktoriálist amit returnnel visszaadunk. 
+
+        </para>
+    </section>        
+
+    <section>
+        <title>Gimp Scheme Script-fu: króm effekt</title>
+        <para>
+            Írj olyan script-fu kiterjesztést a GIMP programhoz, amely megvalósítja a króm effektet egy 
+            bemenő szövegre!
+        </para>
+        <para>
+            Megoldás videó: <link xlink:href="https://youtu.be/OKdAkI_c7Sc">https://youtu.be/OKdAkI_c7Sc</link>      
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://gitlab.com/nbatfai/bhax/tree/master/attention_raising/GIMP_Lisp/Chrome">https://gitlab.com/nbatfai/bhax/tree/master/attention_raising/GIMP_Lisp/Chrome</link>               
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>    
+    </section>        
+
+    <section>
+        <title>Gimp Scheme Script-fu: név mandala</title>
+        <para>
+            Írj olyan script-fu kiterjesztést a GIMP programhoz, amely név-mandalát készít a
+            bemenő szövegből!               
+        </para>
+        <para>
+            Megoldás videó: <link xlink:href="https://bhaxor.blog.hu/2019/01/10/a_gimp_lisp_hackelese_a_scheme_programozasi_nyelv">https://bhaxor.blog.hu/2019/01/10/a_gimp_lisp_hackelese_a_scheme_programozasi_nyelv</link>      
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://gitlab.com/nbatfai/bhax/tree/master/attention_raising/GIMP_Lisp/Mandala">https://gitlab.com/nbatfai/bhax/tree/master/attention_raising/GIMP_Lisp/Mandala</link>               
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>            
+    </section>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+</chapter>                

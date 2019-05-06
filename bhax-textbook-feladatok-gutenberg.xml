@@ -1,0 +1,179 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Gutenberg!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+        <cover>
+            <para>
+                Programozás tankönyvek rövid olvasónaplói.
+            </para>
+        </cover>
+    </info>
+    <section>
+        <title>Programozási alapfogalmak</title>
+        <para>         
+            <citation>PICI</citation>       
+        </para>
+        <para>
+            2.4 Adattípusok
+        </para>
+         <para>
+            Az adattípusok a programozási nyelvek egy absztrakt eszköze, ami mindig valmilyen másik feladatunk részeként jelenik meg. Három tulajdonság jellemzi őket: tartományuk, műveleteik és reprezentációjuk.
+             A tartománya az spectrum melyen belül az adattípus elemi felvehetnek értéket. Azok a műveletek tartoznak hozzá, melyeket az elemein eltudunk végezni. Reprezentációja pedig az egyes elemek tárolásat mutatja meg bitekben(pl: C-ben egy chart egy bájton reprezentálunk).
+             Minden típusos nyelvben vannak beépített típusok, néhányban pedig magunk is deklarálhatjuk őket a három tulajdonságuk megadásával. Ezen felül úgy is letrehozhatunk saját típust hogy egy már meglévő tartoményát csökkentjük.
+             Az adattípusok két nagy csoportja az egyszerű és az összetett típusok. Az egyszerű közé tartoznak az egész,valós,karakters és a logikai típus míg az összetetthez tömb és a rekord. 
+             Ezenfelül vannak speciális típusok, például a mutató aminek adatrészében egy másik elem memóriacíme van, alapvető feladata a tárhelyen lévő adat elérése.
+        </para>
+         <para>
+            2.5 Nevesített konstans
+        </para>
+         <para>
+            A nevesített konstansnak van neve, típusa és értéke. Mindig deklarálni kell és egy olyan értéket jelöl beszédesebb nevekkel amelyek a programunk alatt nem változtatnak értéket.
+            Ezen felül ha meg kell változtatni az értéket, akkor elég egy helyen és nem minden előfordulásában átírni. 
+        </para>
+         <para>
+            2.6 Változó
+        </para>
+        <para>
+            A változó egy olyan programozási eszköz melynek neve, attribútumai,címe és értéke van. A nevével jelöljük programkódunkban, attribútumokat deklarációkor kap(pl típus), címe a memóriában elfoglalt helye, értéke pedig ezen a helyen lévő információ.
+            
+        </para>
+          <para>
+          4. Utasítások
+        </para>
+        <para>
+            Az utasítások segítségével írjuk le az algoritmusunk feladatát lépésenként. Egy részük csak a fordítóprogramnak szólnak, ezek a deklarációs utasjtésok, melyek valamilyen szolgáltatást kérnek vagy információt szolgáltatni a fordítónak.
+            Másik részük pedig a végrehajtó utasítások, melyekből majd a programkód épül fel. Csoportosításuk:
+        </para>
+        <itemizedlist>
+            <listitem>
+                <para>1. Értékadó utasítás: Ezzel adunk a változóinknak értékét.</para>                        
+            </listitem>
+             <listitem>
+                <para>2. Üres utasítás: Mint nevében is szerepel az ilyen utasítások törzse üres. Ilyenkor a processzor egy üres gépi utasítást csinál. </para>                        
+            </listitem>
+             <listitem>
+                <para>3. Ugró utasítás: A program jelenlegi pontjáról egy másik meghatározott pontra dobjuk a vezérlést. </para>                        
+            </listitem>
+             <listitem>
+                <para>4. Elágaztató utasítások: Van kétirányú elágazó utasítás (if else) mely egy feltétel alapján két lehetséges tevékenység között választ. Ennek az összetettebb változata a többirányú elágazó utasítás(switch)
+                         ami egy feltétel alapján több lehetséges esetet próbál ráilelsteni, ha sikerül azt hajtja végre, ha nem akkor van egy default válasz hajtódik végre. 
+                </para>                        
+            </listitem>
+             <listitem>
+                <para>5. Ciklusszervező utasítások: Lehetővé teszik , hogy a program valahány utasítását bármennyiszer megismételjük. Maga a ciklus magjában található a kód, ami megismétlésre kerül majd.
+                        Fontos része a ciklusoknak az ismétlődésre vonatkozó információ, ami lehet: egy feltétel igaz/hamis állapota, ezt a ciklus minden iteráció után(do..while)vagy előtt(while) ellenőrzi; lehet előírt lépésszámú ciklus is amely egy előre megadott értékszer hajtja végre a magját(for ciklus).
+                </para>                        
+            </listitem>
+             <listitem>
+                <para>6. Hívó utasítás:  </para>                        
+            </listitem>
+             <listitem>
+                <para>7. Vezérlésátadó utasítások: CONTINUE:Megnézi a ciklus ismétlődés feltételeit és vagy újrakezdi a cilust vagy befejezi azt; BREAK: A ciklust szabályosan befelyezi és kilép belőle; 
+                         RETURN(érték): Befejezi a függvényt és visszadja az értéket a hívónak.
+                </para>                        
+            </listitem>
+             <listitem>
+                <para>8. I/O utasítások </para>                        
+            </listitem>
+             <listitem>
+                <para>9. Egyéb utasítások </para>                        
+            </listitem>
+           
+        </itemizedlist>         
+          <para>
+            5.1 Alprogramok
+        </para>
+        <para>
+            Egy programnyelveknél mindig kérdés, hogy hogyan lehet azt feldarabolni ls a tagokat hogyan kell fordítani. Lehetséges minden önálló részt külön, az egész programot egyben és ennek kombinációjat is használni.
+            Az eljárásorientált nyelvekben a programegységek között megkülönböztetünk alprogramot, blockot,csomagot és taszkot. Az alprogramok olyan kódrészletek, melyeket csak egyszer kell megírni, azután az egész programon belül megívhatjuk amikor szügségünk van rá.
+            Egy alprogramot függvénynek nevezünk ha van visszetérési értéke, egyébként egy eljárásról beszélünk. Egy alprogram fejében megadhatunk argumentumokat, ezeket a megívásakor ki kell töltenünk a megfelelő típusú adatokkkal, ez akkor hasznos ha valamilyen olyan adatot akarunk neki átadni ami a scope-ján kívül van.
+          </para>
+          <para>
+            5.2 Hívási lánc, rekurzió  
+          </para>
+          <para>
+              
+          </para>
+
+    </section>        
+    <section>
+        <title>Programozás bevezetés</title>
+        <para>                
+            <citation>KERNIGHANRITCHIE</citation>
+        </para>
+        <para>
+            Megoldás videó: <link xlink:href="https://youtu.be/zmfT9miB-jY">https://youtu.be/zmfT9miB-jY</link>
+        </para>   
+        <para>
+            3. Fejezet Vezérlési szerkezetek
+        </para>     
+          <para>
+           
+            
+            A C-nyelvben az utasításokat pontos vesszővel zárjuk. Az utasítás blokkokat {}-el jelöljük.
+        </para>
+        <para>
+            3.2
+            If-else
+        </para>     
+        <para>
+            Az if szerkezet döntést hozó utasítás. Ha(feltétel) utasítás else utasítás2 , az elsre nem mindig van szükség lehet olyan is, hogy ha történik valami akkor csináljon valamit a program,ha nem akkor ugorja át. Az else ág mindig a hozzá legközelebb lévő else nélküli ifhez fog tartozni. Ha nem így szeretnénk akkor az if hatáskörét {}-jelek közé kell tenni. Az ifnek van egy másik fajtája az else if itt több feltétel egymásba ágyazása történik. Itt a legutolsó else akkor fut le ha egyik feltétel sem teljesül. Amint egy teljesül a feltételek közül a program végrehajtja és kilép az else-if ágról.
+        </para>
+        <para>
+            3.3 Switch
+        </para>     
+        <para>
+            A switchet többirányú programelágazások esetén használjuk itt valamilyen állandó értékhez rendeli az utasítást. A switchben case-eket hozunk létre, amelyek akkor futnak le ha teljesül az állandó, ezen kívül minden case-t break-el kell zárni.Létezik egy default ág, amely akkor fut le ha egyik case feltétele se teljesül.
+            </para>
+            <para>
+                A break el nem csak a switchből tudunk kilépni hanem bármely ciklust képesek vagyunk vele megszakítani.
+             </para> 
+             <para>
+                A for előírt lépésszámú ciklus, amelynek van egy kezdő értéke egy végértéke és egy lépésszáma. 
+              </para>
+              <para>
+                  A while addig fut amíg a ciklusfejben megadott feltétel hamis nem lesz.
+               </para>
+
+    </section>        
+    <section>
+        <title>Programozás</title>
+        <para>
+              2.1.1 Függvényparaméterek és visszatérési érték
+        </para>
+        <para>
+          
+            Ha C-ben megadunk egy függvényt paramáterek nélkül az bármennyi paramáterrel hívható, míg C++-ban azt jelenti, hogy nincs paramétere. Sőt ha vissaztérési értéket nem adunk meg a C automatikusan intet fog visszaadni, a C++ pedig hibát mivel nincs alapértelmezett visszatérési értéke.
+        </para>
+        <para>
+             2.1.2 Main függvény
+        </para>
+         <para>
+           
+            Az main függyvény argumentumaként dekralálható argc a parancssorba beérkező argumentumok számát, míg az argv a paracssori argumentumokat adja meg. C++ nem muszáj returnt írni a main végére.
+        </para>
+        <para>
+             2.2 Függvények túlterhelése
+        </para>
+         <para>
+           
+            Két függvényleg lehet ugyanaz a neve amíg argumentumlistájuk különbözik. a C++ a függvény nevet az argumentumokkal együtt tárolja, így a különböző változatoknak nem kell egyesével nevet adni.
+        </para>
+        <para>
+             2.3 Alapértelmezett függvényargumentumok
+        </para>
+         <para>
+           
+            C++ nelvben lehetőség van a függvények argumentumainak alapértéket megadni. Ekkor ha a függvény hívásakot nem adjuk meg paramáterként akkor az alapértelmezett értéket használja.
+        </para>
+        <para>
+            2.4 Paramáteradás referenciatípussal
+        </para>
+         <para>
+          
+            Ha azt szeretnénk C-ben, hogy egy függvény megváltoztassa az argumentum változó értékét pointerekkel kell hivatkoznunk rá, íg meg tudja változtatni az értékét. C++ban ezt referenciatípus bevezetésével hidalják át. A C teljes pointerré alakítás helyett elég egy  jelet írni a függvény deklarációjában a változónév elé.
+        </para>
+    </section>        
+</chapter>                

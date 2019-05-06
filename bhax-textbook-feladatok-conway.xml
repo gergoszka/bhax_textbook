@@ -1,0 +1,163 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Conway!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+    <section>
+        <title>Hangyaszimulációk</title>
+        <para>
+            Írj Qt C++-ban egy hangyaszimulációs programot, a forrásaidról utólag reverse engineering jelleggel
+            készíts UML osztálydiagramot is!
+        </para>
+        <para>
+            Megoldás videó: <link xlink:href="https://bhaxor.blog.hu/2018/10/10/myrmecologist">https://bhaxor.blog.hu/2018/10/10/myrmecologist</link>
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href=""></link>               
+        </para>
+                 <para>
+            Forrás: https://bhaxor.blog.hu/2018/10/10/myrmecologist?token=b90955bd5311e9986f0c3f99263ff386
+        </para>
+        <para>
+            A hangyaszimulációban egy hangy kolónia mozgását szimuláljuk. Minden hangya feromon nyomot hagy, és ha feromon nyomra lép egy hangya, akkor elkezdi követni az előző hangya által hagyott nyomot, de ez egy idő után eltűnik ha nem lép rá senki. Minél erősebb a feromon annál nagyobb az esélye, hogy egy közeli hangya rálép. Először létrehozzuk a hangya osztályt, amelyben a hangyák koordinátáit és mozgásukat adjuk meg. A mozgásuk irányát maradékos osztással számoljuk.
+        </para>  
+        <para>
+            A terminálban a program futtatásakor megadathatunk különböző flageket amelyek változtatják a tulajdonságait: -w a rács szélességét, -m a rács magasságát, -n a hangyák mennyiségét, -t a hangyák 2 lépés közötti sebességét, -t a párolgás értékét, -f a hanyott feromonok értékét, -a és -i a cellák maximum és minimum értékét ,-c pedig azt adja meg hogy hány hangya lehet egy cellában egyszerre.
+
+        </para>  
+        <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/ant.png" scale="23" />
+                </imageobject>
+        </mediaobject>
+        <para>
+            Az AntWin határozza meg az ablak tulajdonságait: hangyák kinézetét(ami az én változatomban kék négyzetekkel jelölünk), a rács méretét. Itt történik a key eventek implementálása is, P esetén a program megáll, Q vagy Esc lenyomásakor kilépünk. Ha nem adunk meg semmilyen kapcsolót futtatáskor az itt megadott értékeket használjuk.
+        </para>  
+        <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/uml.png" scale="45" />
+                </imageobject>
+        </mediaobject>
+        
+    </section>        
+    <section>
+        <title>Java életjáték</title>
+        <para>
+            Írd meg Java-ban a John Horton Conway-féle életjátékot, 
+            valósítsa meg a sikló-kilövőt!
+        </para>
+        <para>
+            Megoldás videó: 
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href=""></link>               
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>            
+        <para>
+            
+        </para>
+    </section>        
+    <section>
+        <title>Qt C++ életjáték</title>
+        <para>
+            Most Qt C++-ban!
+        </para>
+        <para>
+            Megoldás videó: 
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href=""></link>               
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>      
+         <para>
+            Forrás:https://bit.ly/2G2ojbN
+        </para>   
+        <para>
+            Az eredeti életjátékot (The Game of Life) John Horton Conway matematikus találta ki 1970-ben. Ez lényegében egy "nulla-fős" játék hiszen csak a kezdeti állapotot adhatjuk meg a többit
+            a játék szabályai szerint kell kiszámolni. Ezt meg lehetne tenni kockás papíron is, de az unalmas és hosszadalmas ezért ezt a program megcsinálja helyettünk.
+        </para>
+         <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/elet.png" scale="50" />
+                </imageobject>
+        </mediaobject>  <para>
+            A kísérletek száma változóban definiáljuk, hogy hányszor fusson le a kísérlet.Azaz a minták száma.
+        </para>
+        <para>
+            A kiserlet és a jatekos tömbök, amelyeket 1 és 3 közé eső számokkal tölt fel a sample. A műsorvezető egy vektor amelyet ugyan olyan méretűre deklarálunk mint a kísérletek száma.
+        </para>
+        <para>
+            Szabályok:
+        </para>
+         <para>
+                Egy x*y méretű rácson játszunk, ahol a rácspontokat celláknak nevezzük. A játék kezdetén minden cella halott, mi dönjük el melyekre helyezünk sejteket, amik a játék elindítása után minden 'körben' a következő
+                szabályok szerint  élnek/halnak meg. (Egy sejt szomszédságán a körülütte lévő 8 cellát értjük)
+                 </para>
+        <itemizedlist>         
+         <listitem>
+                <para>1. Ha két vagy három szomszédja van, a sejt túléli a kört.</para>                        
+         </listitem>
+         <listitem>
+                <para>2. A sejt meghal, ha kettőnél kevesebb, vagy háromnál több szomszédja van.</para>                        
+         </listitem> 
+        <listitem>
+                <para>3. Új sejt születik minden olyan cellában, melynek környezetében pontosan három sejt található.</para>                        
+        </listitem>     
+      </itemizedlist>
+        <para>
+            Fontos megjegyezni,hogy a születések és elhalálozások egyszerre történnek, vagyis azok a sejtek amik meghalnának bele számítanak a születő sejtek meghatározásába. A szabályok szerinti
+            sejtek felrakását és eltávolítását egy körnek vagy generációnak nevezzük. 
+            </para>
+  
+       
+    </section>        
+    <section>
+        <title>BrainB Benchmark</title>
+        <para>
+        </para>
+        <para>
+            Megoldás videó: 
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href=""></link>               
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>
+        <para>
+            Forrás:http://real.mtak.hu/79216/1/it_2018_1_10_batfai_et_al.pdf
+        </para> 
+        <para>
+            A BrainB benchmark program lényege a felhasználó koncentrációs képességének mérése. A teszt lényege, hogy az egér kurzort folyamatosan a 'Samu entropy' nevű nényzet közepén, a kék körben kell tartani.
+            Samu és a többi objektum is random mozognak, a feladatot nehezíti, hogy minél tovább tartjuk rajta az egeret annál több új entropyt spawnolunk és gyorsaságuk is nő.Viszont ha elveszjük Samut csökken az entropyk száma és sebessége. A teszt 10 percig tart, amit kicsit soknak érzek mert elfárad az ember szeme és a keze is a folyamatos egérgomb lenyomástól a végére.
+            Ha teljesítettük a tesztet a program egy külön fájlba elmenti eredményünket, amit a lost2found és found2lost változókból így számolunk:
+        </para>   
+         <programlisting language="c"><![CDATA[
+            
+    int m1 = mean ( lost2found );
+    int m2 = mean ( found2lost );
+    double res = ( ( ( (double)m1+(double)m2 ) /2.0 ) /8.0 ) /1024.0;
+    textStream << “U R about “ << res << “ Kilobytes\n";
+
+            ]]>
+        </programlisting>   
+        <para>
+            A BrainBThred konstruktorában deklaráljuk a hős osztályt,és állítjuk be a mozgásukat, amit random számolunk.  Ezen felül itt írjuk meg az adatok méréséhez szügséges get_bps,get_w,lost, stb. függvényeket.
+            A BrainWin-ben írjuk meg az eventeket amik érzékelik hogy az egér gombja le van-e nyomva vagy sem és ez alapján indítja vagy állítja meg a játékot.Ha Samun van ez egér új entropykat hozunk létre és növeljük az agilitijét, ha elvesztjük entropykat törlünk és lassítjuk.Ezen felül impementáljuk hogy a P gomb lenyomásával meglehessen állítani a játékot.
+            
+        </para>
+        <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/Brain.png" scale="40" />
+                </imageobject>
+        </mediaobject>   
+          
+    </section>        
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+</chapter>                

@@ -1,0 +1,253 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Caesar!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+    <section>
+        <title><type>int ***</type> háromszögmátrix</title>
+        <para>
+           
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>            
+        <para>
+            Az alsó hároszög mátrix egy olyan kvadratikus (megegyező sor- és oszlopszámú) mátrix aminek főátlója fölött csak 0-ák szerepelnek. Az alsó hárömszögmátrixokat sorfolyatonosan egy vektorban szoktuk tárolni.
+        </para>
+        <para>
+            nr-ben megadjuk a mátrix sor és oszlop számát és egy double*ra mutató mutatót. Az ifben double* nr-szeresát foglaljuk le, ha a malloc nem tud helyet foglalni akkor -1-es hibaüzenettel tér vissza. Majd a következő maloc-kal a sor elemeinek foglalunk helyet, mivel a double 8 bájtos az első sorban 1x8 majd következőben 2x8 és így tovább bájtot foglalunk le.
+        </para>
+         <programlisting language="c"><![CDATA[
+           
+         int nr = 5;
+         double **tm;
+
+         if ((tm = (double **) malloc (nr * sizeof (double *))) == NULL)
+          {
+                return -1;
+          }
+         ]]>
+        </programlisting>
+        <para>
+            Majd egy for ciklus feltölti a tömböt 0-14ig számokkal, egy másik pedig a megadott alsó háromszög mátrix formában kiírja a terminálba.
+        </para>
+        <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/matrix.png" scale="60" />
+                </imageobject>
+        </mediaobject>
+        <para>
+            Végül a free(tm)-el felszabadítjuk a maloc által lefoglalt helyet.
+        </para>
+    </section>        
+    <section>
+        <title>C EXOR titkosító</title>
+        <para>
+            Írj egy EXOR titkosítót C-ben!
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>            
+        <para>
+            Az exor titkosítás egy egyszerű, de hasznos titkosítási forma, aminek a biztonsága a megadott kulcs hosszával növekszik,mivel a feltörésnál annál több lehetőséget kell majd megnézni.
+        </para>
+        <para>
+            Mivel a szöveg minden karakteren xor-t hajtunk végre, az adott karaktert a kulcs adott karakterével xor-ozzunk, de mivel a kulcs rövidebb lesz mint a titkosítandó szöveg egy idő után elkezd ismétlődni
+        </para>
+        <para>
+            A programban a while beolvassa a szövegfájlt, majd a for ciklus minden egyes karakter titkosít exorrral, ha nagyob a szöveg mint a kulcs ismétődésével titkosít.    
+        </para>        
+         <programlisting language="c"><![CDATA[
+           
+         while ((olvasott_bajtok = read (0, (void *) buffer, BUFFER_MERET)))
+         {
+            for (int i = 0; i < olvasott_bajtok; ++i)
+            {
+                buffer[i] = buffer[i] ^ kulcs[kulcs_index];
+                kulcs_index = (kulcs_index + 1) % kulcs_meret;
+            }
+         }
+         ]]>
+        </programlisting>
+    </section>        
+    <section>
+        <title>Java EXOR titkosító</title>
+        <para>
+            Írj egy EXOR titkosítót Java-ban!
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>            
+        <para>
+             Létrehozunk egy Exor osztályt, majd létrehozunk egy stringet,amelyben a  kulcsot tároljuk és nyitunk két csatornát egy bejövőt és egy kimenőt az olvasás íráshoz. A throws a hibakezeléshez kell ha nem sikerül a beolvasás vagy kiiratás akkor hibát dob. Ezután definiálunk egy byte változót a buffernek és egy kulcs indexet, amely a kulcs első karakterére hivatkozik kezdetben és egy olvasott bájtokat, amely a beomenetről beolvasott szöveg hosszával egyenlő. Aztán a while-al olvassuk be a szöveget és letároljuk a bufferben közben a méretét az olvasott bájtokba. Aztán a forban titkosítunk a maradékos osztás azért szükséges, hogy ha a szöveg hosszabb mint a kulcs akkor a kulcs index ismét 0-tól kezdődjön mivel karakterenként történik a titkosítás. Majd a végén a write-al a megadott kimenetre írunk.
+        </para>
+        <para>
+              
+        </para>
+         <programlisting language="c"><![CDATA[
+           
+        public class Exor {
+    
+    public Exor(String kulcsSzöveg,
+            java.io.InputStream bejövőCsatorna,
+            java.io.OutputStream kimenőCsatorna)
+            throws java.io.IOException {
+        
+        byte [] kulcs = kulcsSzöveg.getBytes();
+        byte [] buffer = new byte[256];
+        int kulcsIndex = 0;
+        int olvasottBájtok = 0;
+
+        while((olvasottBájtok =
+                bejövőCsatorna.read(buffer)) != -1) {
+            
+            for(int i=0; i<olvasottBájtok; ++i) {
+                
+                buffer[i] = (byte)(buffer[i] ^ kulcs[kulcsIndex]);
+                kulcsIndex = (kulcsIndex+1) % kulcs.length;
+                
+            }
+            
+            kimenőCsatorna.write(buffer, 0, olvasottBájtok);
+            
+        }
+        
+}
+         ]]>
+        </programlisting>
+    </section>        
+    <section>
+        <title>C EXOR törő</title>
+        <para>
+            Írj egy olyan C programot, amely megtöri az első feladatban előállított titkos szövegeket!
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>            
+        <para>
+            Az exor törő lényegében egy brute force variáns, ami végig próbálja az összes lehetséges kódolási módszert. Ez a kódoló tudatában könnyebb, de a valóságban sokkal több változót figyelembe kell venni, így sokáig tart a törés és e miatt nem is olyan elterjedt.
+        </para>
+        <para>
+            Itt annak eldöntésére, hogy a feltört szöveg megfelelő e, az átlagos szóhosszt (ami a szöveg hossza osztva a spacek számával) és a magyar mondatokban gyakran előforduló szavakat használjuk.   
+        </para>
+        <para>
+              Az exortörésben meghívjuk az exor eljárást majd az exorozott szöveget átadjuk a tiszta_lehetnek vizsgálatra,ha passzol akkor majd a brute force-os forban az if igaz lesz és kiirja a terminálra a kulcsot és a megfejtett szöveget.
+        </para>
+        <para>
+            Majd a main részben a while ciklusban meghívjuk a titkos szöveget, majd az ezt követő for-ban nullázzuk a maradék buffert.
+            Ezután jöhet a kulcs megtalálására szolgáló egymásba ágyazott for ciklusok amik a törést végzik és ha megtalláják kiköpik az eredményt.
+        </para>
+        <para>
+            Majd párhuzamosítjuk a for ciklust a gyorsabb feltörés érdekében:    
+        </para>
+        <programlisting language="c"><![CDATA[
+           
+        #pragma omp parallel for
+         for (int ii = '0'; ii <= '9'; ++ii)
+              for (int ji = '0'; ji <= '9'; ++ji)
+                  for (int ki = '0'; ki <= '9'; ++ki)
+                        for (int li = '0'; li <= '9'; ++li)
+                         .
+                         .
+                         .
+         ]]>
+        </programlisting>
+        <para>
+            Így a program fordítása: 
+        </para>
+        <para>
+            <command>gcc exortör.c -fopenmp -O3 -o exortör</command>
+        </para>
+        <para>
+            <command>./exortör titkos_szöveg.txt </command>
+        </para>
+    </section>        
+    <section>
+        <title>Neurális OR, AND és EXOR kapu</title>
+        <para>
+            R
+        </para>
+        <para>
+            Megoldás videó: <link xlink:href="https://youtu.be/Koyw6IH5ScQ">https://youtu.be/Koyw6IH5ScQ</link>
+        </para>
+        <para>
+            Megoldás forrása: <link xlink:href="https://gitlab.com/nbatfai/bhax/tree/master/attention_raising/NN_R">https://gitlab.com/nbatfai/bhax/tree/master/attention_raising/NN_R</link>               
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>            
+        <para>
+           Az AND és OR kapuk egyszerű perceptronként működnek. Ugyanis adatként megkapját az 1 vagy 0 bitjüket és, hogy milyen eredményt kell elérniük. Kb 100 próbálkozás után az algoritmus megtalálja a megfelelő súly értékeket és megközelítőleg jó eredményt ad, de az érdekességek az exornál kezdődnek.
+        </para>
+        <para>
+           Itt ugyanis változtatás nékül nem tud választ adni a program, nem tud "vonalat húzni" a két csoport között.
+        </para>
+         <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/nn.png" scale="500" />
+                </imageobject>
+        </mediaobject>
+        <para>
+            Ennek a megoldása rejtett neuronok bevezetése, amik lényegében egy új rétegnyi számolást tesz lehetővé, számuk növelése csökkenti a próbálkozások számát is.
+        </para>
+    </section>       
+    <section>
+        <title>Hiba-visszaterjesztéses perceptron</title>
+        <para>
+            C++
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>     
+        <para>
+            Ebben a feladatban tutoriáltam Ranyhoczki Mariann-t.
+        </para>       
+        <para>
+            Egy perceptron a gépi tanulás egyik legegyszerűbb megvalósítása. Az elképzelés szerint egyetlen neuront ábrázolunk, ami véges sok input alapján egy algoritmus segítségével két csoportba sorolja. Ehhez nemcsak a bemenő adatokat adjuk meg, hanem a megoldást is, így az algoritmus az adatokhoz rendelt súlyok változtatásával megpróbálja megközelíteni az elvárt megoldást.
+            Maga az algoritmus általában a szignum függvény ami az adatok és súlyaik szorzatának összegét egy -1 és 1 közötti tört számként ábrázolja. Logikusan egy elem akkor tartozik az egyik csoprtba ha 0-nál nagyobb, a másikba ha kisebb. A program legelső próbálkozása alkalmával random súlyokat választ és az alapján, hogy a megoldása helyes vagy helytelen, csökkenti vagy növeli a súlyokat amíg a megfelelő megoldást nem kapjuk.
+              
+        </para>
+        <para>
+            Jelen programunk annyiban tér el,hogy nem változtatja súlyait, hanem az első próbálkozásának eredményét adja vissza.
+        </para>
+        <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/perceptron.png" scale="65" />
+                </imageobject>
+        </mediaobject>
+    </section>        
+        
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+</chapter>                

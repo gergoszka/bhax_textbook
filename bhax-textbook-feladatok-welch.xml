@@ -1,0 +1,210 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Welch!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+    <section>
+        <title>Első osztályom</title>
+        <para>
+            Valósítsd meg C++-ban és Java-ban az módosított polártranszformációs algoritmust! A matek háttér 
+            teljesen irreleváns, csak annyiban érdekes, hogy az algoritmus egy számítása során két normálist
+            számol ki, az egyiket elspájzolod és egy további logikai taggal az osztályban jelzed, hogy van vagy
+            nincs eltéve kiszámolt szám.
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Tanulságok, tapasztalatok, magyarázat...
+        </para>                
+        <para>
+            A Polárgenerátor osztályban először deklarálunk egy nincsTárolt boolean típusú változót ami megmondja,hogy van e eltárolva random számunk, termászetesen alapesetben true értékű. Van egy tárolt változónk ami a nincsTárolt false értéke esetén visszaadja az eltárolt számot.
+        </para>
+        <para>
+            A következő() tagfüggvényben először megnézzük, hogy van e eltárolva számunk, ha nincs akkor kiszámítunk kettőt: egyiket visszaadjuk a usernek, a másikat elrakjuk a tárolt változóba és a nincstárolt értékét hamisra állítjuk; ha van eltárolt számunk akkor azt visszaadjuk és a nincsTárolt változót igazra állítjuk.
+        </para>
+        <para>
+            A mainben meghívjuk a PolárGenerátor osztályt g néven és forral csinálunk 10 példát a kimenetre.
+        </para>
+        <para>
+            Ez nagyban megegyezik ahhoz ahogy a JDK Random.javabán a Sun programozói csinálták:
+        </para>
+        <programlisting language="c++">
+        <![CDATA[
+      private double nextNextGaussian;
+      private boolean haveNextNextGaussian = false;
+     
+      public double nextGaussian() {
+        if (haveNextNextGaussian) {
+          haveNextNextGaussian = false;
+          return nextNextGaussian;
+        } else {
+          double v1, v2, s;
+          do {
+            v1 = 2 * nextDouble() - 1;   // between -1.0 and 1.0
+            v2 = 2 * nextDouble() - 1;   // between -1.0 and 1.0
+            s = v1 * v1 + v2 * v2;
+          } while (s >= 1 || s == 0);
+          double multiplier = StrictMath.sqrt(-2 * StrictMath.log(s)/s);
+          nextNextGaussian = v2 * multiplier;
+          haveNextNextGaussian = true;
+          return v1 * multiplier;
+        
+        
+        ]]>
+        </programlisting>                   
+    </section>        
+
+    <section>
+        <title>LZW</title>
+        <para>
+            Valósítsd meg C-ben az LZW algoritmus fa-építését!
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            A binfa algoritmus egy vektorban tárolt bitsorozatból bináris fa típusú adatszerkezetet csinál.
+        </para>
+        <para>
+            Létrehozunk egy binfa nevű struktúrát amiben deklarálunk egy int érték és 2 struct típusú mutatót, amik a gyökér jobb és bal oldali elemeire mutatnak.
+        </para>
+        <para>
+            A BINFA_PTR függvény fogja visszaadni majd a p eredményét, eg sikeres memóriafoglalás után. A kiir és szabadít függvényeknél extern-nel jelezzük hogy majd később deklaráljuk őket. A mainben létrehozunk egy char változót amib mindig mindig lementjük éppen milyen elemet olvasunk be. Aztán deklaráljuk a fát és a fa mutatót ráállítjuk a gyökérre és a while ciklusban a jobb vag bal oldalra rajuk az elemet attól függően hogy 1 vagy 0           
+        </para>
+        <para>
+            A kiirral végigmegyunk a fán és növeljük a mélyságet minden ugrásnál majd ábrázoljuk magát a bináris fa kinézetét a standard outputon. A szabadit felszabadítja a az erőforrásokat használat után.   
+        </para>
+        <para>
+             <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/binfa_c.png" scale="60" />
+                </imageobject>
+            </mediaobject>
+        </para>
+    </section>        
+        
+    <section>
+        <title>Fabejárás</title>
+        <para>
+            Járd be az előző (inorder bejárású) fát pre- és posztorder is!
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            <emphasis role="strong">
+            <emphasis>Inorder:</emphasis>
+            </emphasis>
+            először a gyökér bal oldalát, majd magát a gyökeret és végül a jobb oldalt írjuk ki.
+        </para>
+           <para>
+            <emphasis role="strong">
+            <emphasis>Preorder:</emphasis>
+            </emphasis>
+            először kiírjuk a gyökeret és csak ez után a bal és jobb oldalt.
+        </para>
+           <para>
+            <emphasis role="strong">
+            <emphasis>Postorder:</emphasis>
+            </emphasis>
+            kiírjuk a bal és jobb oldalát a fának és végül a gyökeret.
+        </para>
+        <para>
+            Ez a kódban annyit jelent, hogy Inordernél a for ciklus előtt van az egyes gyerekek kiírása a nullásoké pedig utána. Preordernél mind a kettő mögötte, Postordernél pedig mind a kettő előtte van.
+        </para>
+        <para>
+             <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/fabejaras.png" scale="60" />
+                </imageobject>
+            </mediaobject>
+        </para>
+    </section>        
+                        
+    <section>
+        <title>Tag a gyökér</title>
+        <para>
+            Az LZW algoritmust ültesd át egy C++ osztályba, legyen egy Tree és egy beágyazott Node
+            osztálya. A gyökér csomópont legyen kompozícióban a fával!
+        </para>
+        <para>
+            Megoldás videó:
+        </para>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            A C-s változattól abban különbözik, hogy használhatunk osztályokat. Létre is hozzuk az LZWBinFa osztályunkat majd deklarálunk egy konstruktort és egy destruktort. Majd túlterheljük az operátort a void operator-ban, amely paraméterül a char b-t kapja. Ezzel vizsgáljuk milyen elem megy be épp.
+            Ha ez az elem 0 és a fának nincs 0 ás eleme akkor létrehozunk egyet neki. Ha van akkor ráállítjuk a fa mutatót. Ha ez az elem 1-es akkor hasonlóképpen működik. Majd jön a kiir eljárás, amely rekurzívan hívja meg magát.Argumentumként megkapja a gyökeret és azt, hogy mit kell kiirni ez az egyes gyermek és nullás gyermek lesz.
+            
+        </para>
+        <para>
+         <programlisting language="c++">
+        <![CDATA[
+      class LZWBinFa
+      {
+      public:
+    
+            LZWBinFa ():fa (&gyoker)
+            {
+            }
+            ~LZWBinFa ()
+            {
+                szabadit (gyoker.egyesGyermek ());
+                szabadit (gyoker.nullasGyermek ());
+            }
+        ]]>
+        </programlisting>    
+        </para>
+        <para>
+             Létrehozzuk a kiir eljárást, a kiiratás csak akkor tud megtörténni ha van elem a fában,itt inorder kiiratás történik.Ezután a fölösleges nem használt részeket felszabadítjuk a szabadíttal. Majd van egy protected rész ahol kiemeljük, hogy a fának van egy kitüntetett tag csomópontja a /. Ezután az osztályból kilépve a sima globális térbe létrehozunk egy usage eljárást, amelyel ha hibásan futtatnánk a programot segítséget nyújtunk a felhasználónak.
+        </para>
+    </section>        
+                
+    <section>
+        <title>Mutató a gyökér</title>
+        <para>
+            Írd át az előző forrást, hogy a gyökér csomópont ne kompozícióban, csak aggregációban legyen a 
+            fával!
+        </para>
+        <para>
+            Megoldás videó: 
+        </para>
+        <para>
+            Megoldás forrása:  
+        </para>
+        <para>
+             A különbség mostmár az hogy a csomópontból pointer lett. Tehát a konstruktorba be kelett vinni kívülről az eddig átadott fa gyokeret. Mivel eddig a gyökér tagként szerepelt a csomópontba, de most mutató lett tehát könnyedén átadhatjuk az értékét a fának ami egy mutató. Miután a gyökérből pointert csináltunk így könnyedén elhagyhatjuk az és jeleket ugyanis alapból a memória címét fogja átadni majd nem kell érték szerinti referenciaként hivatkozni rá.Viszont, így hogy pointer lett a destruktorban őt is felkell szabadítani tehát bele írjuk a delete gyokeret a destruktorba.
+        </para>
+    </section>                     
+
+    <section>
+        <title>Mozgató szemantika</title>
+        <para>
+            Írj az előző programhoz mozgató konstruktort és értékadást, a mozgató konstruktor legyen a mozgató
+            értékadásra alapozva!
+        </para>
+        <para>
+            Megoldás videó: 
+        </para>
+        <para>
+            Megoldás forrása:  
+        </para>
+        <para>
+            A mozgató konstruktornál létrehozunk egy új konstruktort. A konstruktorban létrehozzuk a gyökér csomópontot és a mutatót erre irányítjuk. Majd a magasságot 0-ra állítjuk. Ezután jön a destruktor, amit azért itt hívunk meg mert a gyökérre mutató root mutatót null pointerre állítja aztán ha kiakarnánk törölni a semmit arra szegmentációs hibát dobna a fordító. Itt felszabadítjuk a dinamikusan lefoglalt memóriát és a gyökeret.Mivel az egy éses BT-t már ellőttük a másolásnál ezért 2 éssel jelöljük a mozgató konstruktort itt a megadott mutatótak egyenlővé tesszük az eredeti fa paramétereivel. És a gyökér mutatóját nullázzuk,mármint az eredetijét.
+        </para>
+    </section>                     
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+</chapter>                
