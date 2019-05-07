@@ -94,9 +94,37 @@
             5.2 Hívási lánc, rekurzió  
           </para>
           <para>
-              
+            Minden programegység hivatkozhat másik programegységekre, ennek a folyamatát hívási láncnak nevezzük. A hívási láncot mindig a főprogram kezdi és szabályos esetben mindig az akívval kezdve zárul be
+            Ha az alprogram egy akív alprogramot hív meg azt rekurziónak nevezzük. Ez lehet közvetlen, amikor az aktív alprogram saját magát hívja meg és közvetett, amikor egy másik programot hívunk meg a hívási láncból.
           </para>
-
+          <para>
+            5.3 Másodlagos belépési pontok
+          </para>
+          <para>
+              Egy alprogramra nem csak a fejen keresztül tudunk hivatkozni. Egyes programnyelvek megengedik, hogy a program törzsében létrehozzunk egy másodlagos belépási pontot. így ha ezen kerezstül érjük el az alprogramot csak a belépési pont utáni kód fut le a törzsben.
+          </para>
+           <para>
+            5.4 - 5.5 Paraméterek 
+          </para>
+           <para>
+              Amikor egy alprogram meghívásánál az aktuális a paraméterek a formális paraméterekhez rendelődnek paraméterkiértékelésnek nevezzük. Egy programon belül a formális lista mindig állandó, egy darab van belőle, míg az aktuális paraméterek meghívásonként változhatnak.
+              Ezeket az értékeket sok féleképpen lehet egymáshoz rendelni, leggyakoribb az érték és a referencia szerinti paraméterátadás. Érték szerinti paraméterátadásnál a megkapott változók eredeti értékei nem változnak, csak az alprogramon belül, 
+              míg referencia szerinti átadásnál mutatókat alkalmazunk a megkapott változó címére , így azt változtatjuk és nem egy másolt értéket.   
+          </para>
+           <para>
+            5.6 Blokk
+          </para>
+          <para>
+              Egy blokkot különleges karakterekkel ({},begin..end) kezdődő és végződő programegység. Egy blockba belépni és kilépni legegyszerűbben úgy lehet hogy a vezérlés rá kerül, de alkalmazhatunk GOTO utasítáást is erre a célra.  . 
+              Fő szerepe a program átláthatóvá tétele és a hatáskörük eltárolása.
+          </para>
+           <para>
+            5.7 Hatáskör
+          </para>
+          <para>
+            A hatáskörök olyan területek a programon belül, ahol egy adott név mindig ugyanazt az értéket hivatkozza. Egy programegységben deklarált nevet lokális névnek nevezünk, az e feletti hatáskörökben deklarált neveket pedig globális neveknek.
+            A nevek láthatósága kívülről befelé működik, vagyis a főprogram változóit mindenki látja , míg egy eljárásét csak ő. A hatáskörök lehetővé teszik hogy egy változót például kétszer deklaráljunk két különböző alprogramban amik nem látják egymást, így nem akadnak össze az értékeik, bár ez is sem javasolt programozói szokás. 
+          </para>
     </section>        
     <section>
         <title>Programozás bevezetés</title>
