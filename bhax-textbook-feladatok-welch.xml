@@ -146,8 +146,8 @@
             Megoldás forrása:                
         </para>
         <para>
-            A C-s változattól abban különbözik, hogy használhatunk osztályokat. Létre is hozzuk az LZWBinFa osztályunkat majd deklarálunk egy konstruktort és egy destruktort. Majd túlterheljük az operátort a void operator-ban, amely paraméterül a char b-t kapja. Ezzel vizsgáljuk milyen elem megy be épp.
-            Ha ez az elem 0 és a fának nincs 0 ás eleme akkor létrehozunk egyet neki. Ha van akkor ráállítjuk a fa mutatót. Ha ez az elem 1-es akkor hasonlóképpen működik. Majd jön a kiir eljárás, amely rekurzívan hívja meg magát.Argumentumként megkapja a gyökeret és azt, hogy mit kell kiirni ez az egyes gyermek és nullás gyermek lesz.
+           Mivel ezt a programunkat most c++ ban írjuk lehetőségünk van az osztályok hasnálatára: létre is hozzuk az LZWBinFa osztályt. Deklaráljuk az osztály konstruktorát, ami az inicializációs listájában
+           meg is kapja a fa jelenlegi gyökerét, ezzel tudjuk hogy jelenleg hol vagyunk a fában. E mellett létrehozunk destruktort is, ami a program végeztével felszabadítja a gyökérnek a heapen lefoglalt helyét.
             
         </para>
         <para>
@@ -169,8 +169,17 @@
         </programlisting>    
         </para>
         <para>
-             Létrehozzuk a kiir eljárást, a kiiratás csak akkor tud megtörténni ha van elem a fában,itt inorder kiiratás történik.Ezután a fölösleges nem használt részeket felszabadítjuk a szabadíttal. Majd van egy protected rész ahol kiemeljük, hogy a fának van egy kitüntetett tag csomópontja a /. Ezután az osztályból kilépve a sima globális térbe létrehozunk egy usage eljárást, amelyel ha hibásan futtatnánk a programot segítséget nyújtunk a felhasználónak.
-        </para>
+            A main részben új featuret adtunk hozzá, ugyanis most lehetőségünk van nem csak a bemenő, hanem a kimenő fájl nevét is megadni. A beírt argumentumok mennyiségét az argc ,értékeit az argv tárolja, 
+            ha nem megfelő az argumentumok mennyisége vagy értéke erről figyelmeztetjük a usert. 
+           </para>
+           <programlisting language="c++">
+        <![CDATA[
+        void usage (void)
+        {
+            std::cout << "Usage: lzwtree in_file -o out_file" << std::endl;
+        }
+        ]]>
+        </programlisting> 
     </section>        
                 
     <section>
@@ -186,8 +195,30 @@
             Megoldás forrása:  
         </para>
         <para>
-             A különbség mostmár az hogy a csomópontból pointer lett. Tehát a konstruktorba be kelett vinni kívülről az eddig átadott fa gyokeret. Mivel eddig a gyökér tagként szerepelt a csomópontba, de most mutató lett tehát könnyedén átadhatjuk az értékét a fának ami egy mutató. Miután a gyökérből pointert csináltunk így könnyedén elhagyhatjuk az és jeleket ugyanis alapból a memória címét fogja átadni majd nem kell érték szerinti referenciaként hivatkozni rá.Viszont, így hogy pointer lett a destruktorban őt is felkell szabadítani tehát bele írjuk a delete gyokeret a destruktorba.
+             Mutatót csináltunk a gyökérből így elhagyhatjuk az összes címe operátort gyökér elől ahol eddig ott volt, mivel alapjáraton is egy memóriacímet fog visszadni. 
+            Át kell írnunk a metódusok referenciáját is '.' ról -> ra minden olyan helyen ahol használjuk.
+            Eddig tagként volt jelen a csomópontban, de most hogy mutató lett már egyszerűen hivatkozhatunk rá a fában is.
         </para>
+             <programlisting language="c++">
+        <![CDATA[
+         LZWBinFa ()
+         {
+            gyoker = new Csomopont();
+            fa=gyoker;
+         }
+        ~LZWBinFa ()
+        {
+            szabadit (gyoker->egyesGyermek ());
+            szabadit (gyoker->nullasGyermek ()); 
+            delete gyoker;
+        }
+        ]]>
+        </programlisting> 
+        <para>
+            Viszont a destruktorban fel kell szabadítani a neki lefoglalt helyet egy delete parancsal különben segfault-os lesz a program.
+        </para>
+        
+    
     </section>                     
 
     <section>
@@ -203,8 +234,29 @@
             Megoldás forrása:  
         </para>
         <para>
-            A mozgató konstruktornál létrehozunk egy új konstruktort. A konstruktorban létrehozzuk a gyökér csomópontot és a mutatót erre irányítjuk. Majd a magasságot 0-ra állítjuk. Ezután jön a destruktor, amit azért itt hívunk meg mert a gyökérre mutató root mutatót null pointerre állítja aztán ha kiakarnánk törölni a semmit arra szegmentációs hibát dobna a fordító. Itt felszabadítjuk a dinamikusan lefoglalt memóriát és a gyökeret.Mivel az egy éses BT-t már ellőttük a másolásnál ezért 2 éssel jelöljük a mozgató konstruktort itt a megadott mutatótak egyenlővé tesszük az eredeti fa paramétereivel. És a gyökér mutatóját nullázzuk,mármint az eredetijét.
+           Ehhez a példához az előző feladatokban is használt binfa programot fogjuk tovább hackelni. Ahhoz hogy mozgatni tudjunk egy osztályt létre kell hozni egy mozgató konstruktort és ennek egy =operátor túlterhelését.
+           .
         </para>
+         <![CDATA[
+         LZWBinFa ( LZWBinFa && old )
+         {
+  
+             gyoker = nullptr;
+             *this = std::move(old);
+
+      
+         }
+  
+         LZWBinFa & operator= (LZWBinFa && old)
+         {
+      
+             std::swap(gyoker,old.gyoker);
+
+             return *this;
+             delete gyoker;
+         }
+         
+        ]]>
     </section>                     
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 </chapter>                

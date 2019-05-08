@@ -135,35 +135,56 @@
             Megoldás videó: <link xlink:href="https://youtu.be/zmfT9miB-jY">https://youtu.be/zmfT9miB-jY</link>
         </para>   
         <para>
-            3. Fejezet Vezérlési szerkezetek
+            3.1 Utasítások és blockok
         </para>     
           <para>
-           
-            
-            A C-nyelvben az utasításokat pontos vesszővel zárjuk. Az utasítás blokkokat {}-el jelöljük.
+           C-ben egy egy kifejezés akkor tekinthető utasítésnak ha pontosvessző zárja, egyszerű elv mégis sok kezdő programozó fordítási hibáinak forrása. 
+           Egy blockot kapcsos zárójelek között hozhatunk létre, ezeknek majd a hatásköröknél lesz jelentőségük.
         </para>
         <para>
-            3.2
-            If-else
+            3.2 If-else utasítás
         </para>     
         <para>
-            Az if szerkezet döntést hozó utasítás. Ha(feltétel) utasítás else utasítás2 , az elsre nem mindig van szükség lehet olyan is, hogy ha történik valami akkor csináljon valamit a program,ha nem akkor ugorja át. Az else ág mindig a hozzá legközelebb lévő else nélküli ifhez fog tartozni. Ha nem így szeretnénk akkor az if hatáskörét {}-jelek közé kell tenni. Az ifnek van egy másik fajtája az else if itt több feltétel egymásba ágyazása történik. Itt a legutolsó else akkor fut le ha egyik feltétel sem teljesül. Amint egy teljesül a feltételek közül a program végrehajtja és kilép az else-if ágról.
+            Az if-else szerkezet egy két végkimenettel rendelkező döntést hozó utasítás. A szintaxisa szerint az if utén következik egy feltétel, ami ha igaz az if utáni block hajtódik végre,
+            ha pedig hamis az else ág utáni. Az else ág nem mindig szügséges, ilyenkor a feltétel hamis léte esetén nem történik semmi. Az ifeket lehet egymásba fűzni, ezt úgy érjük el, hogy 
+            az else után egy if-et írunk, amit egy újabb kifejezésnek kell követnie. Ilyenkor a legultolsó else akkor fut le ha semelyik feltétel sem teljesült.
         </para>
         <para>
-            3.3 Switch
+            3.4 Switch
         </para>     
         <para>
-            A switchet többirányú programelágazások esetén használjuk itt valamilyen állandó értékhez rendeli az utasítást. A switchben case-eket hozunk létre, amelyek akkor futnak le ha teljesül az állandó, ezen kívül minden case-t break-el kell zárni.Létezik egy default ág, amely akkor fut le ha egyik case feltétele se teljesül.
-            </para>
+            A switchet leginkább egy if-else ághoz lehetne hasonlítani azzal a különbséggel, hogy itt a kifejezést nem csak igaz-hamis állapotok szerint mérjük, hanem lehetőség van
+            több lehetséges eredmény esetén különböző válaszokat adnunk. A különböző eseteket a case kulcsszó után kell írnunk, ebből bátmennyi lehet de mindegyiknek egy break-kel kell záródnia.
+            Ezen felül szügség van egy default válaszra, ami akkor aktiválódik ha egyik case-re sem illeszkedik a kifejezésünk. 
+        </para>
+        <para>
+            3.5 While és for utasítás
+        </para>
+        <para>
+            A while után meg kell adni egy kifejezést zárójelekben. Ha ez az érték nem nulla akkor elkezdi a cilkust, ha végzett vele újra ellenőrzi a kifejezés értéket, ezt teszi egészen addig amíg az érték nulla nem lesz.
+            A for egy előre meghatározott lépésszámú ciklus, utána három argumentumra van szügsége a működéshez. Az első a kezdő értek,ahonnan kezdjük a számlálást, a második egy kifejezés vagy érték amit el kell érnie a kezdőértéknek hogy befejeződhessen a ciklus,
+            harmadik pedig maga a lépésköz megadása amivel növeljük a kezdőértéket minden iterációban. 
+            Mind a kettőből kiléphetünk a 3.7-ben tárgyalt utasításokkal vagy az is megeshet hogy -direkt vagy véletlen- végtelen ciklust hoztunk létre és soha nem lépünk ki belőle. 
+        </para>
+        <para>
+            3.6 Do while utasítás
+        </para>
+        <para>
+            Mind a for, mind a while a ciklus elején vizsgálja a kilépési feltétel teljesülését, ezt a do-while a ciklustörzs végrehajtása után teszi meg. így látható hogy a ciklus minimum egyszer biztosan le fog futni.
+        </para>
+        <para>
+            3.7 Break, continue, goto utasítások
+        </para>
             <para>
-                A break el nem csak a switchből tudunk kilépni hanem bármely ciklust képesek vagyunk vele megszakítani.
+                A BREAK utasítással megszakítjuk az adott blokk folyamatát és azonnal kilépünk belőle, folytatva az adott block után mintha szabályosan végbement volna.        
              </para> 
              <para>
-                A for előírt lépésszámú ciklus, amelynek van egy kezdő értéke egy végértéke és egy lépésszáma. 
-              </para>
-              <para>
-                  A while addig fut amíg a ciklusfejben megadott feltétel hamis nem lesz.
-               </para>
+                A CONTINUE hasonló mint a break bár kevesebbet használjuk. Ezt is egy ciklus törzsébe rakjuk és ha rákerül a vezérlés az adott ciklus újra ellenőrzi kilépési feltételét 
+                és annak értéke szerint vagy új iterációt kezd vagy kilép a ciklusból.
+             </para>
+             <para>
+                A GOTO-val egy megadott círe tudunk ugrani, használata nem ajánlott, de lehet haszna mélyen egymásba ágyazott ciklusokból való kilépés esetén. 
+             </para>
 
     </section>        
     <section>
@@ -172,36 +193,52 @@
               2.1.1 Függvényparaméterek és visszatérési érték
         </para>
         <para>
-          
-            Ha C-ben megadunk egy függvényt paramáterek nélkül az bármennyi paramáterrel hívható, míg C++-ban azt jelenti, hogy nincs paramétere. Sőt ha vissaztérési értéket nem adunk meg a C automatikusan intet fog visszaadni, a C++ pedig hibát mivel nincs alapértelmezett visszatérési értéke.
+            Ha C-ben megadunk egy függvényt paramáterek nélkül az bármennyi paramáterrel hívható, míg C++-ban azt jelenti, hogy nincs paramétere. 
+            Sőt ha vissaztérési értéket nem adunk meg a C automatikusan intet fog visszaadni, a C++ pedig hibát mivel nincs alapértelmezett visszatérési értéke.
         </para>
         <para>
              2.1.2 Main függvény
         </para>
          <para>
-           
-            Az main függyvény argumentumaként dekralálható argc a parancssorba beérkező argumentumok számát, míg az argv a paracssori argumentumokat adja meg. C++ nem muszáj returnt írni a main végére.
+            Az main függyvény argumentumaként dekralálható argc a parancssorba beérkező argumentumok számát, míg az argv a paracssori argumentumokat adja meg. 
+             C++ nem muszáj returnt írni a main végére.
         </para>
         <para>
              2.2 Függvények túlterhelése
         </para>
          <para>
-           
             Két függvényleg lehet ugyanaz a neve amíg argumentumlistájuk különbözik. a C++ a függvény nevet az argumentumokkal együtt tárolja, így a különböző változatoknak nem kell egyesével nevet adni.
         </para>
         <para>
              2.3 Alapértelmezett függvényargumentumok
         </para>
          <para>
-           
-            C++ nelvben lehetőség van a függvények argumentumainak alapértéket megadni. Ekkor ha a függvény hívásakot nem adjuk meg paramáterként akkor az alapértelmezett értéket használja.
+            C++ nelvben lehetőség van a függvények argumentumainak alapértéket megadni.             
+            Ekkor ha a függvény hívásakot nem adjuk meg paramáterként akkor az alapértelmezett értéket használja.
         </para>
         <para>
             2.4 Paramáteradás referenciatípussal
         </para>
          <para>
-          
-            Ha azt szeretnénk C-ben, hogy egy függvény megváltoztassa az argumentum változó értékét pointerekkel kell hivatkoznunk rá, íg meg tudja változtatni az értékét. C++ban ezt referenciatípus bevezetésével hidalják át. A C teljes pointerré alakítás helyett elég egy  jelet írni a függvény deklarációjában a változónév elé.
+            Ha azt szeretnénk C-ben, hogy egy függvény megváltoztassa az argumentum változó értékét pointerekkel kell hivatkoznunk rá, íg meg tudja változtatni az értékét. 
+             C++ban ezt referenciatípus bevezetésével hidalják át. A C teljes pointerré alakítás helyett elég egy  jelet írni a függvény deklarációjában a változónév elé.
+        </para>
+        
+        
+        <para>
+            3.1 Az objektumorinetáltság alapelvei
+        </para>
+        <para>
+            
+        </para>
+        <para>
+            
+        </para>
+        <para>
+            
+        </para>
+        <para>
+            
         </para>
     </section>        
 </chapter>                

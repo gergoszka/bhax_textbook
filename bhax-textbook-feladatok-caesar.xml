@@ -6,7 +6,7 @@
         </keywordset>
     </info>
     <section>
-        <title><type>int ***</type> háromszögmátrix</title>
+        <title><type>double **</type> háromszögmátrix</title>
         <para>
            
         </para>
@@ -232,7 +232,7 @@
             Tanulságok, tapasztalatok, magyarázat...
         </para>     
         <para>
-            Ebben a feladatban tutoriáltam Ranyhoczki Mariann-t.
+           <command>  Ebben a feladatban tutoriáltam Ranyhoczki Mariann-t! </command>  
         </para>       
         <para>
             Egy perceptron a gépi tanulás egyik legegyszerűbb megvalósítása. Az elképzelés szerint egyetlen neuront ábrázolunk, ami véges sok input alapján egy algoritmus segítségével két csoportba sorolja. Ehhez nemcsak a bemenő adatokat adjuk meg, hanem a megoldást is, így az algoritmus az adatokhoz rendelt súlyok változtatásával megpróbálja megközelíteni az elvárt megoldást.

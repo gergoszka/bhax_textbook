@@ -20,10 +20,11 @@
             Tanulságok, tapasztalatok, magyarázat...
         </para>
         <para>
-            Decimálisból unárisba, úgy váltunk, hogy annyi 1 est írunk le,amennyi a szám értéke vagy másképp fogalmazva amilyen messze van a 0-tól.Pl.:n=90 esetén 90 db 1 est kell leírnunk.
-       
-
-Tehát itt pozitív számokat tudunk ábrázolni. A megvalósítás 2 féle lehet vagy indítunk egy for ciklust 0-tól és minden egyes lépésnél egy stringbe összefűzzük az egyeseket. Vagy pedig a számtól indítunk egy ciklust 0-ig és ugyan ezt tesszük. 
+            Az unáris a legegyszerűbb számrendszer, mivel a számokat úgy jelöljük, hogy annyi egyest vagy vonalat írunk amennyi a szám értéke ( 10 esetén 10 db vonalat, 50 esetén 50-et, stb...).
+            Unárisban csak pozitív számokat tudunk ábrázolni illetve a nullát úgy jelöljük, hogy nem írunk semmit.
+        </para>
+        <para>
+            Így decimálisból unárisba átváltani egy for ciklus segítségével a legegyszerűbb, amit 0-tól indítunk a kívánt szám értékéig és minden iterációban egy egyest szúrunk egy tömb végére majd kiíratjuk.
         </para>
     </section>        
         
@@ -121,7 +122,7 @@ Tehát itt pozitív számokat tudunk ábrázolni. A megvalósítás 2 féle lehe
         C-ben az utasitások egymás után leforduló parancsok, a nyelv alapjai. Tartalmaz alap egysoros utasitásokat, többsoros utasítás blokkokat, iterációkat(for,while,do-while), operátorokat(--,++,!=,stb...) és vezérlő szerkezeteket(if,switch) is.    
         </para>
         <para>
-            Váltani a két változat kozött a következő módon lehet: <command>gcc -std="c99/89" hivatkozas.c-</command>
+            Váltani a két változat között a következő módon lehet: <command>gcc -std="c99/89" hivatkozas.c-</command>
         </para>
         <para>
             A következő kódrészlet csak c99 alatt fordul le mivel c89-ben még nem lehetett for cikluson belül változót deklarálni.
@@ -322,26 +323,24 @@ main()
             Tanulságok, tapasztalatok, magyarázat...
         </para>
         <para>
-            Elsőként definiáljuk a lexer struktúra méretét. Ezt a define L337SIZE ,ez mutatja meg a sorok számát 
+            A leet, vagy leetspeak egy régen gamerek és hackerek által használt online dialektus, aminek megvannak a saját szlengjei és írásmódja. 
+               
         </para>
         <para>
-            Majd létrehozunk egy struktúrát. Itt definiálunk egy karakter változót és egy 4 elemű mutató tömböt.
-            Ezután létrehozzuk a struktúra fő részét itt az első elem karakter típúsú, amelyet majd vizsgálunk, a 2. elem
-            egy 4 elemű tömb, amelyben a karakter helyettesítési lehetőségeit tároljuk.
+            Programunkban először definoljuk a lexer struktúra méretét, a L337SIZE-t ,amivel számoljuk majd a sorok számát.
+            Majd a chiper struktúrában létrehozunk egy char változót és egy négy elemű dinamikus tömböt.
         </para>
         <para>
-            Következőnek az utasítás része jön a lexernek.Itt behozunk egy változót, amely azt jelzi, hogy megtalálta e
-            a karaktert a struktúrában ha nem akkor visszaadja majd a lent lévő if magát a karaktert. Majd indítunk egy
-            fort,amely átnézi a struktúrát keresve a beolvasott karaktert.
+            A l337d1c7 tömbben pedig tároljuk minden karakterre a lehetséges cseréket, amik közül később majd választunk.
+            Ezután deklarálunk egy found változót amivel követjük, hogy megtaláltuk e a karakter a tömbben. Majd elidítunk egy for ciklust ami megkeresi a struktúrában a beolvasott karaktert.
+            Ha megtalálta, a l337d1c7 tömb négy lehetősége közól random választunk egyet és azt adjuk vissza.
+            
         </para>
         <para>
-            Ha megtaláltuk a karaktert akkor egy random számot generálunk, amely segít, hogy véletlenszerűen válasszunk a 4 opció közül, amelyet a 4 if segítségével érünk el és visszaadjuk, hogy megtaláltuk a karaktert.
+            A main részben az srand növeli a számok randomitását és meghívjuk a yylex()-et ami elvégzi a leet szöveggé alakítást.
         </para>
-        <para>
-            Az utolsó részben találjuk az srandomot, amely a randomot hívja .A
-            random generálásához az időt használja és hozzáadja a getpidet, ez
-            azért kell, hogy jobban generáljon random számokat,vagyis nagyobb legyen a számok randomitása.Végül meghívjuk a yylex() függvényt.
-        </para>
+        
+        
     </section>                     
 
 
@@ -372,15 +371,15 @@ main()
             </listitem>
             <listitem>                                    
                 <programlisting><![CDATA[for(i=0; i<5; ++i)]]></programlisting>   
-                <para>For ciklus ami nullától ötig megy, a ++i pre-incrementet jelent, vagyis a ciklus legutása előtt növeli a változó értékét</para>         
+                <para>For ciklus ami nullától ötig megy, a ++i pre-incrementet jelent, vagyis a ciklus lefutása előtt növeli a változó értékét</para>         
             </listitem>
             <listitem>                                    
                 <programlisting><![CDATA[for(i=0; i<5; i++)]]></programlisting> 
-                <para>For ciklus ami nullától ötig megy, a ++i post-incrementet jelent, vagyis a ciklus legutása után növeli a változó értékét</para>           
+                <para>For ciklus ami nullától ötig megy, a i++ post-incrementet jelent, vagyis a ciklus lefutása után növeli a változó értékét</para>           
             </listitem>
             <listitem>                                    
                 <programlisting><![CDATA[for(i=0; i<5; tomb[i] = i++)]]></programlisting>  
-                <para>For ciklus ami nullától ötig megy, tömb i-edik eleme egyenlő lesz a léptetővel, kivéve az elso elemet. </para>          
+                <para>For ciklus ami nullától ötig megy, tömb i-edik eleme egyenlő lesz a léptetővel. </para>          
             </listitem>
             <listitem>                                    
 
@@ -390,17 +389,17 @@ main()
             <listitem>                                    
 
                 <programlisting><![CDATA[printf("%d %d", f(a, ++a), f(++a, a));]]></programlisting>   
-                <para>Kiirja az a változót kétszer, először kettővel majd eggyel növelve.</para>         
+                <para>Kiirja az f függvény eredményét kétszer, csak más argumentumokkal és így vélhetőleg más eredménnyel .</para>         
             </listitem>
             <listitem>                                    
 
                 <programlisting><![CDATA[printf("%d %d", f(a), a);]]></programlisting>      
-                <para>Kiirja az a változót az f fügvénnyel való módositás után és változtatás nélkül.</para>      
+                <para>Kiirja az 'a' változót az f fügvénnyel való módositás után és változtatás nélkül.</para>      
             </listitem>
             <listitem>                                    
 
                 <programlisting><![CDATA[printf("%d %d", f(&a), a);]]></programlisting>      
-                <para>Kiirná az a pointert és az á változót, de pointereket nem %d-vel hanem %p-vel kel kiiratni.</para>      
+                <para>Kiirná az 'a' pointert és az 'a' változót, de pointereket nem %d-vel hanem %p-vel kel kiiratni.</para>      
             </listitem>
         </orderedlist>
         <para>
@@ -442,16 +441,16 @@ $(\exists y \forall x (y<x) \supset \neg (x \text{ prím}))$
             Tanulságok, tapasztalatok, magyarázat...
         </para>
         <para>
-            1. Bármely x-hez létezik olyan y, hogy az y nagyobb mint az x és y prím. 
+            1. Bármely x-hez létezik olyan y, hogy az x kisebb mint az y és y prím. 
         </para>
          <para>
-            2. Bármely x-hez létezik olyan y, hogy y nagyobb mint x és y prím és y+2 is prím.
+            2. Bármely x-hez létezik olyan y, hogy az x kisebb mint az y és y prím és y+2 is prím.
         </para>
          <para>
-            3. Létezik olyan y, hogy bármely x esetén ha x prím akkor az x kisebb mint y.
+            3. Létezik olyan y, hogy bármely x esetén, ha x prím akkor az x kisebb mint y.
         </para>
          <para>
-            4. Létezik olyan y, hogy bármely x esetén ha y kisebb mint x akkor x nem prím.
+            4. Létezik olyan y, hogy bármely x esetén,, ha y kisebb mint x akkor x nem prím.
         </para>
     </section>                                                                                                                                                                            
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
@@ -501,35 +500,44 @@ $(\exists y \forall x (y<x) \supset \neg (x \text{ prím}))$
 
         <itemizedlist>
             <listitem>
-                <programlisting><![CDATA[int a;]]></programlisting>   
-                         
+                <programlisting><![CDATA[int a;]]></programlisting>
+                <para>egész változó</para>   
             </listitem>
             <listitem>
-                <programlisting><![CDATA[int *b = &a;]]></programlisting>            
+                <programlisting><![CDATA[int *b = &a;]]></programlisting>        
+                <para>egész típusú változóra mutató mutató</para>       
             </listitem>
             <listitem>
-                <programlisting><![CDATA[int &r = a;]]></programlisting>            
+                <programlisting><![CDATA[int &r = a;]]></programlisting>    
+                <para>az a változó memóriacímét r-ben tároljuk el</para>           
             </listitem>
             <listitem>
-                <programlisting><![CDATA[int c[5];]]></programlisting>            
+                <programlisting><![CDATA[int c[5];]]></programlisting>
+                <para>5 elemű égészekből álló tömb</para>               
             </listitem>
             <listitem>
-                <programlisting><![CDATA[int (&tr)[5] = c;]]></programlisting>            
+                <programlisting><![CDATA[int (&tr)[5] = c;]]></programlisting> 
+                <para>tr hivatkozik az egész c tömbre</para>              
             </listitem>
             <listitem>
-                <programlisting><![CDATA[int *d[5];]]></programlisting>            
+                <programlisting><![CDATA[int *d[5];]]></programlisting>      
+                <para>d egy 5 elemű mutatókból álló tömb</para>         
             </listitem>
             <listitem>
-                <programlisting><![CDATA[int *h ();]]></programlisting>            
+                <programlisting><![CDATA[int *h ();]]></programlisting>   
+                <para>h egy függvény aminek a visszatérési értéke egy egészre mutató mutató.</para>            
             </listitem>
             <listitem>
-                <programlisting><![CDATA[int *(*l) ();]]></programlisting>            
+                <programlisting><![CDATA[int *(*l) ();]]></programlisting>  
+                <para>l egy függvény aminek a visszatérési értéke egy egészre mutató mutatóra mutató</para>             
             </listitem>
             <listitem>
-                <programlisting><![CDATA[int (*v (int c)) (int a, int b)]]></programlisting>            
+                <programlisting><![CDATA[int (*v (int c)) (int a, int b)]]></programlisting> 
+                <para>Egészet visszaadó és két egészet kapó függvényre mutató mutatót visszaadó, egészet kapó függvén</para>              
             </listitem>            
             <listitem>
-                <programlisting><![CDATA[int (*(*z) (int)) (int, int);]]></programlisting>            
+                <programlisting><![CDATA[int (*(*z) (int)) (int, int);]]></programlisting>   
+                <para>Függvénymutató egy egészet visszaadó és két egészet kapó függvényre mutató mutatót visszaadó, egészet kapó függvényre</para>            
             </listitem>            
         </itemizedlist>       
 

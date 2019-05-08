@@ -55,11 +55,11 @@
             nem a Mandelbrot halmaz eleme.
         </para>       
         <para>  
-            A program elején megadjuk a kép méretét és az iterációs határt (MERET és ITER_HAT)
-            ameddig nézni fogjuk a rácspont helyzetét, hogy a halmazban van e vagy sem. 
-            Ezután létrehozzuk az rgb képet, majd a két for ciklus végigmegy a rácson és a 
-            fenti algoritmus alapján feketére vagy fehérre színezi a rácspontot. Végül kiírjuk
-            a kép elmentett nevét és hogy mennyi ideig tartott a számítás.      
+            A program elején megadjuk a kép méretét és az iterációs határt (MERET és ITER_HAT)ameddig nézni fogjuk a rácspont helyzetét, hogy a halmazban van e vagy sem.
+            A program main részében szügség van az argc és argc argumentumokra mivel így a program futtatásakor megadhatjuk milyen néven mentsuk el a keletkezett képet.
+            Ezután létrehozzuk az rgb képet, majd a két for ciklus végigmegy a rácson és a fenti algoritmus alapján feketére vagy fehérre színezi a rácspontot. Végül kiírjuk
+            a kép elmentett nevét és hogy mennyi ideig tartott a számítás. Az így kapott kép a mandelbrot halmazról egy fraktál, vagyis ha ráközelítünk a képere, végtelen ideig fog ismétlődni 
+            valamilyen minta benne. Ezt egy későbbi feladatban meg is valósítjuk.
         </para>
 
     </section>        
@@ -164,10 +164,14 @@ main ( int argc, char *argv[] )
         </para>
         <para>
             A 3.1.2.cpp nevű program a mandelpngt.c++ továbbfejlesztett változata. 
-            A főbb különbségek, hogy mostbár minden futtatáskor megadhatjuk a kép méretét,
-            az iterációs határt és a b c d változókat amelyek a c complex szám valós és képzetes 
-            részét adják majd. Ezen felül használjuk a complex könyvtárat amivel egyszerübb a complex számok képzése.
-        </para>      
+            A főbb különbségek, hogy a program minden futtatásakor megadhatjuk a parancssorban a kép méretét, az iterációs határt és a b c d változókat amelyek a c complex szám valós és képzetes 
+            részét adják majd. Ellenőrízzük hogy megfelelő mennyiségű argumentum van-e és ha nem, hibát dobunk vissza a program használatával a usernek. 
+        </para>
+        <para>
+            Ezen felül használjuk a complex könyvtárat amivel egyszerübb a complex számok képzése. 
+            A main részben pont mint az előbb, két for ciklus végig megy a kép pixelein és kiszámolja a C valós és képzetes részét, majd az alapján hogy benne van e az iterációs határban kiszinezzük;most színesre.
+        </para>
+         
     </section>        
                 
     <section>
@@ -188,9 +192,6 @@ main ( int argc, char *argv[] )
         <para>
             A különbség a <link xlink:href="#bhax-textbook-feladatok-mandelbrot.Mandelbrot">Mandelbrot halmaz</link>
             és a Julia halmazok között az, hogy a komplex iterációban az előbbiben a c változó, utóbbiban pedig állandó. 
-        </para>       
-
-        <para>
             Ezzel szemben a Julia halmazos csipetben a cc nem változik, hanem minden vizsgált
             z rácspontra ugyanaz.
         </para>
@@ -232,12 +233,12 @@ main ( int argc, char *argv[] )
         </programlisting>                                 
                                           
         <para>
-             biomorfos program abban különbözik az előzőtől, hogy most több argumentumot tudunk megadni tehát adhatunk kezdőértéket egy komplexszámnak cc-nek, 
-            amelyet majd z-hez mindig hozzáadunk. Emellett még lényeges változtatás, hogy 
-            eddig csak az iterációt osztottuk maradékosan a kép színeihez, de mostmár konstansokkal szorozzuk meg a különböző színeket előállító képletet. 
-            Ez színesebb képet fog eredményezni és a több argumentum nagyobb szabadságot nyújt a felhasználónak,hogy különböző képeket alkosson.
-            A biomorfos képek az egysejtűekre hasonlítanak, elég érdekes formákat lehet alkotni a program segítségével.
-
+            A biomorf a mandelbort halmaz egy bug által létrejött kvázi mutációja. Clifford Pickover, aki felfedezte azt hitte a sejtek és az élet valamilyen törvényszerűségét sikerült vizualizálni, de ez sajnos nem így van.
+            Bár nem lehet ezt felrüni neki hiszen az elkészülő képek nagyon hasonlítanak a sejtek mikroszkópikus képeire.
+        </para> 
+        <para>
+            Jelen programunk abban különbözik a 3.1.2.cpp nevű elődjétől, hogy most indításkot lehetőségünk van megadni a c komplex szám kezdőértékét és az iteréciós határt is, ha a user nem adott meg elég argumentumot hibaüzenettel szólunk neki.
+            Sőt míg eddig csak az iterációval végeztünk maradékos osztást, hogy színessé tegyük a képet, most konstansokkal is szorzunk a színeket meghatározó képeletben.
         </para>        
         <para>
             <mediaobject>

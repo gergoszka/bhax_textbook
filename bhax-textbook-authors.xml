@@ -28,49 +28,18 @@
     </author>   
     <author>
         <personname>       
-            <surname>Bátfai</surname>
-            <firstname>Mátyás</firstname>        
+            <surname>Szűcs</surname>
+            <firstname>Gergő</firstname>        
         </personname>    
         <affiliation>
-            <shortaffil>tanuló</shortaffil>
-            <jobtitle>tanuló</jobtitle>
-            <orgname>Debreceni Hunyadi János Általános Iskola</orgname>
-            <orgdiv>6/c</orgdiv>
+            <shortaffil>hallgató</shortaffil>
+            <jobtitle>hallgató</jobtitle>
+            <orgname>Debreceni Egyetem</orgname>
+            
             <address>
-                <email>batfai.matyi@gmail.com</email>               
+                <email>gergoszka@gmail.com</email>               
             </address>
         </affiliation>               
     </author>  
-    
-    <author>
-        <personname>       
-            <surname>Bátfai</surname>
-            <firstname>Nándor</firstname>        
-        </personname>    
-        <affiliation>
-            <shortaffil>tanuló</shortaffil>
-            <jobtitle>tanuló</jobtitle>
-            <orgname>Debreceni Hunyadi János Általános Iskola</orgname>
-            <orgdiv>4/c</orgdiv>
-            <address>
-                <email>batfai.nandi@gmail.com</email>               
-            </address>
-        </affiliation>               
-    </author>  
-    
-    <author>
-        <personname>       
-            <surname>Bátfai</surname>
-            <firstname>Margaréta</firstname>        
-        </personname>    
-        <affiliation>
-            <shortaffil>tanuló</shortaffil>
-            <jobtitle>tanuló</jobtitle>
-            <orgname>Debreceni Hunyadi János Általános Iskola</orgname>
-            <orgdiv>4/c</orgdiv>
-            <address>
-                <email>batfai.greta@gmail.com</email>               
-            </address>
-        </affiliation>               
-    </author>  
+   
 </authorgroup>

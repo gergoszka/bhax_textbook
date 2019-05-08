@@ -34,4 +34,22 @@
             Aktualizálás, javítások.
         </revremark>
     </revision>
+     <revision>
+        <revnumber>0.0.5</revnumber>
+        <date>2019-04-24</date>
+        <authorinitials>SZG</authorinitials>
+        <revremark>
+            Első draft kész.
+        </revremark>
+    </revision>
+     <revision>
+        <revnumber>0.0.6</revnumber>
+        <date>2019-05-06</date>
+        <authorinitials>SZG</authorinitials>
+        <revremark>
+            Minden fájl feltöltve github repoba:
+                Könyv:<link xlink:href="https://gitlab.com/gergoszka/bhax_textbook">https://gitlab.com/gergoszka/bhax_textbook</link>
+                Source fájlok:<link xlink:href="https://gitlab.com/gergoszka/konyv">https://gitlab.com/gergoszka/konyv</link>
+        </revremark>
+    </revision>
 </revhistory>
