@@ -226,13 +226,22 @@
         
         
         <para>
-            3.1 Az objektumorinetáltság alapelvei
+            3. fejezet
         </para>
         <para>
-            
+            C-ben és assemlyben viszonylag egyszerű gyorsan futó kódot írni. Ez a egyszerűség viszont egy bonyolultabb programoknál problémákat okozhat mivel egy szint után rendezetlen, átláthatatlan lesz a kódunk.
+            Erre a problémára az 1990es években dolgoztak ki egy paradigmát : az objektum orientált nyelveket. Az OO nyelvekben az egy entitáshoz tartozó tulajdonságokat, függvényeket és változókat egy oszályhoz rendeljük,
+            ezt a folyamatot egységbe zárásnak (encapsulation) nevezük.
+            Az osztályoknak vannak olyan részei melyeket a program más része nem lát (data hiding), ez egyrész hasznos a kód egyszerűsítésében, másrészt az osztályon kívül lévő folyamatok így nem tudnak belenyúlni és így összekuszálni azt.
+            Ezeket az osztályokat hogy használni tudjuk példányosítanunk kell. Ez azt jelenti hogy az általános entitást (auto) egy speciális egyedé tesszük (Ford focus 2004), így létrejön egy objectumunk. 
+            Az így létrejött objectum örökli az elődje tulajdonságait, de azoknak új értéket adhatunk, sőt növelhetjük tulajdonságainak listáját.  
         </para>
         <para>
-            
+            Egy struktúra adattagjait itt tagváltózóknak, függvényeit pedig metódusoknak nevezzük. Ahányszor egy tagváltózót hozunk létre az külön memóriaterületet foglal nekik, ez a metódusokra viszont nem igaz.
+            C++ ban is a . ls -> operátorokkal tudunk hivatkozni az adattagokra, de vigyáznunk kell viszont ,hogy ezek nem mindig egymás után tárolódnak a memóriáben így ezt az előnyt már nem használhatjuk ki.
+            A C++ függvények első argumentuma mindig egy "láthatatlan" pointer. Ez a mutató mindig a példányosított függvényre mutat és az oszályon belül a this kulcsszóval tudjuk elérni.
+            Egy osztályban három rész van adatrejtés szempontjából: public, private, protected. A public részben deklarált függvényeket és változókat mindki eléri, míg a privateben lévőket csak az osztályon belüli függyvények használhatjuk.
+            A protected sokban hasonlít a private-ra azzzal a különbséggel, hogy az osztály gyerekei is láthatják. 
         </para>
         <para>
             

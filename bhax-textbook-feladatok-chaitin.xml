@@ -14,7 +14,7 @@
             Megoldás videó: <link xlink:href="https://youtu.be/z6NJE2a1zIA">https://youtu.be/z6NJE2a1zIA</link>      
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása:<link xlink:href="https://gitlab.com/gergoszka/konyv/tree/master/8_Chaitin">https://gitlab.com/gergoszka/konyv/tree/master/8_Chaitin</link>      
         </para>
         <para>
             Lispben két fő szintaktikai különbség van a híresebb programozási nyelvekhez képest. Az első az, hogy maga a program egymásba ágyazott S-kifejezések sorozata,

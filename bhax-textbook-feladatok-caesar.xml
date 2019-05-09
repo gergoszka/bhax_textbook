@@ -14,7 +14,8 @@
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása: <link xlink:href="https://gitlab.com/gergoszka/konyv/tree/master/3_Caesar">https://gitlab.com/gergoszka/konyv/tree/master/3_Caesar</link>
+                              <link xlink:href=""></link>
         </para>
         <para>
             Tanulságok, tapasztalatok, magyarázat...
@@ -57,7 +58,7 @@
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása:   <link xlink:href="https://gitlab.com/gergoszka/konyv/tree/master/3_Caesar">https://gitlab.com/gergoszka/konyv/tree/master/3_Caesar</link>             
         </para>
         <para>
             Tanulságok, tapasztalatok, magyarázat...
@@ -93,7 +94,7 @@
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása: <link xlink:href="https://gitlab.com/gergoszka/konyv/tree/master/3_Caesar">https://gitlab.com/gergoszka/konyv/tree/master/3_Caesar</link>       
         </para>
         <para>
             Tanulságok, tapasztalatok, magyarázat...
@@ -139,13 +140,16 @@
     <section>
         <title>C EXOR törő</title>
         <para>
+            <command>  Ebben a feladatban tutoriált Nagy László Mihály! </command>
+        </para>
+        <para>
             Írj egy olyan C programot, amely megtöri az első feladatban előállított titkos szövegeket!
         </para>
         <para>
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása: <link xlink:href="https://gitlab.com/gergoszka/konyv/tree/master/3_Caesar">https://gitlab.com/gergoszka/konyv/tree/master/3_Caesar</link>               
         </para>
         <para>
             Tanulságok, tapasztalatok, magyarázat...
@@ -198,10 +202,14 @@
         </para>
         <para>
             Megoldás forrása: <link xlink:href="https://gitlab.com/nbatfai/bhax/tree/master/attention_raising/NN_R">https://gitlab.com/nbatfai/bhax/tree/master/attention_raising/NN_R</link>               
+                              <link xlink:href="http://project.mit.bme.hu/mi_almanach/books/aima/ch20s05">http://project.mit.bme.hu/mi_almanach/books/aima/ch20s05</link>
         </para>
         <para>
             Tanulságok, tapasztalatok, magyarázat...
         </para>            
+        <para>
+                   <command>  Ebben a feladatban tutoriáltam Ranyhoczki Mariann-t! </command>  
+        </para>
         <para>
            Az AND és OR kapuk egyszerű perceptronként működnek. Ugyanis adatként megkapját az 1 vagy 0 bitjüket és, hogy milyen eredményt kell elérniük. Kb 100 próbálkozás után az algoritmus megtalálja a megfelelő súly értékeket és megközelítőleg jó eredményt ad, de az érdekességek az exornál kezdődnek.
         </para>
@@ -216,7 +224,10 @@
         <para>
             Ennek a megoldása rejtett neuronok bevezetése, amik lényegében egy új rétegnyi számolást tesz lehetővé, számuk növelése csökkenti a próbálkozások számát is.
         </para>
-    </section>       
+    </section>     
+    
+      
+          
     <section>
         <title>Hiba-visszaterjesztéses perceptron</title>
         <para>
@@ -226,13 +237,13 @@
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása: <link xlink:href="https://gitlab.com/gergoszka/konyv/tree/master/4_Mandelbrot">https://gitlab.com/gergoszka/konyv/tree/master/4_Mandelbrot</link>           
         </para>
         <para>
             Tanulságok, tapasztalatok, magyarázat...
         </para>     
         <para>
-           <command>  Ebben a feladatban tutoriáltam Ranyhoczki Mariann-t! </command>  
+           <command>  Ebben a feladatban tutoriáltam Ranyhoczki Mariann-t és Nagy László Mihályt! </command>  
         </para>       
         <para>
             Egy perceptron a gépi tanulás egyik legegyszerűbb megvalósítása. Az elképzelés szerint egyetlen neuront ábrázolunk, ami véges sok input alapján egy algoritmus segítségével két csoportba sorolja. Ehhez nemcsak a bemenő adatokat adjuk meg, hanem a megoldást is, így az algoritmus az adatokhoz rendelt súlyok változtatásával megpróbálja megközelíteni az elvárt megoldást.

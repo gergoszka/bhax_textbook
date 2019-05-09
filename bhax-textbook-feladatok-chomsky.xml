@@ -113,7 +113,7 @@
             Majd mutass be olyan kódcsipeteket, amelyek adott szabvánnyal nem fordulnak (például C89), mással (például C99) igen.
         </para>
 <para>
-            Megoldás forrása:  
+            Megoldás forrása:  <link xlink:href="https://gitlab.com/gergoszka/konyv/tree/master/2_Chomsky">https://gitlab.com/gergoszka/konyv/tree/master/2_Chomsky</link>
         </para>
         <para>
             Tanulságok, tapasztalatok, magyarázat...
@@ -403,7 +403,7 @@ main()
             </listitem>
         </orderedlist>
         <para>
-            Megoldás forrása:  
+            Megoldás forrása:  <link xlink:href="https://gitlab.com/gergoszka/konyv/tree/master/2_Chomsky">https://gitlab.com/gergoszka/konyv/tree/master/2_Chomsky</link>
         </para>
 
         <para>
@@ -546,7 +546,7 @@ $(\exists y \forall x (y<x) \supset \neg (x \text{ prím}))$
             Megoldás videó: 
         </para>
         <para>
-            Megoldás forrása:  
+            Megoldás forrása:  <link xlink:href="https://gitlab.com/gergoszka/konyv/tree/master/2_Chomsky">https://gitlab.com/gergoszka/konyv/tree/master/2_Chomsky</link>
         </para>
         <para>
             Az utolsó két deklarációs példa demonstrálására két olyan kódot

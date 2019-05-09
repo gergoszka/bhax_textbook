@@ -17,7 +17,7 @@
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása: <link xlink:href="https://gitlab.com/gergoszka/konyv/tree/master/5_Welch">https://gitlab.com/gergoszka/konyv/tree/master/5_Welch</link>               
         </para>
         <para>
             Tanulságok, tapasztalatok, magyarázat...
@@ -69,7 +69,7 @@
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása: <link xlink:href="https://gitlab.com/gergoszka/konyv/tree/master/5_Welch">https://gitlab.com/gergoszka/konyv/tree/master/5_Welch</link>               
         </para>
         <para>
             A binfa algoritmus egy vektorban tárolt bitsorozatból bináris fa típusú adatszerkezetet csinál.
@@ -101,7 +101,7 @@
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása:<link xlink:href="https://gitlab.com/gergoszka/konyv/tree/master/5_Welch">https://gitlab.com/gergoszka/konyv/tree/master/5_Welch</link>                
         </para>
         <para>
             <emphasis role="strong">
@@ -143,14 +143,15 @@
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása:<link xlink:href="https://gitlab.com/gergoszka/konyv/tree/master/5_Welch">https://gitlab.com/gergoszka/konyv/tree/master/5_Welch</link>                
         </para>
         <para>
-           Mivel ezt a programunkat most c++ ban írjuk lehetőségünk van az osztályok hasnálatára: létre is hozzuk az LZWBinFa osztályt. Deklaráljuk az osztály konstruktorát, ami az inicializációs listájában
-           meg is kapja a fa jelenlegi gyökerét, ezzel tudjuk hogy jelenleg hol vagyunk a fában. E mellett létrehozunk destruktort is, ami a program végeztével felszabadítja a gyökérnek a heapen lefoglalt helyét.
+           Mivel ezt a programunkat most c++ ban írjuk lehetőségünk van az osztályok hasnálatára: létre is hozzuk az LZWBinFa osztályt. 
+           Deklaráljuk az osztály konstruktorát, ami az inicializációs listájában meg is kapja a fa jelenlegi gyökerét, ezzel tudjuk hogy jelenleg hol vagyunk a fában. 
+           E mellett létrehozunk destruktort is, ami a program végeztével felszabadítja a gyökérnek a heapen lefoglalt helyét.
             
         </para>
-        <para>
+        
          <programlisting language="c++">
         <![CDATA[
       class LZWBinFa
@@ -167,11 +168,12 @@
             }
         ]]>
         </programlisting>    
-        </para>
+        
         <para>
-            A main részben új featuret adtunk hozzá, ugyanis most lehetőségünk van nem csak a bemenő, hanem a kimenő fájl nevét is megadni. A beírt argumentumok mennyiségét az argc ,értékeit az argv tárolja, 
-            ha nem megfelő az argumentumok mennyisége vagy értéke erről figyelmeztetjük a usert. 
+            A main részben új featuret adtunk hozzá, ugyanis most lehetőségünk van nem csak a bemenő, hanem a kimenő fájl nevét is megadni. A beírt argumentumok mennyiségét az argc ,
+            értékeit az argv tárolja,ha nem megfelő az argumentumok mennyisége vagy értéke erről figyelmeztetjük a usert. 
            </para>
+           
            <programlisting language="c++">
         <![CDATA[
         void usage (void)
@@ -180,6 +182,7 @@
         }
         ]]>
         </programlisting> 
+           
     </section>        
                 
     <section>
@@ -192,13 +195,14 @@
             Megoldás videó: 
         </para>
         <para>
-            Megoldás forrása:  
+            Megoldás forrása:<link xlink:href="https://gitlab.com/gergoszka/konyv/tree/master/5_Welch">https://gitlab.com/gergoszka/konyv/tree/master/5_Welch</link>  
         </para>
         <para>
              Mutatót csináltunk a gyökérből így elhagyhatjuk az összes címe operátort gyökér elől ahol eddig ott volt, mivel alapjáraton is egy memóriacímet fog visszadni. 
             Át kell írnunk a metódusok referenciáját is '.' ról -> ra minden olyan helyen ahol használjuk.
             Eddig tagként volt jelen a csomópontban, de most hogy mutató lett már egyszerűen hivatkozhatunk rá a fában is.
         </para>
+        
              <programlisting language="c++">
         <![CDATA[
          LZWBinFa ()
@@ -214,6 +218,7 @@
         }
         ]]>
         </programlisting> 
+        
         <para>
             Viszont a destruktorban fel kell szabadítani a neki lefoglalt helyet egy delete parancsal különben segfault-os lesz a program.
         </para>
@@ -231,12 +236,18 @@
             Megoldás videó: 
         </para>
         <para>
-            Megoldás forrása:  
+            Megoldás forrása:<link xlink:href="https://gitlab.com/gergoszka/konyv/tree/master/5_Welch">https://gitlab.com/gergoszka/konyv/tree/master/5_Welch</link>  
         </para>
         <para>
-           Ehhez a példához az előző feladatokban is használt binfa programot fogjuk tovább hackelni. Ahhoz hogy mozgatni tudjunk egy osztályt létre kell hozni egy mozgató konstruktort és ennek egy =operátor túlterhelését.
-           .
+           Ehhez a példához az előző feladatokban is használt binfa programot fogjuk tovább hackelni. 
+           Ahhoz hogy mozgatni tudjunk egy osztályt létre kell hozni egy mozgató konstruktort és ennek egy =operátor túlterhelését.
+           A konstruktorban a dupla címe operátorral jelöljük, hogy itt most mozgatni fogunk.
+           A mostani fa gyökerét nullprt-re állítjuk majd a régi fát "átmozgtjuk" a std::move függvénnyel. Ez igazából nem mozgat semmit ahogy a neve indikálná, hanem az argumentumát
+           lvalue-ból xvalue-vá konvertálja, ami a compiler számára jelzi hogy törölhető a memóriacím mert az utasítás után ágy is mozgatva lesz.
+           Majd túlterheljük a = operátort. Itt az újonnan létrejött gyökérbe belerakom a régi elemeit, majd visszaadjuk a *this-el. Végül töröljuk a régi gyoker elemeket.  
         </para>
+        
+         <programlisting language="c++">
          <![CDATA[
          LZWBinFa ( LZWBinFa && old )
          {
@@ -257,6 +268,18 @@
          }
          
         ]]>
+         </programlisting>
+         <para>
+             A main részben ezt úgy használjuk, hogy a move()-val átrakjuk a binfa-t az Binfa2-be. Eztután a művelet után az a régi Binfa üres lesz míg Binfa2 tartamazni fogja a régi elemeit.
+         </para>
+          <programlisting language="c++">
+         <![CDATA[
+   
+         LZWBinFa Binfa2 = std::move(Binfa);
+         
+        ]]>
+         </programlisting>
+        
     </section>                     
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 </chapter>                

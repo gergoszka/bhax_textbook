@@ -73,7 +73,7 @@
             Megoldás videó: <link xlink:href="https://youtu.be/gvaqijHlRUs">https://youtu.be/gvaqijHlRUs</link>
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása:  <link xlink:href="https://gitlab.com/gergoszka/konyv/tree/master/4_Mandelbrot">https://gitlab.com/gergoszka/konyv/tree/master/4_Mandelbrot</link>              
         </para>
         <para>        
 A <link xlink:href="#bhax-textbook-feladatok-mandelbrot.Mandelbrot">Mandelbrot halmaz</link> pontban vázolt
@@ -276,9 +276,11 @@ main ( int argc, char *argv[] )
         <para>
             Megoldás forrása: <link xlink:href=""></link>
         </para>
-        <para>
-             A programban a tartományt ugyan úgy az a, b , c és d változó határozza meg A képlet most is ugyan az mint a legelsőnél, amivel számoljuk az iterációt: z_(n+1) = z_n * z_n + c, ez a számolás a frakszal.cpp-ben van. A számításokat soronként küldjük vissza a frakablaknak, amely majd elvégzi a színezést. A változó deklarációja és inicializálása a számításokhoz a frakablak.h-ban található.A frakablak.cpp-ben definiáljuk, hogy mit csináljon a program az egérmozgására és, hogyha kijelölünk egy területet az egérrel akkor arra a területre nagyítson rá. 
-        </para>
+         <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/smnist.png" scale="35" />
+                </imageobject>
+        </mediaobject>
     </section>                     
                                                                                                                                                                             
     <section>
@@ -292,6 +294,11 @@ main ( int argc, char *argv[] )
         <para>
             Megoldás forrása: <link xlink:href="https://www.tankonyvtar.hu/hu/tartalom/tkt/javat-tanitok-javat/apbs02.html#id570518">https://www.tankonyvtar.hu/hu/tartalom/tkt/javat-tanitok-javat/apbs02.html#id570518</link>
         </para>
+         <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/smnist.png" scale="35" />
+                </imageobject>
+        </mediaobject>
     </section>
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 </chapter>                

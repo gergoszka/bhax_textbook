@@ -15,7 +15,7 @@
             Megoldás videó: <link xlink:href="https://bhaxor.blog.hu/2018/10/10/myrmecologist">https://bhaxor.blog.hu/2018/10/10/myrmecologist</link>
         </para>
         <para>
-            Megoldás forrása: <link xlink:href=""></link>               
+            Megoldás forrása: <link xlink:href="https://gitlab.com/gergoszka/konyv/tree/master/6_Conway">https://gitlab.com/gergoszka/konyv/tree/master/6_Conway</link>               
         </para>
                  <para>
             Forrás: https://bhaxor.blog.hu/2018/10/10/myrmecologist?token=b90955bd5311e9986f0c3f99263ff386
@@ -70,14 +70,13 @@
             Megoldás videó: 
         </para>
         <para>
-            Megoldás forrása: <link xlink:href=""></link>               
+            Megoldás forrása: <link xlink:href="https://gitlab.com/gergoszka/konyv/tree/master/6_Conway">https://gitlab.com/gergoszka/konyv/tree/master/6_Conway</link>        
+                                <link xlink:href="ttps://bit.ly/2G2ojbN">ttps://bit.ly/2G2ojbN</link>   
         </para>
         <para>
             Tanulságok, tapasztalatok, magyarázat...
         </para>      
-         <para>
-            Forrás:https://bit.ly/2G2ojbN
-        </para>   
+        
         <para>
             Az eredeti életjátékot (The Game of Life) John Horton Conway matematikus találta ki 1970-ben. Ez lényegében egy "nulla-fős" játék hiszen csak a kezdeti állapotot adhatjuk meg a többit
             a játék szabályai szerint kell kiszámolni. Ezt meg lehetne tenni kockás papíron is, de az unalmas és hosszadalmas ezért ezt a program megcsinálja helyettünk.
@@ -125,7 +124,7 @@
             Megoldás videó: 
         </para>
         <para>
-            Megoldás forrása: <link xlink:href=""></link>               
+            Megoldás forrása: <link xlink:href="https://gitlab.com/gergoszka/konyv/tree/master/6_Conway">https://gitlab.com/gergoszka/konyv/tree/master/6_Conway</link>               
         </para>
         <para>
             Tanulságok, tapasztalatok, magyarázat...
