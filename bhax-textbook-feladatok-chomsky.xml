@@ -14,11 +14,17 @@
             Megoldás videó:
         </para>
         <para>
-            Megoldás forrása:                
+            Megoldás forrása: <link xlink:href="https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_1.pdf?fbclid=IwAR2AZajjYJ_AcQt6lzqQAS63oNXbFARELrpgX_4FfLahEZ9UP6n5KNHmN7c
+">https://arato.inf.unideb.hu/batfai.norbert/UDPROG/deprecated/Prog1_1.pdf?fbclid=IwAR2AZajjYJ_AcQt6lzqQAS63oNXbFARELrpgX_4FfLahEZ9UP6n5KNHmN7c</link>               
         </para>
         <para>
             Tanulságok, tapasztalatok, magyarázat...
         </para>
+         <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/turing.PNG" scale="50" />
+                </imageobject>
+            </mediaobject>
         <para>
             Az unáris a legegyszerűbb számrendszer, mivel a számokat úgy jelöljük, hogy annyi egyest vagy vonalat írunk amennyi a szám értéke ( 10 esetén 10 db vonalat, 50 esetén 50-et, stb...).
             Unárisban csak pozitív számokat tudunk ábrázolni illetve a nullát úgy jelöljük, hogy nem írunk semmit.
@@ -145,9 +151,7 @@
             ]]>
         </programlisting>
         
-        <para>
-            És a következő hibaüzenetet generálja:
-        </para>
+        
     </section>                     
 
     <section>

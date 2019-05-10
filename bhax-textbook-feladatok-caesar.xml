@@ -15,11 +15,16 @@
         </para>
         <para>
             Megoldás forrása: <link xlink:href="https://gitlab.com/gergoszka/konyv/tree/master/3_Caesar">https://gitlab.com/gergoszka/konyv/tree/master/3_Caesar</link>
-                              <link xlink:href=""></link>
+                              <link xlink:href="https://bit.ly/2VaEclL">https://bit.ly/2VaEclL</link>
         </para>
         <para>
             Tanulságok, tapasztalatok, magyarázat...
         </para>            
+         <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/double.jpg" scale="50" />
+                </imageobject>
+        </mediaobject>
         <para>
             Az alsó hároszög mátrix egy olyan kvadratikus (megegyező sor- és oszlopszámú) mátrix aminek főátlója fölött csak 0-ák szerepelnek. Az alsó hárömszögmátrixokat sorfolyatonosan egy vektorban szoktuk tárolni.
         </para>
@@ -100,8 +105,12 @@
             Tanulságok, tapasztalatok, magyarázat...
         </para>            
         <para>
-             Létrehozunk egy Exor osztályt, majd létrehozunk egy stringet,amelyben a  kulcsot tároljuk és nyitunk két csatornát egy bejövőt és egy kimenőt az olvasás íráshoz. A throws a hibakezeléshez kell ha nem sikerül a beolvasás vagy kiiratás akkor hibát dob. Ezután definiálunk egy byte változót a buffernek és egy kulcs indexet, amely a kulcs első karakterére hivatkozik kezdetben és egy olvasott bájtokat, amely a beomenetről beolvasott szöveg hosszával egyenlő. Aztán a while-al olvassuk be a szöveget és letároljuk a bufferben közben a méretét az olvasott bájtokba. Aztán a forban titkosítunk a maradékos osztás azért szükséges, hogy ha a szöveg hosszabb mint a kulcs akkor a kulcs index ismét 0-tól kezdődjön mivel karakterenként történik a titkosítás. Majd a végén a write-al a megadott kimenetre írunk.
+            Mivel javabon programotunk kihaszáljuk a objektum orientált programozás előnyeit és készízünk is egy Exor osztályt. Ez egy kicsit overkill és lassabb is mint a c változat de 
+            mérföldekkel jobban olvasható a kódja. Egy stringbe fokjuk majd a kulcsot tárolni, ezen felül csinálunk kát csatornát az I/O kapcsolatoknak is. Hibakezelünk is, a throws elkapja ha valami
+            hiba törtnéne a beolvasásnál vagy kiíratásnál. Majd csinálunk két byte tömböt a kulcsnak és a buffernek. A while ciklusban beolvassuk a szöveget és tároljuk a méretét az olvasottBájtok változóban.
+            A for-ban ezután történik maga a titkosítás amit maradékos osztással végzünk. A titkosítás végeztével pedig a writeal kiírjuk a buffer tartalmát.
         </para>
+       
         <para>
               
         </para>
@@ -155,13 +164,15 @@
             Tanulságok, tapasztalatok, magyarázat...
         </para>            
         <para>
-            Az exor törő lényegében egy brute force variáns, ami végig próbálja az összes lehetséges kódolási módszert. Ez a kódoló tudatában könnyebb, de a valóságban sokkal több változót figyelembe kell venni, így sokáig tart a törés és e miatt nem is olyan elterjedt.
+            Az exor törő lényegében egy brute force variáns, ami végig próbálja az összes lehetséges kódolási módszert.
+            Ez a kódoló tudatában könnyebb, de a valóságban sokkal több változót figyelembe kell venni, így sokáig tart a törés és e miatt nem is olyan elterjedt.
         </para>
         <para>
-            Itt annak eldöntésére, hogy a feltört szöveg megfelelő e, az átlagos szóhosszt (ami a szöveg hossza osztva a spacek számával) és a magyar mondatokban gyakran előforduló szavakat használjuk.   
+            Itt annak eldöntésére, hogy a feltört szöveg megfelelő e, az átlagos szóhosszt (ami a szöveg hossza osztva a spacek számával)
+            és a magyar mondatokban gyakran előforduló szavakat használjuk.   
         </para>
         <para>
-              Az exortörésben meghívjuk az exor eljárást majd az exorozott szöveget átadjuk a tiszta_lehetnek vizsgálatra,ha passzol akkor majd a brute force-os forban az if igaz lesz és kiirja a terminálra a kulcsot és a megfejtett szöveget.
+             Meghívjuk az exor eljárást aztén a szöveget megvizsgáljuk ,ha passzol a akkor a for ciklusban az if teljesül és kiíratjuk standard outputra a feltört szöveget.
         </para>
         <para>
             Majd a main részben a while ciklusban meghívjuk a titkos szöveget, majd az ezt követő for-ban nullázzuk a maradék buffert.
