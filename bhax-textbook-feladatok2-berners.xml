@@ -1,0 +1,47 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Berners-Lee!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+
+    
+    <section>  
+        <title> Python </title>
+        <para>
+          A Python egy 1190-ben kifejlesztett programozási nyelv, ami népszerűségét könnyű tanulhatóságának és a más nyelvekkel való kompatibilitásának köszönheti.
+            Lényegében egy szkriptnyelv, de rengeteg rengeteg csomagot tartalmaz így általában bonyolultabb feladatok prototípusainak elkészítésére használják.
+            Ezt elősegíti, hogy a C++-al vagy a Java-val ellentétben nincs szügség külön fordításra és futtatásra, a python értelmazőnek elég a forrás és azt automatikusan fordítja és futtatja is.
+            Rengeteg platformon elérhető és a magas színtű adattípusok miatt már akár tekinthető magas színtű programozási nyelvnek.
+            A python egyik leginkább szenbetűnő jellemzője, hohy szintexisa behúzásalapú. Nincs szügség kapcsos zárójelekre, egy metódus törzsét egy tabulátor vagy néhány szóközös behúzás jelzi.
+            Sőt a kifejezések végén sincs szügség pontosvesszóre, az interpreter a sor végét veszi záró karakternek.
+        </para>
+        <para>    
+        A pythonban minden adatot objektumok ábrázolnak. A változók deklarációjakor nincs szügség annak típusának megadásásra, azt automatikusan futási időben adja meg a hozzárendelt érték alapján.
+            A python a következő típusokat ismeri: számok, sztringek, ennesek, listák, szótárak. A változók alatt objektumokra mutató referenciákat értünk.
+            Egy objektumra több változó is mutathat, viszont ha minden referencia törlődik róla, akkor a garbage collector szabaítja fel az objektum memóriaterületét.
+            A változók lehetnek lokálisak és globálisak is. Egy függvényen belül felvett változó alapvetően lokális, ha globálissi szeretnénk tenni a 'global' kulcszóval kell deklarálni a függvény elején.
+        </para>
+        <para> 
+            A számok közötti konverzió támogatott, sőt sztringekből is képezhetünk számokat. A karakteres szekvenciáknak (szting, lista, ennes) meg tudjuk mondani a hosszát, első és utolsó elemét és a konkatenáció is értelmezett rajtuk.
+            A szekvenciák elemeit indexekkel érhetjük el. Az indexelés nullánál kezdődik, a negatív index azt jelentése, hogy hátulról visszafelé nézzük. Intervallumot is megadhatunk : karakterek között, 
+            ekkor az indexek közötti karaktereket kapjuk. A python alap kiírató methódusa a print. Ez után veszzővel elválasztva soralhatjuk fel a sztringeket vagy más tetszőleges változókat.
+              
+        </para>
+    </section>      
+    <section>
+        <title> C++ és Java összehasonlítása </title>
+        <para>1.Hét    Az objektumorientált paradigma alapfoglamai. Osztály, objektum, példányosítás.</para>
+        <para>
+            A C++ és a Java is objektum orientált programozási nyelv, így követik az ezzel járó szemléletmód általánós tulajdonságait. Mindkét nyelvben a programozási hozzáállás alapegységei az osztályok.
+            Az osztályok valós dolgok általános jellemzőit írják le. Ez a valami lehet egy fizikai dolog: autó, labda vagy bútor, és lehet valami megfoghatatlen pl: bankszámla.
+            De egy osztály ezen entitásoknak csak egy tervrajza, még nem létezik az adott dolog csak megterveztük. Ahhoz, hogy létre is jöjjön példányosítani kell az osztályunkat, így egy objektumunk lesz amivel már lehet interaktálni.
+            Mindkét nyelven hasonló módon fej és törzs részből épülnek fel az osztályok. A fej részt a class szó vezeti be majd az osztály neve követi, utána pedig egy zárójel jön, benne esetleges argumentumokkkal.
+            Az osztály törzse a kapcsos zárójelek között lévő terület, az itt deklarált változók és metódusok az osztály tagjváltozói és tagfüggvényei.
+            Egy osztály példányosításakor ezeknek a tagváltozóknak foglalunk helyet a memóriában minden egyes új objektum létrejöttekor(a tagfügvényekkel ez nem így van, azok mindig csak egy példányban vannak jelen).
+            
+        </para>
+    </section>                                         
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+</chapter>                
