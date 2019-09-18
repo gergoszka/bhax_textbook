@@ -27,7 +27,6 @@
             A számok közötti konverzió támogatott, sőt sztringekből is képezhetünk számokat. A karakteres szekvenciáknak (szting, lista, ennes) meg tudjuk mondani a hosszát, első és utolsó elemét és a konkatenáció is értelmezett rajtuk.
             A szekvenciák elemeit indexekkel érhetjük el. Az indexelés nullánál kezdődik, a negatív index azt jelentése, hogy hátulról visszafelé nézzük. Intervallumot is megadhatunk : karakterek között, 
             ekkor az indexek közötti karaktereket kapjuk. A python alap kiírató methódusa a print. Ez után veszzővel elválasztva soralhatjuk fel a sztringeket vagy más tetszőleges változókat.
-              
         </para>
     </section>      
     <section>
