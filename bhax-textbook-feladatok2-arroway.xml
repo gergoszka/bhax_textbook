@@ -9,13 +9,86 @@
     <section>
         <title>OO szemlélet</title>
         <para>
-        </para>
-        <para>
             Megoldás forrása:                
         </para>
         <para>
             Tanulságok, tapasztalatok, magyarázat...
         </para>
+        <para>
+            A polárgenerátor C++ os változata 3 fájból áll össze: polargen.h.polargen.cpp és polargenteszt.cpp.
+            
+            A polatgen headerjében deklaráljuk a destruktort és a konstruktort, amely példányosításkor igazra állítja a nincsTarolt változónkat és a randomizáló függvényünket igazán véletlenszerűvé tesszük a rendszeridővel.
+            Majd prototype-oljuk a kovetkezo() függvényt és deklaráljuk a privát nincsTarolt és tarolt változókat.
+        </para>
+        <para>
+            A polargen.cpp a fő részünk, itt írjuk meg az előző kovetkezo() függvény kódját.
+
+            A kovetkezo() tagfüggvényben először megnézzük, hogy van-e eltárolva számunk, ha nincs akkor kiszá-
+            mítunk kettőt: egyiket visszaadjuk a usernek, a másikat elrakjuk a tárolt változóba és a nincstárolt értékét
+            hamisra állítjuk; ha van eltárolt számunk akkor azt visszaadjuk és a nincsTárolt változót igazra állítjuk.
+        </para>
+        <para>
+            A polarteszt.cpp-benpéldányosítjuk a polatgen osztályt pg néven és forral csinálunk 10 példát a kimenetre. A java megfelelője nagyon hasonló a programnak, bár ott egy fájlon belül tartjuk a forráskódot.         
+        </para>
+         <programlisting language="c++">
+        <![CDATA[
+        double PolarGen::kovetkezo ()
+        {
+           if (nincsTarolt){
+             double u1, u2, v1, v2, w;
+             do {
+	       u1 = std::rand () / (RAND_MAX + 1.0);
+	       u2 = std::rand () / (RAND_MAX + 1.0);
+	       v1 = 2 * u1 - 1;
+	       v2 = 2 * u2 - 1;
+	      
+               w = v1 * v1 + v2 * v2;
+             } while (w > 1);
+
+           double r = std::sqrt ((-2 * std::log (w)) / w);
+           tarolt = r * v2;
+           nincsTarolt = !nincsTarolt;
+
+           return r * v1;
+          } else{
+            nincsTarolt = !nincsTarolt;
+            return tarolt;
+          }
+        }
+        
+        ]]>
+        </programlisting>  
+        <para>
+           Ez nagyban megegyezik ahhoz ahogy a JDK Random.javabán a Sun programozói csinálták:
+        </para>
+         <programlisting language="c++">
+        <![CDATA[
+      
+      public double nextGaussian() {
+        if (haveNextNextGaussian) {
+          haveNextNextGaussian = false;
+          return nextNextGaussian;
+        } else {
+          double v1, v2, s;
+          do {
+            v1 = 2 * nextDouble() - 1;   // between -1.0 and 1.0
+            v2 = 2 * nextDouble() - 1;   // between -1.0 and 1.0
+            s = v1 * v1 + v2 * v2;
+          } while (s >= 1 || s == 0);
+          double multiplier = StrictMath.sqrt(-2 * StrictMath.log(s)/s);
+          nextNextGaussian = v2 * multiplier;
+          haveNextNextGaussian = true;
+          return v1 * multiplier;
+        ]]>
+        </programlisting>  
+        <para>
+            C++ és Java verzió is lefut:
+        </para>
+         <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/polargen.png" scale="190" />
+                </imageobject>
+            </mediaobject>
     </section>        
 
     <section>
@@ -36,6 +109,63 @@
         <para>
             Tanulságok, tapasztalatok, magyarázat...
         </para>
+        <para>
+            A Gagyi.java programban lévő while ciklus csak akkor lesz igaz ha a két változó értéke megegyezik de 
+            maguk az objektumok más helyen vannak a memóriában. Ennek tesztelésére három példa kódcsipetet csinálunk az Integer típus felhasználásával.
+        </para>
+        <para>
+            Amikor egy Integer típusú változónak értéket adunk -128 és 127 között azt a Java egy kész poolból veszi ki és nem csinál új objekteket.
+            Így, mint az első példából is látható, ha ezek között veszünk fel értéket az nem aktiválja a végtelen ciklust.
+        </para>
+        <programlisting language="c++">
+        <![CDATA[
+        Integer x = 110;
+        Integer t = 110;
+
+        while (x <= t && x >= t && t != x);
+            //false
+        ]]>
+        </programlisting>  
+        <para>
+            Viszont egy olyan esetben, ha a poolon kívülről szeretnénk értéket adni két új objektum jön létre, amelyeknek
+            bár ugyanaz az értékük más memóriacímen vannak eltárolva, így a végtelen ciklus lefut.
+        </para>
+        <programlisting language="c++">
+        <![CDATA[
+        Integer x = 130;
+        Integer t = 130;
+
+        while (x <= t && x >= t && t != x);
+            //true
+        ]]>
+        </programlisting> 
+        <para>
+            Ez a folyamat bizonyítható a JDK Integer forrásából, amiben látható hogyha az értékünk a poolon kívül van (nem Cache.low és Cache.high között)
+            akkor a return new Integer(i); fog lefutni amikor csináljuk a két Integert.
+        </para>
+        <programlisting language="c++">
+        <![CDATA[
+        public static Integer valueOf(int i) {
+            if (i >= IntegerCache.low && i <= IntegerCache.high)
+                return IntegerCache.cache[i + (-IntegerCache.low)];
+            
+            return new Integer(i);
+        }
+        ]]>
+        </programlisting> 
+        <para>
+            A harmadik példában pedig megkerüljük az egész poolozós témát és egyből használjuk az előző kódcsipet végén lévő
+            new Integer() konstruktort.
+        </para>
+        <programlisting language="c++">
+        <![CDATA[
+        Integer x = new Integer(110);
+        Integer t = new Integer(110);
+
+        while (x <= t && x >= t && t != x);
+            //true
+        ]]>
+        </programlisting> 
     </section>
     
     <section>

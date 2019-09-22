@@ -36,9 +36,28 @@
             A C++ és a Java is objektum orientált programozási nyelv, így követik az ezzel járó szemléletmód általánós tulajdonságait. Mindkét nyelvben a programozási hozzáállás alapegységei az osztályok.
             Az osztályok valós dolgok általános jellemzőit írják le. Ez a valami lehet egy fizikai dolog: autó, labda vagy bútor, és lehet valami megfoghatatlen pl: bankszámla.
             De egy osztály ezen entitásoknak csak egy tervrajza, még nem létezik az adott dolog csak megterveztük. Ahhoz, hogy létre is jöjjön példányosítani kell az osztályunkat, így egy objektumunk lesz amivel már lehet interaktálni.
+           
+            Míg a mezőkben adatokat tárolunk addig a metódusokban rögzítjük a
+            kódot, mely az adatokkal végzi a műveletet.
+            Hasonlóan a C++-hoz a Java programokat is első körben
+            fordítjuk (javac „fájlnév.java”) majd futtatjuk (java „fájlnév”). A futtatást a Java Virtuális Gép – egy önálló
+            program – végzi, mely értelmezi a fordítás során bájtkódra lefordított forráskódot.
+            
             Mindkét nyelven hasonló módon fej és törzs részből épülnek fel az osztályok. A fej részt a class szó vezeti be majd az osztály neve követi, utána pedig egy zárójel jön, benne esetleges argumentumokkkal.
             Az osztály törzse a kapcsos zárójelek között lévő terület, az itt deklarált változók és metódusok az osztály tagjváltozói és tagfüggvényei.
             Egy osztály példányosításakor ezeknek a tagváltozóknak foglalunk helyet a memóriában minden egyes új objektum létrejöttekor(a tagfügvényekkel ez nem így van, azok mindig csak egy példányban vannak jelen).
+            Mindkét nyelvben megadhatunk láthatósági kulcsszavakat az osztály deklarációja előtt. A public kulcsszóval nyilvánossá teszzük az osztályunkat, így más osztályok is hozzáférhetnek a benne lévő változókhoz és függvényekhez.
+            Ez akkor lehet káros ha másokkal dolgozunk egy projekten és az ő osztályaik véletlen vagy direkt is belekavarhatnak a miénkbe. Ennek kivédésére használhatunk privát előtagot.
+            Ekkor a változókat és metódusokat csak az adott osztály használhatja. A kettő közötti félnyilvános osztélyokat protectednek hívjuk, őket a szülő osztályból is el lehet érni.
+       
+            Talán a legnagyobb különbség a két nyelv között, hogy míg Javaban muszáj egy osztálynak léteznie aminek neve azonos a féjl nevével, C++ban ilyenre nincs szügség, akár osztályok
+            nélkül is írhatunk működő kódot, bár ez elveszi az egész OOP lényegét.
+        </para>
+        <para>
+            2. hét Öröklődés, osztályhierarchia. Polimorfizmus, metódustúlterhelés. Hatáskörkezelés. A bezárási eszközrendszer, 
+            láthatósági szintek. Absztrakt osztályok és interfészek.
+        </para>
+        <para>
             
         </para>
     </section>                                         
