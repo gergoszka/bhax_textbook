@@ -31,18 +31,12 @@
     </section>      
     <section>
         <title> C++ és Java összehasonlítása </title>
-        <para>1.Hét    Az objektumorientált paradigma alapfoglamai. Osztály, objektum, példányosítás.</para>
+        <para>1.Hét: Az objektumorientált paradigma alapfoglamai. Osztály, objektum, példányosítás.</para>
         <para>
             A C++ és a Java is objektum orientált programozási nyelv, így követik az ezzel járó szemléletmód általánós tulajdonságait. Mindkét nyelvben a programozási hozzáállás alapegységei az osztályok.
             Az osztályok valós dolgok általános jellemzőit írják le. Ez a valami lehet egy fizikai dolog: autó, labda vagy bútor, és lehet valami megfoghatatlen pl: bankszámla.
             De egy osztály ezen entitásoknak csak egy tervrajza, még nem létezik az adott dolog csak megterveztük. Ahhoz, hogy létre is jöjjön példányosítani kell az osztályunkat, így egy objektumunk lesz amivel már lehet interaktálni.
            
-            Míg a mezőkben adatokat tárolunk addig a metódusokban rögzítjük a
-            kódot, mely az adatokkal végzi a műveletet.
-            Hasonlóan a C++-hoz a Java programokat is első körben
-            fordítjuk (javac „fájlnév.java”) majd futtatjuk (java „fájlnév”). A futtatást a Java Virtuális Gép – egy önálló
-            program – végzi, mely értelmezi a fordítás során bájtkódra lefordított forráskódot.
-            
             Mindkét nyelven hasonló módon fej és törzs részből épülnek fel az osztályok. A fej részt a class szó vezeti be majd az osztály neve követi, utána pedig egy zárójel jön, benne esetleges argumentumokkkal.
             Az osztály törzse a kapcsos zárójelek között lévő terület, az itt deklarált változók és metódusok az osztály tagjváltozói és tagfüggvényei.
             Egy osztály példányosításakor ezeknek a tagváltozóknak foglalunk helyet a memóriában minden egyes új objektum létrejöttekor(a tagfügvényekkel ez nem így van, azok mindig csak egy példányban vannak jelen).
@@ -50,15 +44,41 @@
             Ez akkor lehet káros ha másokkal dolgozunk egy projekten és az ő osztályaik véletlen vagy direkt is belekavarhatnak a miénkbe. Ennek kivédésére használhatunk privát előtagot.
             Ekkor a változókat és metódusokat csak az adott osztály használhatja. A kettő közötti félnyilvános osztélyokat protectednek hívjuk, őket a szülő osztályból is el lehet érni.
        
-            Talán a legnagyobb különbség a két nyelv között, hogy míg Javaban muszáj egy osztálynak léteznie aminek neve azonos a féjl nevével, C++ban ilyenre nincs szügség, akár osztályok
+            Talán a legnagyobb különbség a két nyelv között, hogy míg Javaban muszáj egy osztálynak léteznie aminek neve azonos a fájl nevével, C++ban ilyenre nincs szügség, akár osztályok
             nélkül is írhatunk működő kódot, bár ez elveszi az egész OOP lényegét.
         </para>
+        
         <para>
-            2. hét Öröklődés, osztályhierarchia. Polimorfizmus, metódustúlterhelés. Hatáskörkezelés. A bezárási eszközrendszer, 
+            2.Hét: Öröklődés, osztályhierarchia. Polimorfizmus, metódustúlterhelés. Hatáskörkezelés. A bezárási eszközrendszer, 
             láthatósági szintek. Absztrakt osztályok és interfészek.
         </para>
         <para>
             
+            Az adatabsztrakció (elvonatkoztatás) szerint le kell egyszerűsíteni a valóságból átemelt objektumainkat, és csak azokkal az információval dolgozzunk 
+            amik relevánsak számunkra. Például egy program megírásáhot nem szügséges tudnunk minden függvény működését csak azt, hogy milyen adatokat vár el és 
+            mit ad vissza. Erre példa a metódusok és osztályok láthatósága.
+        </para>
+        <para> 
+            Az objektum orientált programozás lényeges paradigmája az adatabsztrakció mellett az öröklődés és a hozzá kapcsolódó polimorfizmus.
+            Ennek rendje és módja szerint mind a két nyelvben megtalálható, nagyon kis eltérésekkel. Javaban a származtatandó osztály neve után írt
+            extends kulcsszóval jelezzük, hogy melyik osztályt szeretnénk bővíteni, ez C++ ban egy kettősponttal történik. A bővített osztályt gyereknek,
+            öszzességüket leszármazottaknak; az eredeti osztályt szülőnek, összeségüket pedig ősöknek nevezzük. Ha egy osztály származtatunk az eléri az ősei
+            minden public és protected tagját, a privát adatok is inicializálódnak, őket viszint csak olyan metódusokon keresztül érjük el amik public vagy protected 
+            láthatóságúak.Az öröklődés egy is-a kapcsolat. Mindkét nyelv támogatja az egyszeres öröklést, ami szerint egy osztálynak legfeljebb egy őse és bármennyi leszármazottja lehet.
+            Viszont a C++ engedi a többszörös öröklést is, amiben egy osztály több alaposztályból származtatunk. Ennek értelmezése és kezelése nehéz, ezért főleg az 
+            egyszeres öröklést alkalmazzuk, ami egy átlátható fa hierarhiát hoz létre.
+        </para>
+        <para>
+            A gyerek osztály minden látható változóval és metódussal bír mint a szülője, viszont azért bővítettük az osztályt mert ezeket változtatni vagy 
+            specifikálni szeretnénk. Szóval azt, hogy egy változó nem csak a deklarált, hanem a származtatott osztályokra is hivatkozhat polimorfizmusnak nevezzük.
+            Felüldefiniálásnak nevezzük, amikor egy metódust az osztály örökölni egy definiciót az ősétől de ad rá saját definiciót. Osztálydefiniciók sose lehetnek
+            felüldefiniálva. C++ban csak akkor lehet felüldefiniálni, ha az el van látva a virtual kulcsszóval, Javaban az nem problémi mivel ott minden metódus virtuális. 
+        </para>
+        <para>
+            Az interfészek olyan osztályokon kívül értelmezett referenciák, amik már C-ben is léteztek protokol néven. Itt nincsenek meg sem a változók 
+            sem metódusok implementációi, csak a deklarációjuk. Az interfész egy olyan felület a Javaban, ahol el lehet vonatkoztatni az implementációtól és a tesztelésre koncentrálni.
+            Az interfészeknél is jelen van az öröklődés és kiterjesztésnek nevezzük. Visztont különbség az osztályok öröklődésétől, hogy lehet több ősinterfésze egy interfésznek és 
+            nincsen ősinterfész amiből az összes származik.
         </para>
     </section>                                         
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         

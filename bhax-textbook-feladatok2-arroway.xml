@@ -11,9 +11,7 @@
         <para>
             Megoldás forrása:                
         </para>
-        <para>
-            Tanulságok, tapasztalatok, magyarázat...
-        </para>
+       
         <para>
             A polárgenerátor C++ os változata 3 fájból áll össze: polargen.h.polargen.cpp és polargenteszt.cpp.
             
@@ -96,9 +94,7 @@
         <para>
             Megoldás forrása:                
         </para>
-        <para>
-            Tanulságok, tapasztalatok, magyarázat...
-        </para>
+        
     </section>        
         
     <section>
@@ -106,9 +102,7 @@
         <para>
             Megoldás forrása:                
         </para>
-        <para>
-            Tanulságok, tapasztalatok, magyarázat...
-        </para>
+        
         <para>
             A Gagyi.java programban lévő while ciklus csak akkor lesz igaz ha a két változó értéke megegyezik de 
             maguk az objektumok más helyen vannak a memóriában. Ennek tesztelésére három példa kódcsipetet csinálunk az Integer típus felhasználásával.
@@ -173,9 +167,29 @@
         <para>
             Megoldás forrása:                
         </para>
+        
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+           A Yoda féle feltétel írás a Star Wars kis zöld jedi mesteréről kapta nevét, aki sok más mellet fura szintaxtisú beszédével tűnik ki, amiben 
+           az alanyok és állítmányok helye felcserélődik. Ezt teszi esetünkben most is, ugyanis ha Yoda condition-ban írunk, akkor az összehasonlításokban
+           a két szereplő tagok megcseréljük. Ennek előnye, hogy nem változó lesz elől, aminek null is lehet az értéke és így NullPointerExceptions-t is dobhat.
+            Ez akkor következik be, ha egy metódust null értékkel hívunk meg.
+            Hátránya viszont, hogy a kód nehezebben olvasható, hiszen a megszokott balról jobbra olvasást megbontja.
         </para>
+         <programlisting language="c++">
+        <![CDATA[
+        String yoda = null ;
+        if(yoda.equals("Erő"))
+            System.out.println("Működni én nem fogok");
+            
+        if("Erő".equals(yoda))
+            System.out.println("Működni én fogok");
+        ]]>
+        </programlisting> 
+        <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/yoda.png" scale="280" />
+                </imageobject>
+            </mediaobject>
     </section>
     
     <section>
@@ -184,8 +198,69 @@
             Megoldás forrása:                
         </para>
         <para>
-            Tanulságok, tapasztalatok, magyarázat...
+            A BBP algoritmus Segítségével kiszámolhatjuk a pi-nek
+a d+1-dik jegyének a hexadecimális értéket úgy, hogy 
+a megelőző jegyek nem kell kiszámolni. Kezdetben
+létrehozunk egy osztályt a PiBBP algoritmusnak. 
+A BBP algoritmus alapján:
+{16^d Pi} = {4*{16^d S1} - 2*{16^d S4} - {16^d S5} - {16^d S6}}
+
+
+A PiBBP public osztály argumentumaként bekérünk egy d számot, ami
+d+ helyiértéket adja meg. Inicializáljuk a  számoláshoz szügséges váltzozókat.
+A d16pi-nek a 0.0d kezdő értkéket adunk, az S1,S4,S5,S6 számoknak pedig a d16Sj 
+függvénnyel számoljuk ki az értékét. 
+d16Pi-t kiszámoljuk a BBP algoritmusa szerint és kivonjuk a lefelé kerekített
+értékét. Példányosítjuk a StringBuffert sb néven, ami egy üres stringet hoz létre
+és ezt bővítjük számonként. A hexaJegyek tömbben tároljuk 16-os számrendszer
+betű tagjait, mivel 10 fölöt A-F számok is becsatlakoznak.
+Aztán indítunk egy while ciklust, ami addig megy amíg a d16pi
+értéke nullával egyenlő nem lesz. Majd a d16Pi-t lefelé kerekítjük és belekényszerítjük
+egy int jegy változóba. 
+Ha a szám 10-nél kisebb szimplán konkatenáljuk az sb-hez, viszont 
+ha 10-nél nagyobb, akkor kivonunk belőle 10, így megkapjuk a hexaJegyek tömbböl a neke megfelelő betűt.
+Például ha 16-ot kapunk eredményül, akkor abból 10-et kivonva
+ a tömb 6. indexű elemét kapjuk meg,a mi F.
+Az osztály végén pedig toString-el stringgé konvertáljuk és betöltjük a 
+d16PiHexaJegyek változóba.
         </para>
+        <programlisting language="c++">
+        <![CDATA[
+        double d16Pi = 0.0d;
+        
+        double d16S1t = d16Sj(d, 1);
+        double d16S4t = d16Sj(d, 4);
+        double d16S5t = d16Sj(d, 5);
+        double d16S6t = d16Sj(d, 6);
+        
+        d16Pi = 4.0d*d16S1t - 2.0d*d16S4t - d16S5t - d16S6t;
+        
+        d16Pi = d16Pi - StrictMath.floor(d16Pi);
+        
+        StringBuffer sb = new StringBuffer();
+        
+        Character hexaJegyek[] = {'A', 'B', 'C', 'D', 'E', 'F'};
+        
+        while(d16Pi != 0.0d) {
+            
+            int jegy = (int)StrictMath.floor(16.0d*d16Pi);
+            
+            if(jegy<10)
+                sb.append(jegy);
+            else
+                sb.append(hexaJegyek[jegy-10]);
+            
+            d16Pi = (16.0d*d16Pi) - StrictMath.floor(16.0d*d16Pi);
+        }
+        
+        d16PiHexaJegyek = sb.toString();
+        ]]>
+        </programlisting>
+        <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/scratch.png" scale="250" />
+                </imageobject>
+        </mediaobject>        
     </section>                                             
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 </chapter>                
