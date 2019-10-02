@@ -1,0 +1,313 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Liskov!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+
+    <section>
+        <title>Liskov helyettesítés sértése</title>
+        <para>
+            Megoldás forrása:                
+        </para>
+          <para>
+            A liskov elv azt jelenti, hogy ha származtatunk egy osztályt annak behelyettesíthetőnek kell lennie
+            minden olyan esetben ahol az őse is használható. Ezt jelölésekkel a következö képpen tudjuk leírni:
+            legyen S T-nek egy leszármazottja, ekkor minden T típúsú objektum legyen helyettesíthető S objektumokkal.
+        </para>
+        <para>
+            Ezt a gyakorlatban több féle módon is megelőzhetjuk. Először is figyelnünk kell, hogy ne adjunk meg szorosabb megkötéseket
+            a bemenetre a gyerek osztályban mint ősénél, mivel ha behelyettesítenénk ez kivételt okozhat. Ugyanúgy a kimeneti típus sem térhet el a 
+            kettő között uyganazon okokból. Másodszor pedig figyelnünk kell az osztályok logikájának helyes megtervezésre, erre látunk is egy példát . 
+        </para>
+       <programlisting language="Java">
+        <![CDATA[
+        class Madar{
+                void repul(){
+                   System.out.println("Minden madár repül");
+               }
+           }
+           
+           class Sas extends Madar{
+               @Override
+               void repul(){
+                   System.out.println("A sas repül");
+               }
+           }
+           
+           class Pingvin extends Madar{
+           
+           }
+           
+           class Liskov{
+               public static void main(String[] args) {
+                   Madar madar=new Madar();
+                   madar.repul();
+                   madar=new Sas();
+                   madar.repul();
+                   madar=new Pingvin();
+                   madar.repul();
+               }
+           }
+
+        ]]>
+        </programlisting>
+        <para>
+        ebben a programban T az a madár és az S-ek a pingvin és a sas osztályok. Sérül a liskov elv, ugyanis
+         így szerintünk a pingvin képes repülni. A probléma az, hogy feltételeztük, hogy minden madár tud repülni.
+         A megoldás az, ha csinálunk egy külön interface-t, amely a repülés tulajdonságot jelenti,bár ekkor
+         a madár osztályt is interface-ve kell alakítanunk, mivel a többszörös öröklődés nem lehetséges javaban.
+        </para>
+       
+        
+    </section>        
+
+    <section>
+        <title>Szülő-gyerek</title>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            A polimorfizmus szabálya szerint egy gyermek osztály örököl minden olyan metódust ,ami deklarálva van a szülő
+            osztályban. Ez viszont fordítva nem érnvényes, még akkor sem ha maga a szülő referencia egy gyerek objektumra hivatkozik.
+            Ezt a szülő-gyermek kapcsolatot fugjuk bebizonyítani Java és C++ nyelveken. 
+        </para>
+        <para>
+            Példáinkban lesz egy Szülő és egy Gyerek osztály, mindegyik egy saját metódussal ami kiírat valamilyen szöveget a konzolra.
+            A Gyerek osztályt a Szülőből származatjuk és adunk nekik egy-egy print metódust. A Mainben példányosítjuk a szülőn keresztül 
+            példányosítjunk egy Szülő és egy Gyerek osztályt. Így látjuk, hogy nem tudja meghívni a Gyerek print metódusát 
+            sem az sz1 (mondjuk neki tényleg nincs esélye) sem az sz2, ami a Gyerek osztályra hivatkozik.
+        </para>
+         <programlisting language="Java">
+        <![CDATA[
+        class Szulo
+        {
+            public void printParent()
+            {
+                System.out.println("Én vagyok a szülő metódusa!");
+            }
+        }
+
+        class Gyerek extends Szulo
+        {
+            public void printGyerek()
+            {
+                System.out.println("Én vagyok a gyerek metódusa!");
+            }
+        }
+
+        public class SzuloGyerek
+        {
+            public static void main(String[] args)
+            {
+                Szulo sz1 = new Szulo();
+                Szulo sz2 = new Gyerek();
+
+                Gyerek gy1 = new Gyerek(); 
+        
+     
+                sz1.printParent();
+        
+            // A szülő osztály semmiképpen nem éri el a subclass metódusait 
+            // sz1.printGyerek();
+            // sz2.printGyerek();
+
+                gy1.printParent();
+                gy1.printGyerek();
+            }
+        }   
+        ]]>
+        </programlisting> 
+
+    </section>        
+        
+    <section>
+        <title>Anti OO</title>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+        A BBP kódját java nyelven már kebeszéltük az előző fejezetben, ez írtuk át C, C++ és C# nyelvekre.
+        Legegyszerűbb egyértelműen C#-ra volt, csak néhány függvény nevét kellett megváltoztatni és mág futott is a program.
+        C-nél az objektum orientáltság elhagyása miatt több időbe telt. C#-os kód linux futtatása .Net Core 3 és
+        Visual Studio kominációjával volt futtatva, ez a windowsol programozási nyelvnek virtuális gépet generál
+        ,ami közel nem olyan fejlett mint a java-é, ez meg is fog látszani a teszten.
+        </para>
+        <table border="1">
+            <caption>Mérési eredmény</caption>
+            <thead align="center" valign="middle">
+               <tr>
+                   <td>Jegy</td>
+                   <td>C</td>
+                   <td>C++</td>
+                   <td>C#</td>
+                   <td>Java</td>
+               </tr>
+             </thead>
+            <tbody align="center" valign="middle">
+               <tr>
+                 <td>10<superscript>6</superscript></td>
+                 <td>00:01.732</td>
+                 <td>00:01.724</td>
+                 <td>00:01.825</td>
+                 <td>00:01.554</td>
+                 </tr>
+                 <tr>
+                 <td>10<superscript>7</superscript></td>
+                 <td>00:20.109</td>
+                 <td>00:19.993</td>
+                 <td>00:21.463</td>
+                 <td>00:18.473</td>
+                 </tr>
+                 <tr>
+                 <td>10<superscript>8</superscript></td>
+                 <td>04:56.586</td>
+                 <td>04:38.099</td>
+                 <td>04:63.636</td>
+                 <td>03:41.419</td>
+                 </tr>
+            </tbody>
+        </table>
+        <para>
+            Apropó, ami a tesztet illeti meglepő eredméynek születtek. Én a C-t tiipeltem volna meg első heylezettnek a hardver közeli 
+            felépítése miatt de végül a Java győzedelmeskedett mindegyik fordulóban. Úgy tűnik a Java interpretere már annyira 
+            optimalizált, hogy az gyorsaság terén a többi magas színtű programozási nyelvet kenterbe veri.
+            A lista másik végén nem meglepően pedig a C# szerepel, a linuxos környezet most nem neki kedvezett. 
+        </para>
+        <para>
+        A C# kódja a Java-éhoz, a C++ kódja pedig a C-éhez nagyon hasonlít és mivel a Java programkódját már láttuk,
+        a spamelést elkerülve most csak egy C kódcsipetet illesztek be.
+        </para>
+        <programlisting language="C">
+        <![CDATA[
+#include <stdio.h>
+#include <math.h>
+#include <time.h>
+
+long n16modk (int n, int k)
+{
+  long r = 1;
+
+  int t = 1;
+  while (t <= n)
+    t *= 2;
+
+  for (;;)
+    {
+
+      if (n >= t)
+	{
+	  r = (16 * r) % k;
+	  n = n - t;
+	}
+
+      t = t / 2;
+
+      if (t < 1)
+	break;
+
+      r = (r * r) % k;
+
+    }
+
+  return r;
+}
+
+double d16Sj (int d, int j)
+{
+
+  double d16Sj = 0.0;
+  int k;
+
+  for (k = 0; k <= d; ++k)
+    d16Sj += (double) n16modk (d - k, 8 * k + j) / (double) (8 * k + j);
+
+  /*
+     for(k=d+1; k<=2*d; ++k)
+     d16Sj += pow(16.0, d-k) / (double)(8*k + j);
+   */
+
+  return d16Sj - floor (d16Sj);
+}
+
+int main ()
+{
+
+  double d16Pi = 0.0;
+
+  double d16S1t = 0.0;
+  double d16S4t = 0.0;
+  double d16S5t = 0.0;
+  double d16S6t = 0.0;
+
+  int jegy;
+  int d;
+
+  clock_t delta = clock ();
+
+  for (d = 100000000; d < 100000001; ++d)
+    {
+
+      d16Pi = 0.0;
+
+      d16S1t = d16Sj (d, 1);
+      d16S4t = d16Sj (d, 4);
+      d16S5t = d16Sj (d, 5);
+      d16S6t = d16Sj (d, 6);
+
+      d16Pi = 4.0 * d16S1t - 2.0 * d16S4t - d16S5t - d16S6t;
+
+      d16Pi = d16Pi - floor (d16Pi);
+
+      jegy = (int) floor (16.0 * d16Pi);
+
+    }
+
+  printf ("%d\n", jegy);
+  delta = clock () - delta;
+  printf ("%f\n", (double) delta / CLOCKS_PER_SEC);
+} 
+        ]]>
+        </programlisting> 
+        
+        
+    </section>
+    
+    <section>
+        <title>Ciklomatikus komplexitás</title>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            A ciklomatikus komlexitás egy program bonyolultságát méri a programkód alapján egy számértékben kifejezve.
+            Egy lineáris program komlexitása e módon 1 lenne, ha bele írunk egy if szerkezetet azzal egy elágazást hozunk létre és a 
+            komplexités 2-re növekszik. A módszer ilyen szinten növeli a komplexitást minden elágazás, ciklus, try catch, 
+            logikai operátor, a ?: operátor és a ?. operátor esetén.
+        </para>
+        <para>
+            Manuálisan ez a M = E − N + 2P képlettel számolható ki, ahol 
+        </para>
+         <para>
+            A polargen ciklomatikus komplexitásának kiszámításához a pom.xml-be beillesztjük a következő ncss plugint:.
+        </para>
+        <programlisting language="java"><![CDATA[
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>javancss-maven-plugin</artifactId>
+                    <version>2.1</version>
+                </plugin>
+            ]]>
+          </programlisting>
+        <para>
+            Majd az mvn site és mvn javancss:report futtatásával a projekt könyvtárában kiadja a
+            kiszámolt komplexitást egy html fájl formájában:
+        </para>
+         <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/ciklomat.png"  />
+                </imageobject>
+            </mediaobject>
+    </section>                                             
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+</chapter>                
