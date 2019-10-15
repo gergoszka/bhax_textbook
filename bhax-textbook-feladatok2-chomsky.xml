@@ -1,0 +1,218 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló Chomsky!!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+
+    <section>
+        <title>Encoding</title>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+           A MandelbrotHalmazNagyító.java szinte teljessen megyegyezik a Prog1-en kivesézett nagyító programmal. Azzal az egy
+           különbséggel fogunk most foglalakozni, hogy az osztálynevekben és metódusokban megjelentek az ékezetes betűk.
+           A Java már támogatja az ékezetes betűket, ehhez fordításkor az -encoding kapcsoló után kell megadni a kívánt 
+           karakter kódolási formát, jelen esetünkben az ISO-8859-2 karakterkészletet.
+        </para>
+         <programlisting language="java"><![CDATA[
+            javac -encoding ISO-8859-2 MandelbrotHalmazNagyító.java]]>
+          </programlisting>
+        <para>
+            Az én esetemben viszont e nélkül is lefutott a program, mivel alapból a karakterkészlet 
+            beállítás valamiért már az UTF-8 volt:  
+        </para>
+         <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/Encoding.png" scale="150"  />
+                </imageobject>
+        </mediaobject>
+        <para>
+            Viszont ha egy olyan karakterkészlettel futtajuk, amiben nincs benne a magyar ábc a következő hibaüzenetet kapjuk: 
+        </para>
+         <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/Encoding_error.png" scale="150"  />
+                </imageobject>
+        </mediaobject>
+        
+    </section>        
+
+    <section>
+        <title>Full screen</title>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            A feladat megoldásának időpontjában éppen aktívan dolgoztam egy JavaFx projekten ezért egyértelműnek tűnt nekem, hogy 
+            ebben oldjam meg a feladatot. A JavaFx-ben Java Gui applikációkat hozhatunk létre sokkal szebb és letisztultabb kinézettel
+            mint azt Swiftben tehetnénk. Az alap koncepció szerint a program szét van osztva egy xml részre, ami a projekt kinézetéért felelős
+            és maga a programkódra, ami szorosan kapcsolódik az xml-hez.              
+        </para>
+        <para>
+            Ez a környezet már nagy bonyolultságú projektekhez van kitalálva, így egy ablak teljes képernyős módba rakása elég triviális
+            és egyetlen sor kódba telik:
+        </para>
+        <programlisting language="Java">
+        <![CDATA[primaryStage.setFullScreen(true);]]>
+         </programlisting>
+          <para>
+            A primaryStage jelen esetünkben a fő és egyetlen ablakunkat jelenti, aminek a setFullScreen attribútumát 
+            igazra állítva meg is vagyunk. Viszont ez így magában elég unalmas, így a saját projektem vizuálisabb részét átraktam ide.
+        </para>
+         <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/fullsrceen.png" scale="150"  />
+                </imageobject>
+        </mediaobject>
+        <para>
+            Röviden a programban a játékos
+            lottó szelvényeket vehet és az eddigi játékainak a statisztikáit egy külön ablakban diagramokon nézheti meg.
+            Ezek az oszlopdiagramok esetünkben a SZIMULÁLÁS gomb megnyomására random adatokat kapnak és jelenítik meg nekünk.
+        </para>
+        <programlisting language="Java">
+        <![CDATA[
+        //Main.Java
+
+        public void start(Stage primaryStage) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getResource("../Resources/Statistics.fxml"));
+        primaryStage.setTitle("Fullscreen!");
+        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setFullScreen(true);
+        primaryStage.show(); 
+        }
+
+        ]]>
+         </programlisting>
+        <programlisting language="Java">
+        <![CDATA[
+        //Statistics.fxml
+
+        public void DrawBar()
+        {
+        yAxis1.setLabel("Szelvények száma");
+
+        series1.setName("Eddigi szelvények");
+        series1.getData().add(new XYChart.Data<>("Összes ", bought_tickets));
+        series1.getData().add(new XYChart.Data<>("Nyerő ", winner_tickets));
+        series1.getData().add(new XYChart.Data<>("Vesztes ", loser_tickets));
+
+
+        Node n = bc1.lookup(".data0.chart-bar");
+        n.setStyle("-fx-bar-fill: blue");
+        n = bc1.lookup(".data1.chart-bar");
+        n.setStyle("-fx-bar-fill: green");
+        n = bc1.lookup(".data2.chart-bar");
+        n.setStyle("-fx-bar-fill: red");
+
+        .
+        .
+        .
+        ]]>
+         </programlisting>
+
+        
+ 
+
+    </section>        
+        
+    <section>
+        <title>Paszigráfia Rapszódia OpenGL full screen vizualizáció</title>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Mint a project dokumentációjában is olvasható, a Paszigráfia Rapszódia egy olyan 
+            mesterséges nyelv kialakítására törekvő kezdeményezés, mely lehetővé
+            teszi a homunkulusz és a mesterséges homunkulusz közötti kommunikációt,
+            ergó ez az esport kultúra nyelve.
+        </para>
+         <para>
+            Ennek az egyik vizualizáló programja a para12.cpp, ami OpenGL segítségével egy 3D-s térben jeleníti meg a homunkuluszokat.
+            Itt lehetőségünk van a WASD gombokkal mozgatni a kamerát, QE gombokkal le és fel mozogni, egérrel körbe nézni és a nyilakkal 
+            pedig a legközelebbi kockát forgatni. 
+        </para>
+        <para>
+            A fordításhoz szügségünk van 6 png képre és kettőspontokkal elválsztott számokra, amelyek a kockák oldalain lévő négyzeteket adják meg.
+        </para>
+        <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/para_console.png" scale="150"  />
+                </imageobject>
+        </mediaobject>
+        <para>
+            Narancs és piros színű bemeneti képekkel és a programban lévő színezési értékek átállításásval pedig a következő képet kaptam:
+        </para>
+         <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/para.png" scale="90"  />
+                </imageobject>
+        </mediaobject>
+        
+    </section>
+    
+    <section>
+        <title>Perceptron osztály</title>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Egy perceptron a gépi tanulás egyik legegyszerűbb megvalósítása. Az elképzelés szerint egyetlen neuront
+            ábrázolunk, ami véges sok input alapján egy algoritmus segítségével két csoportba sorolja. Ehhez nem-
+            csak a bemenő adatokat adjuk meg, hanem a megoldást is, így az algoritmus az adatokhoz rendelt súlyok
+            változtatásával megpróbálja megközelíteni az elvárt megoldást. Maga az algoritmus általában a szignum
+            függvény ami az adatok és súlyaik szorzatának összegét egy -1 és 1 közötti tört számként ábrázolja. Logi-
+            kusan egy elem akkor tartozik az egyik csoprtba ha 0-nál nagyobb, a másikba ha kisebb.
+        </para>
+        <para>
+            A perceptront lehet tanítani arra, hogy dolgokat különböztessen meg egymástól. Mi a perceptron program tovább
+            fejlesztésében arra fogjuk rávenni, hogy különböztesse meg a más-más színű pixeleket, majd cserélje ki azokat
+            egy másik színnel, esetünkben a fehéret pirosra.
+        </para>
+        <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/kimenet.png" scale="65"  />
+                </imageobject>
+        </mediaobject>
+        <programlisting language="Java">
+        <![CDATA[
+//perceptron.cpp
+
+int main (int argc, char **argv)
+{
+    png::image <png::rgb_pixel> png_image (argv[1]);
+
+    int size = png_image.get_width() * png_image.get_height();
+    
+    Perceptron* p = new Perceptron (3, size, 256, size);
+    
+    double* image = new double[size];
+    
+    
+    for (int i = 0; i<png_image.get_width(); ++i)
+        for (int j = 0; j<png_image.get_height(); ++j)
+            image[i*png_image.get_width() + j] = png_image[i][j].red;
+    
+    double* value = (*p) (image);
+
+    for (int i = 0; i<png_image.get_width(); ++i)
+        for (int j = 0; j<png_image.get_height(); ++j)
+        {
+            png_image[i][j].green = value[i*png_image.get_width() + j];
+            png_image[i][j].blue = value[i*png_image.get_height() + i];
+        }
+    
+    png_image.write("kimenet.png");
+    
+    delete p;
+    delete [] image;
+    
+}
+        ]]>
+         </programlisting>
+    </section>
+                                            
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+</chapter>                
