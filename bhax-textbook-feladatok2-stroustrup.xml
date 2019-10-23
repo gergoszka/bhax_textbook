@@ -312,7 +312,7 @@ ostream& operator<<(ostream& stream, const String& string)
         </para>
          <mediaobject>
                 <imageobject>
-                    <imagedata fileref="img/String.png" scale="150"  />
+                    <imagedata fileref="img/String.png" scale="13s0"  />
                 </imageobject>
         </mediaobject>
          
