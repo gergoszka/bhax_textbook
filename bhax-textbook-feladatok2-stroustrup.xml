@@ -1,0 +1,384 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Stroustrup!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+
+    <section>
+        <title>JDK osztályok</title>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            A Java JDK src mappájában lévő összes java fájl kiíratását a fénykard.cpp alapján kezdtem el kidolgozni. 
+            A read_acts egy rekurzív metódus, ami a boost fájlkezelője segítségével végigjár mindent egy mappában: 
+            ha az egy .java végződésű fájl hozzáadjuk a v vektorunkhoz és növeljük a java fájl-counter számát, ha pedig mappa, akkor bele lépünk,
+            hozzá adjuk a vektorhoz és rekurzívan meghívjuk a read_acts-ot.  
+     
+        </para>
+         <programlisting language="C++">
+        <![CDATA[
+void read_acts ( path p)
+{
+  if ( is_regular_file ( p ) ) 
+  {
+    
+    std::string ext ( ".java" );
+              
+      if ( !ext.compare ( extension ( p ) ) ) 
+      {
+        counter++;
+        std::string a =(p.filename()).string();
+        before = indent(mappa);
+
+        v.push_back(before+"  "+a); 
+        mappa = 0;
+        
+      }
+
+  } else if ( is_directory ( p ) )
+  {
+      mappa++;
+      std::string a = p.string();
+      before = indent(mappa);
+
+      v.push_back(before+"+"+a);
+
+      for ( directory_entry & entry : directory_iterator ( p ) )
+        read_acts ( entry.path()); 
+  }
+  before = ""; 
+}
+        ]]>
+         </programlisting>
+        <para>
+           Amint ez végigjárja az src mappát meg is van a v vektorunk, amit mainben kiíratunk az összes java fájl számával együtt.
+           Még hozzáadtam egy kis szépítést is, a mappákat + jelölölés előzi meg, a belé tartozó fájlok pedig behúzva vannak alatta.
+        </para>
+        <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/JDK.png" scale="180"  />
+                </imageobject>
+        </mediaobject>
+
+        
+    </section>        
+
+    <section>
+        <title>Másoló-mozgató szemantika</title>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            A másoló konstruktor és érékadás mindig is a C++ része volt, míg a mozgatás az rvalue-val együtt a C++11-ben mutatták be.
+            A szemantikák szemléltetésére egy Inventory osztályt írtam, ami egy bizonyos videójátékos karakter felszerelését tárolja egy stringekből álló tömbben.
+            Először lássuk az osztály sima konstruktorát és destruktorát:
+        </para>
+        <programlisting language="C++">
+        <![CDATA[
+    //Character.cpp
+    //Konstruktor
+    Inventory(int m)
+    {
+        used = 0;
+        size = m;
+        inventory = new string[m];
+    }
+
+    //Destruktor
+    ~Inventory()
+    {
+        delete[] inventory;
+    }
+        ]]>
+         </programlisting>
+        <para>
+            Nagyon sok izgalmas itt még nem történik, inicializáljuk a változóinkat: az inventory méretét paraméterként adjuk meg, és egy ekkora string tömböt kreálunk
+            a new kulcsszóval. A destruktorban pedig a lefoglalt tömb memóriáját fel is szabadítjuk. Ezután jöjjön a másoló konstruktor és értékadás:
+        </para>
+        <programlisting language="C++">
+        <![CDATA[
+    //Másoló konstruktor
+    Inventory(const Inventory& source) 
+        :size(source.size),used(source.used),
+         inventory(new string[source.size])
+    {
+        cout << this << "  &Másoló konstruktor meghívva!" <<endl;
+
+        copy(source.inventory, source.inventory + size,inventory);
+    }
+
+    //Másoló értékadás
+    Inventory& operator = (const Inventory& source)
+    {
+        cout << this << "  &Másoló értékadás meghívva!" <<endl;
+        if(this == &source)
+        {
+            return *this;
+        }
+        
+        size = source.size;
+        used = source.used;
+
+        copy(source.inventory, source.inventory + size ,inventory);
+        return *this;
+    }
+        ]]>
+         </programlisting>
+        <para>
+            C++-ban folyamatosan másolunk értékeket még ha nem is vesszük észre, így mindig van is egy másoló konstruktorunk,
+            amit a kompiler magától generál le. Ez amikor lefut egy shallow(sekély) másolást hajt végre, amivel lényegében átmásolja egy másik 
+            memóriacímre az összes deklarált változónkat. Ez nagyon jól működik addig, amíg nem próbálunk meg egy pointert másolni. 
+            Ugyanis ekkor a pointerben lévő memóriacímet másoljuk, így mind a kettő osztály inventory pointere uyganoda fog mutatni. 
+            Ez pedig a tömb törlésénél eredményez gebaszt, mivel kétszer akarjuk felszabadítani ugyanazt a memóriát.
+        </para>
+        <para>
+            A másoló értékadás a konstruktortól mindössze annyiban különbözik, hogy míg a konstruktort egy akkor deklarált objektumba való másoláskor
+            hívjuk meg, az értékadást már létező objektumok közötti másoláskor.
+        </para>
+          <programlisting language="C++">
+        <![CDATA[
+    //Mozgató konstruktor
+    Inventory(Inventory&& source) 
+        :size(0),used(0),inventory(nullptr)
+    {
+        cout << this << "  &&Mozgató konstruktor meghívva!" <<endl;
+
+        inventory = source.inventory;
+        size = source.size;
+        used = source.used;
+
+        source.inventory = nullptr;
+        source.size = 0;
+        source.used = 0;
+    }
+
+    //Mozgató értékadás
+    Inventory& operator = (Inventory&& source)
+    {
+        cout << this << "  &&Mozgató értékadás meghívva!" <<endl;
+
+        if(this == &source)
+        {
+            return *this;
+        }
+        delete[] inventory;
+
+        inventory = source.inventory;
+        size = source.size;
+        used = source.used;
+
+        source.inventory = nullptr;
+        source.size = 0;
+        source.used = 0;
+    }
+        ]]>
+         </programlisting>
+        <para>
+            A mozgató konstruktor esetében nagyon fontos, hogy inicializáláskor minden tagváltozót nullázzunk ki, 
+            ugyanis ha nem tennénk a konstruktor szemét adatokkal jönne létre és ezt cserélnénk ki a kívánt változókkal. 
+            Így mi megkapnánk a kívánt adatokat, viszont az eredeti objektum törlésekor a destruktor olyan pointereket próbálna meg törölni, 
+            amik ki tudja hova mutatnak.
+      
+            Ezután viszont egyszerűen átmozgatjuk az elemeket az új objektumba, a régiekett pedig töröljük.
+        </para>
+        <para>
+            A mozgató értékadás ugyanúgy csak létező objektumokra hívódik meg mint a másoló csak a mozgató konstruktor munkáját végzi egy  kis különbséggel.
+            Először megnézzük saját magára hívtuk e meg és ha igen visszaadjuk az eredeti értéket. 
+            Ellenkező esetben pedig szimplán átmozgatjuk az elemeket az új objektumba, a régit pedig töröljük.
+        </para>
+        <para>
+            Végül néhány értékadással teszteljük a konstruktorokat és a feltöltő és kiírató metódusokkal pedig magát a programot is.
+        </para>
+         <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/Ctor.png" scale="220"  />
+                </imageobject>
+        </mediaobject>
+   
+    </section>        
+        
+    <section>
+        <title>Bónusz feladat: String osztály</title>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            A saját string osztály készítését egy char* típusú buffer létrehozásával kezdtem. 
+            Ebben tároljuk majd el a megadott karaktereket. Még szükségünk van a string hosszára, 
+            ehhez az strlen() metódust hívjuk meg az inicializáláskor megadott stringre és eltároljuk az mSize változóban. 
+            A konstruktorban ezen kívül még létrehozzuk a buffer tömöt, ez méret+1 hosszúságú lesz, 
+            ugyanis az strlen() nem számolja a nulltermináló karaktert. 
+            Végül a memcopy-val beletöltjük a string tartalmát a bufferbe.
+        </para>
+        <programlisting language="C++">
+        <![CDATA[
+    String(const char* string)
+    {
+        //cout << this << "  +Konstruktor meghívva!" <<endl;
+        mSize = strlen(string);
+        mBuffer = new char[mSize + 1];
+        memcpy(mBuffer, string, mSize);
+    }
+        ]]>
+         </programlisting>
+        <para>
+            Ezután megírjuk a másolós szemantikákat, ez sokban nem különbözik az előző feladatban látottaktól, 
+            új bufert hozunk létre és beletöltjük a másolni való stringet.
+        </para>
+        <programlisting language="C++">
+        <![CDATA[
+    String(const String& other) : mSize(other.mSize)
+    {
+        cout << this << "  &Másoló konstruktor meghívva!" <<endl;
+        mBuffer = new char[mSize + 1];
+        memcpy(mBuffer, other.mBuffer, mSize);
+    }
+
+    String& operator = (const String& other)
+    {
+        cout << this << "  &Másoló értékadás meghívva!" <<endl;
+        if (this == &other)
+        {
+            return *this;
+        }
+        memcpy(mBuffer, other.mBuffer, mSize);
+        return *this;
+    }
+        ]]>
+         </programlisting>
+        <para>
+            A mozgató szemantikákat is a Character.cpp program mintájaára csinálom.
+             Az értékek cseréjét itt és a másolónál is lehetne swappal végezni, 
+             de szerintem így szemléletesebb és egyértelműbb, hogy mi történik.
+        </para>
+        <programlisting language="C++">
+        <![CDATA[
+  String(String&& other)
+        :mSize(0), mBuffer(nullptr)
+    {
+        cout << this << "  &&Mozgató konstruktor meghívva!" <<endl;
+
+        mSize = other.mSize;
+        mBuffer = other.mBuffer;
+
+        other.mSize = 0;
+        other.mBuffer = nullptr;
+    }
+
+    String& operator = (String&& other)
+    {
+        cout << this << "  &&Mozgató értékadás meghívva!" <<endl;
+        
+        if (this == &other)
+        {
+            return *this;
+        } 
+        delete[] mBuffer;
+
+        mSize = other.mSize;
+        mBuffer = other.mBuffer;
+
+        other.mSize = 0;
+        other.mBuffer = nullptr;
+    }
+        ]]>
+         </programlisting>
+        <para>
+            Ahhoz pedig, hogy ki tudjuk írni a szöveget és az 
+            egyik karakterére is hivatkozhassunk túltöltjük a >> és [] opertátorokat.
+        </para>
+        <programlisting language="C++">
+        <![CDATA[
+   char& operator[] ( int index)
+    {
+        return mBuffer[index];
+    }
+
+    friend ostream& operator<<(ostream& stream, const String& string);
+};
+
+ostream& operator<<(ostream& stream, const String& string)
+{
+    stream << string.mBuffer;
+    return stream;
+}
+        ]]>
+         </programlisting>
+        <para>
+            Végül lefuttatunk egy tesztet minden szemantikára a main-ben.
+        </para>
+         <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/String.png" scale="150"  />
+                </imageobject>
+        </mediaobject>
+         
+        
+    </section>
+    
+    <section>
+        <title>Változó argumentumszámú ctor</title>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Egy perceptron a gépi tanulás egyik legegyszerűbb megvalósítása. Az elképzelés szerint egyetlen neuront
+            ábrázolunk, ami véges sok input alapján egy algoritmus segítségével két csoportba sorolja. Ehhez nem-
+            csak a bemenő adatokat adjuk meg, hanem a megoldást is, így az algoritmus az adatokhoz rendelt súlyok
+            változtatásával megpróbálja megközelíteni az elvárt megoldást. Maga az algoritmus általában a szignum
+            függvény ami az adatok és súlyaik szorzatának összegét egy -1 és 1 közötti tört számként ábrázolja. Logi-
+            kusan egy elem akkor tartozik az egyik csoprtba ha 0-nál nagyobb, a másikba ha kisebb.
+        </para>
+        <para>
+            A perceptront lehet tanítani arra, hogy dolgokat különböztessen meg egymástól. Mi a perceptron program tovább
+            fejlesztésében arra fogjuk rávenni, hogy különböztesse meg a más-más színű pixeleket, majd cserélje ki azokat
+            egy másik színnel, esetünkben a fehéret pirosra.
+        </para>
+        <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/kimenet.png" scale="65"  />
+                </imageobject>
+        </mediaobject>
+        <programlisting language="Java">
+        <![CDATA[
+//perceptron.cpp
+
+int main (int argc, char **argv)
+{
+    png::image <png::rgb_pixel> png_image (argv[1]);
+
+    int size = png_image.get_width() * png_image.get_height();
+    
+    Perceptron* p = new Perceptron (3, size, 256, size);
+    
+    double* image = new double[size];
+    
+    
+    for (int i = 0; i<png_image.get_width(); ++i)
+        for (int j = 0; j<png_image.get_height(); ++j)
+            image[i*png_image.get_width() + j] = png_image[i][j].red;
+    
+    double* value = (*p) (image);
+
+    for (int i = 0; i<png_image.get_width(); ++i)
+        for (int j = 0; j<png_image.get_height(); ++j)
+        {
+            png_image[i][j].green = value[i*png_image.get_width() + j];
+            png_image[i][j].blue = value[i*png_image.get_height() + i];
+        }
+    
+    png_image.write("kimenet.png");
+    
+    delete p;
+    delete [] image;
+    
+}
+        ]]>
+         </programlisting>
+    </section>
+                                            
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+</chapter>                
