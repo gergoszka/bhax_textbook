@@ -255,9 +255,6 @@ class Csapat implements Comparable<Csapat> {
         (gimp-image-insert-layer image text-layer 0 -1)
         (gimp-item-transform-rotate-simple text-layer ROTATE-180 TRUE 0 0)
         (set! textfs (car(gimp-image-merge-down image text-layer CLIP-TO-BOTTOM-LAYER)))
-        .
-        .
-        .
         ]]>
          </programlisting>
          <para>
