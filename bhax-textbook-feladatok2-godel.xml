@@ -1,0 +1,278 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Gödel!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+
+    <section>
+        <title>STL map érték szerinti rendezése</title>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Ebben a feladatban egy táblazatot fogunk az érékeik szerint csökkenő sorba rendezni. 
+            Ehhez az std map adattípusára és lambda kifejezésekre lesz szükségünk. Először is a map olyan absztrakt adattípus,
+             ami kulcs érték párokat tárol el, úgy hogy minden kulcsnak egyedinek kell lennie. A maphoz képesek vagyunk értéket hozzá adni és az elérni. 
+             Ezt vagy a hosszabb insert-el végezzük vagy egyszerűen megadhatunk egy kulcsot, mintha indexelnénk egy tömböt és ahhoz rendelünk értéket. 
+        </para>
+        <programlisting language="C++">
+        <![CDATA[
+        map<string, int> mapOfTeams;
+
+        //kétféle értékadás
+        mapOfTeams.insert(std::make_pair("G2", 15))
+        mapOfTeams["G2"] = 15;
+        ]]>
+         </programlisting>
+        <para>
+            Ez amikor létrejön automatikusan kulcsok szerint van rendezve, ami esetünkben abc szerinti rendezést jelent. Ahhoz, hogy érték szerint rendezzük
+            a következő függvényt használjuk:
+        </para>
+         <programlisting language="C++">
+        <![CDATA[
+        vector<pair<string, int>> sort_map ( map <string, int> &rank )
+        {
+            vector<pair<string, int>> ordered;
+
+            for ( auto & i : rank ) 
+            {
+                    if ( i.second ) 
+                    {
+                            pair<string, int> p {i.first, i.second};
+                            ordered.push_back ( p );
+                    }
+            }
+
+            sort (begin ( ordered ), end ( ordered ),[ = ] ( auto && p1, auto && p2 ) 
+            {
+                    return p1.second > p2.second;
+            }
+            );
+
+            return ordered;
+        }
+        ]]>
+         </programlisting>
+          <para>
+           Itt először is létrehozunk egy kulcs-érték párokból álló vektort, majd egy foreach-el beletöltjük a paraméterként megadott mapot.
+           Ezután jön a sort függvény, aminek egy labda kifejezéssel mondjuk meg hogyan rendezzünk. Az argumentum listában felvesszük a p1 és p2 iterátort
+           amelyek végig mennek a map-on és a lambda testében összehasonlítják a kulcs-érték párok érték tagjait és csökkenő sorrendbe rendezi azt.
+        </para>
+        <para>
+            A példához én a League of Legends 2019-es LEC nyári időszak eredményéből vettem hat csapat pontszámát random sorrendben ,majd rendeztem érték 
+            szerint:  
+        </para>
+         <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/STL.png" scale="220"  />
+                </imageobject>
+        </mediaobject>
+         
+        
+    </section>        
+
+    <section>
+        <title>Alternatív Tabella rendezése</title>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Az alternatív tabella program egy másik alternatívát kínál a sportok eredméyneinek kimutatására. Itt nem csak a győztes/vesztes meccsek arányát 
+            vesszük figyelembe, hanem azt is hogy ez egy erős vagy gyengének számító csapat ellen történt e. Miután megvannak az újonnan kiszámított értékeink 
+            ezeket nem szimpla integerekben tároljuk, hanem a Csapat osztályban, a csapat nevével és a normális tabellás pontjával egyetemben.
+            Ahhoz, hogy ezeket rendezzük, használnunk kell a Comperable T  Interfacet, ami lehetővé teszi az ilyen interface-el ellátott objektumokat, hogy 
+            alkalmazzuk rajtuk rendező metódusokat. 
+        </para>
+                <programlisting language="Java">
+        <![CDATA[
+class Csapat implements Comparable<Csapat> {
+  
+    protected String nev;
+    protected double ertek;
+  
+    public Csapat(String nev, double ertek) {
+      this.nev = nev;
+      this.ertek = ertek;
+    }
+  
+    public int compareTo(Csapat csapat) {
+      if (this.ertek < csapat.ertek) {
+        return -1;
+      } else if (this.ertek > csapat.ertek) {
+        return 1;
+      } else {
+        return 0;
+      }
+    }
+  }
+        ]]>
+         </programlisting>
+        <para>
+            Ez a gyakorlatban nálunk a következő képpen néz ki. Az osztály mint látjuk használja a Comperable T  Interfacet, a konstruktorában csak a paraméterként
+            megadott értékeket eltároljuk az objektum változóiban. Majd felülírjuk a Comperable egyetlen függvényét, a compareto()-t. Ez összehasonlítja az objektumot 
+            a megkapott objektummal, és visszatérési értéke -1 , 0, vagy 1 , attól függően, hogy az átvevő objektum kisebb, egyenlő vagy nagyobb, mint a megkapott objektum.
+            Mi ennek felhasználásával növekvő sorrendbe állítjuk a csapatok pontjai szerint, de a csapatokat abc szerint rendeztük, így majd meg kell fordítanunk a reverse
+            fügvénnyel.
+        </para>
+                <programlisting language="Java">
+        <![CDATA[
+    java.util.List<Csapat> rendezettCsapatok = java.util.Arrays.asList(csapatok);
+    java.util.Collections.sort(rendezettCsapatok);
+    java.util.Collections.reverse(rendezettCsapatok);
+        ]]>
+         </programlisting>
+        <para>
+            Ezen felül frissítettük a 2018-as eredményekkel a programot. Ehhez a Wiki2Matrixban az aktuális eredményekhez kellett igazítani a mátrixot. 
+            Itt vettük a végeredmény kereszttáblázatát és a színek alapján -üres:0, zöld:1, sárga:2, piros:3- áttranszformáltuk számokká. Majd az új adtaokkal lefuttatjuk
+            A Wiki2Matrixot és a végeredményül kiadott mátrixot beillesztjük az Alternatív tábella double [][] két dimenziós mátrixába. Ez útán még annyi a teendőnk, hogy 
+            a csapatok nevét és végleges pontjaikat is átírjuk az aktuálisra. Így futtatáskor meg is kapjuk a 2018-as év alternatív tabelláját: 
+        </para>
+        <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/tabella.png" scale="190"  />
+                </imageobject>
+        </mediaobject>
+    </section>        
+        
+    <section>
+        <title>Prolog családfa</title>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Ahhoz, hogy prologot tudjunk használni egy java programban szügségünk lesz az swi prolog-ra. Ez lehetővé teszi
+            számunkra, hogy hozzáadjunk .pl fájlokat, ami kifejezések definiálását végzi a programhoz és a lekérdezésekhez is biztosít függvényeket.
+            Telepíteni a terminálból a  sudo apt-get install swi-prolog és sudo apt-get install swi-prolog-java commandokkal tudjuk. A programunkhoz ezen kívül
+            Igénybe kell vennünk a logika tantárgyon megszerzett tudásunkat, ugyanis a proglogban elsőrendű logikát használva
+            tudunk lekérdezéseket készíteni. TEőször nézzük a .pl fájlt, ebben adjuk meg a kifejezéseket és ezek kapcsolatát, amiket később majd vizsgálni fogunk.
+        </para>
+        <programlisting language="lisp">
+        <![CDATA[
+        férfi(gergő).
+        férfi(pista).
+        férfi(mihály).
+        nő(edit).
+        nő(julianna).
+        nő(piroska).
+        nő(jolán).
+        gyereke(gergő, pista).
+        gyereke(gergő, julianna).
+        gyereke(edit, julianna).
+        gyereke(pista, piroska).
+        gyereke(julianna, mihály).
+        gyereke(julianna, jolán).
+        apa(X) :- férfi(X), gyereke(_Y, X).
+        apja(X, Y) :- férfi(X), gyereke(Y, X).
+        anya(X) :- nő(X), gyereke(_Y, X).
+        anyja(X, Y) :- nő(X), gyereke(Y, X).
+        nagyapa(X) :- apja(X, Y), (apja(Y, _U); anyja(Y, _Z)).
+        nagyapja(X, Z) :- apja(X, Y), (apja(Y, Z); anyja(Y, Z)).
+
+        ]]>
+         </programlisting>
+         <para>
+            A programban több lekérdezést is csinálunk, ezek közül az elsőben megnézzük, hogy pista anya-e?
+         </para>
+          <programlisting language="Java">
+        <![CDATA[
+        String term = "anya(pista)";
+        System.out.println(term + " is " + (Query.hasSolution(term) ? "provable" : "not provable"))
+
+        ]]>
+         </programlisting>
+         <para>
+            Ennek természetesen not provable lesz a kimenetele, hiszen csak az lehet anya aki nő és van gyereke, pistára ebből csak 
+            a van gyereke tulajdonság teljesül. Még nézzünk meg egy példát arra amikor több megoldás is lehetséges.
+            Ezt a nagyapára való kérdéssel lehet tökéletessen tesztelni, mivel mind a két szülői ágról lehet megoldásunk.
+         </para>
+         <programlisting language="Java">
+        <![CDATA[
+        String term1 = "nagyapja(X, gergo)";
+        System.out.println("A formula megoldásai: " + term1);
+        Query q1 = new Query(term1);
+        while (q1.hasMoreSolutions()) {
+            Map<String, Term> str = q1.nextSolution();
+            System.out.println("X = " + str.get("X"));
+        }        
+        ]]>
+         </programlisting>
+          
+         <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/Prolog.png" scale="160"  />
+                </imageobject>
+        </mediaobject>
+        
+    </section>
+    
+    <section>
+        <title>GIMP Scheme hack</title>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            A gimp Script-fu funkciójával a mostani scriptünkkkel a mandela hatást próbáljuk elérni. Először létrehozzuk az
+            új képet és a rétegeket. A gimp-image-new eljárással létrehozunk egy listát az attribútumokról amikre szügségünk lesz.Ezt a listát
+            car függvénnyel érjük el, ami lista első elemét veszi ki. A mandala effektust úgy érjük el, hogy a user által megadott szöveget forgatjuk
+            egy középső pontban először 90, 45 és végül 30 fokkal. Itt érdemes egy rövidebb szót választani egy szép betűtípussal, így szebb lesz a végeredmény.
+            Ehhez a gimp-item-transform-rotate-simple eljárást használjuk. Mivel a betűk mérete nem állandó, hiszen váltohat betűtípusonként, ezt 
+            ezt a text-wh függvény segítségével kérdezzük le és használjuk a továbbiakban. A forgatások után a plug-in-autocrop-layer törli az üres szegélyeket. Majd
+            megadjuk a szélesség és magasságnak a kirajzolható méreteket a drawable-el és ez alapján újraméretezzük a layert a resize- al.
+        </para>
+         <programlisting language="lisp">
+        <![CDATA[
+        (image (car (gimp-image-new width height 0)))
+        (layer (car (gimp-layer-new image width height RGB-IMAGE "bg" 100 LAYER-MODE-NORMAL-LEGACY)))
+        (textfs)
+        (text-layer)
+        ]]>
+         </programlisting>
+        <para>
+            Az ecset méreteit a 
+            gimpcontext-set-brush-size-al tudjuk módosítani ez pixelben adja meg a méreteket. Ezzel adjuk meg majd a
+            mandala keretének a vastagságát, amelyet az gimp-image-select-ellipse-el hozunk létre. Ebbol 2 van az ˝
+            egyik a külso körív a vastagabb 22 pixel míg a véknyabb 8 pixel vastag. Párbeszéd ablakokat a gimp- ˝
+            message-el tudunk készíteni. Az elkészített képet a gimp-display-new-al jelenítsük meg új ablakban.
+        </para>
+         <programlisting language="lisp">
+        <![CDATA[
+        (gimp-image-insert-layer image layer 0 0)
+
+        (gimp-context-set-foreground '(0 255 0))
+        (gimp-drawable-fill layer FILL-FOREGROUND)
+        (gimp-image-undo-disable image) 
+
+        (gimp-context-set-foreground color)
+
+        (set! textfs (car (gimp-text-layer-new image text font fontsize PIXELS)))
+        (gimp-image-insert-layer image textfs 0 -1)
+        (gimp-layer-set-offsets textfs (- (/ width 2) (/ text-width 2))  (/ height 2))
+        (gimp-layer-resize-to-image-size textfs)
+
+        (set! text-layer (car (gimp-layer-new-from-drawable textfs image)))
+        (gimp-image-insert-layer image text-layer 0 -1)
+        (gimp-item-transform-rotate-simple text-layer ROTATE-180 TRUE 0 0)
+        (set! textfs (car(gimp-image-merge-down image text-layer CLIP-TO-BOTTOM-LAYER)))
+        .
+        .
+        .
+        ]]>
+         </programlisting>
+         <para>
+            Ezt a scrpitet végül vagy betesszük egy olyan mappába amit a gimp ismer mint script mapp, vagy a jelenlegit hozzáadjuk ezen mappák
+            listájához. Ahhoz pedig, hogy futtassuk a gimpen Filters menüjében a Script-fu consolját kell megnyitni. Itt csak bemásoljuk a 
+            script-fu-bhax-mandala kezdetű parancsot bagy kiválasztjuk a listából és kiegészítjük a megfelelő attríbútumokkkal é
+            s a gimp le is generálja a képünket:
+        </para>
+        <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/Mandala.png" scale="100"  />
+                </imageobject>
+        </mediaobject>
+        
+    </section>
+                                            
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
+</chapter>                
