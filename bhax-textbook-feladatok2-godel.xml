@@ -136,76 +136,7 @@ class Csapat implements Comparable<Csapat> {
         </mediaobject>
     </section>        
         
-    <section>
-        <title>Prolog családfa</title>
-        <para>
-            Megoldás forrása:                
-        </para>
-        <para>
-            Ahhoz, hogy prologot tudjunk használni egy java programban szügségünk lesz az swi prolog-ra. Ez lehetővé teszi
-            számunkra, hogy hozzáadjunk .pl fájlokat, ami kifejezések definiálását végzi a programhoz és a lekérdezésekhez is biztosít függvényeket.
-            Telepíteni a terminálból a  sudo apt-get install swi-prolog és sudo apt-get install swi-prolog-java commandokkal tudjuk. A programunkhoz ezen kívül
-            Igénybe kell vennünk a logika tantárgyon megszerzett tudásunkat, ugyanis a proglogban elsőrendű logikát használva
-            tudunk lekérdezéseket készíteni. TEőször nézzük a .pl fájlt, ebben adjuk meg a kifejezéseket és ezek kapcsolatát, amiket később majd vizsgálni fogunk.
-        </para>
-        <programlisting language="lisp">
-        <![CDATA[
-        férfi(gergő).
-        férfi(pista).
-        férfi(mihály).
-        nő(edit).
-        nő(julianna).
-        nő(piroska).
-        nő(jolán).
-        gyereke(gergő, pista).
-        gyereke(gergő, julianna).
-        gyereke(edit, julianna).
-        gyereke(pista, piroska).
-        gyereke(julianna, mihály).
-        gyereke(julianna, jolán).
-        apa(X) :- férfi(X), gyereke(_Y, X).
-        apja(X, Y) :- férfi(X), gyereke(Y, X).
-        anya(X) :- nő(X), gyereke(_Y, X).
-        anyja(X, Y) :- nő(X), gyereke(Y, X).
-        nagyapa(X) :- apja(X, Y), (apja(Y, _U); anyja(Y, _Z)).
-        nagyapja(X, Z) :- apja(X, Y), (apja(Y, Z); anyja(Y, Z)).
-
-        ]]>
-         </programlisting>
-         <para>
-            A programban több lekérdezést is csinálunk, ezek közül az elsőben megnézzük, hogy pista anya-e?
-         </para>
-          <programlisting language="Java">
-        <![CDATA[
-        String term = "anya(pista)";
-        System.out.println(term + " is " + (Query.hasSolution(term) ? "provable" : "not provable"))
-
-        ]]>
-         </programlisting>
-         <para>
-            Ennek természetesen not provable lesz a kimenetele, hiszen csak az lehet anya aki nő és van gyereke, pistára ebből csak 
-            a van gyereke tulajdonság teljesül. Még nézzünk meg egy példát arra amikor több megoldás is lehetséges.
-            Ezt a nagyapára való kérdéssel lehet tökéletessen tesztelni, mivel mind a két szülői ágról lehet megoldásunk.
-         </para>
-         <programlisting language="Java">
-        <![CDATA[
-        String term1 = "nagyapja(X, gergo)";
-        System.out.println("A formula megoldásai: " + term1);
-        Query q1 = new Query(term1);
-        while (q1.hasMoreSolutions()) {
-            Map<String, Term> str = q1.nextSolution();
-            System.out.println("X = " + str.get("X"));
-        }        
-        ]]>
-         </programlisting>
-          
-         <mediaobject>
-                <imageobject>
-                    <imagedata fileref="img/Prolog.png" scale="160"  />
-                </imageobject>
-        </mediaobject>
-        
-    </section>
+    
     
     <section>
         <title>GIMP Scheme hack</title>
