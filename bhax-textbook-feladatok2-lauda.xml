@@ -1,0 +1,279 @@
+<chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
+    <info>
+        <title>Helló, Lauda!</title>
+        <keywordset>
+            <keyword/>
+        </keywordset>
+    </info>
+
+    <section>
+        <title>Port scan</title>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            Jelen programunk a javában lévő hibakezelés bemutatására készült, ezt is fogjuk letesztelni, hogy miként működik.
+            Amikor programot írunk talalkozhatunk olyan függvényekkel amelyek függenek egy külső tényezőtől, legyen az egy fájl amit meg akarunk
+            nyitni vagy egy socket amit használni szeretnénk. Ha ezek a függőségek teljesülnek minden király, a program hibátlanul elvégzi dolgát,
+            de ajnos nem mindig tökéletes a helyzet és szükséges fájlok hiányozhatnak, a socket meg lehet nincs nyitva. Ilyenkor ha nem kezdtünk
+            a hibával semmit a program egyszerűen összeomlik. Ezt minden féle képpen el kell kerülnünk, és itt jön képbe a hibakezelés. 
+        </para>
+        
+         
+        <programlisting language="xml">
+        <![CDATA[for(int i=0; i<1024; ++i)
+            
+            try {
+                
+                java.net.Socket socket = new java.net.Socket(args[0], i);
+                
+                System.out.println(i + " figyeli");
+                
+                socket.close();
+                
+            } catch (Exception e) {
+                
+                System.out.println(i + " nem figyeli");
+                
+            }
+    }]]>
+        </programlisting>
+        <para>
+           Jelen esetben a portscan.java programmal azt szeretnénk megtudni, hogy mely portok vannak használatban és melyek nem.
+           Ehhez 1-tól 1024-ig végigmegyünk a portokon és megpróbálunk kapcsolódni az adott portra. Ha sikerült csatlakozni kiírjuk
+           consolba és bezárjuk a socketet. Voszont ha nem sikerült kapcsolódni az egy SocketException-t dob, amit a catch blokk
+           el fog kapni és értesít minket róla.
+        </para>
+        
+        <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/portscan.png" scale="170"  />
+                </imageobject>
+        </mediaobject>
+        <para>
+           Futattni a localhost argumantummal tesszük, így ha nem volt aktív port mostmár egyet biztosan látni fogunk.
+           Egy gyors grep azokra a kimenetekre amiben nincs "nem" és látjuk is a portok számát amit használunk.
+        </para>
+        
+        <para>
+           
+        </para>
+        
+        
+    </section>        
+
+    <section>
+        <title>Android Játék</title>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            A feladatunk egy egyszerű android applikáció létrehozása volt Android Studio-ban. A játékomhoz az ihletet a régen elég népszerű 
+            <link xlink:href="https://orteil.dashnet.org/cookieclicker/">Cookie Clicker</link> webes kattingatós alkalmazás adta. A mai napig is rengeteg 
+            hasonló program van mind webre és mobilra is, én egy egyszerűsített verzióját készítettem a el, kis League of Legends kinézettel
+            megspékelve. 
+        </para>
+        
+        <para>
+            A magyarázatot kezjük azzal, hogy mi is a célunk a játékba? Ez nincs nagyon túl bonyolítva, egy minion ikont kell kattintani és gyűlik a pénz.
+            Ennyi. Alap koncepciónak tényleg elég basic, így ezt különböző megvehető épüketekkel és képességekkel tették érdekesebbé a fejlesztők, ugyanis ezek
+            megszerzése után magától is generálódik a pénz. Az én iterációmban ezeket a generátorokat a lolban megtalálható szörnyek jelképezik, növekvő megvételi 
+            árral és szintúgy növekvő gold/másodperccel. 
+        </para>
+        <para>
+            Frontend tekintetében ez egyetlen érdemre méltó rész az alul látható ScrollView. Sajnos ez alapjában véve vertikálisan jelenít meg elemeket
+            és bár van egy orientation attribútuma, azt megváltoztatni nem elég ezért trükköznünk kell. Ennek megoldása egy zseniálisan egymásba ágyzott elemek co-produkciója: egy 
+            LinearLayout-on belül egy HorizontalScrollView-on belül egy LinearLayout amin belül végre elhelyezkednek a képek.
+        </para>
+        
+        <programlisting language="xml">
+        <![CDATA[<LinearLayout
+            android:layout_width="410dp"
+            android:layout_height="309dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginLeft="1dp"
+            android:layout_marginEnd="1dp"
+            android:layout_marginRight="1dp"
+            android:layout_marginBottom="1dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+        ]]>
+         </programlisting>
+         <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/android.png" scale="90"  />
+                </imageobject>
+        </mediaobject>
+         <para>
+            Na most viszton lássuk a forráskódot. A minionra kattintva szimplán növelünk egy countert és ezt kiíratjuk.
+            Ami viszont kis fejtörést okozott az a szörnyek automatikus gold generálása. Ezt ugyanis nem végezhetjük a fő szálon
+            mert azzal teljesen blokkolnánk a user interface-t, így konkrétan lefegyasztva az appot. Amire nekünk szügségünk van az egy második szál.
+            Szerincsére az Android Studio biztosít számunkra egy AsyncTask osztályt ami pont olyan algoritmusok futtatására szolgál
+            amelyek a háttérben futnak. Itt elöször át kell írni a doInBackground függvényt, ez megkapja a példányosításkor megadott számokat és 
+            az általunk megadott módon publishol egy értéket. Esetünkben ez az alapérték amivel másodpercenként növeljük a pénz mennyiségét.
+            Majd megmondjuk neki, hogy ezt az értéket másodpercenként adja át az onProgressUpdate függvénynek. 
+            Ez csinálja a munka nagy részét, egy ronda if else ágban eldönti, hogy melyik szörnyet vásárolták meg és a hozzárendelt értékkel
+            növeli a counter értékét minden másodpercben.
+        </para>
+        <programlisting language="xml">
+        <![CDATA[ 
+        @Override
+        protected Void doInBackground(Integer... integers) {
+            while(true) {
+
+                publishProgress(integers[0]);
+
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                if (isCancelled())
+                {
+                    break;
+                }
+
+            }
+        return null;}
+
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+
+            MainActivity activity = activityWeakReference.get();
+            if (activity == null || activity.isFinishing()) {
+                return;
+            }
+            if (inc ==0) {
+                counter += values[0];
+            }else if (inc == 3) {
+                counter += values[0] + inc;
+            }else if (inc == 8) {
+                counter += values[0] + inc;
+            }else if (inc == 18) {
+                counter += values[0] + inc;
+            }
+            activity.points.setText("Gold: "+Integer.toString(counter));
+        }
+        ]]>
+         </programlisting>
+        <para>
+            Legvégül pedig maradt a szörnyekre való kattintáskor lefutó kód. Először ellenőrizzük, hogy a usernek van e elég pénze 
+            a megvételhez és nincs e már egyszer megvéve. Ha ez nincs így dobunk egy hibaüzenetet, ellenkező esetben pedig átállítjuk 
+            a megvételt igazra, levonjuk az egység árát, majd elindítjuk/frissítjük az AsyncTask-ot végül pedig frissítjük a countert.
+        </para>
+         
+       <programlisting language="xml">
+        <![CDATA[ krug.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (counter >= 10 && !k_bought) {
+                    k_bought = true;
+                    counter-=10;
+                    task.execute(2);
+                    krug.setImageResource(R.drawable.krug_done);
+                }else
+                {
+                    Toast.makeText(getApplicationContext(), "Big nono", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        ]]>
+         </programlisting>
+        
+    </section>        
+        
+    <section>
+        <title>Junit teszt</title>
+        <para>
+            Megoldás forrása:                
+        </para>
+        <para>
+            A feladatunk itt az, hogy a bináris fa program átlag, szórás és mélység számításait először manuálisan majd JUnit teszt segítségével
+            ellenőrizzük le. Először nézzük a a fa lefuttatásával kiszámított eredményt.
+        </para>
+        <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/junit.png"   />
+                </imageobject>
+        </mediaobject>
+        <para>
+            Majd itt van a kézzel számolt érték, mint látszik eddig a kettő megegyezik:
+        </para>
+         <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/számol.png"   />
+                </imageobject>
+        </mediaobject>
+        <para>
+            Majd jöjjön a JUnit teszt. Ehhez be kell importálnunk a projektet a Netbeanse és ott a Create test opcióval létre tudunk
+            hozni egy teszt programot. A program minden metódusra generál egy tesztet de nekünk ebből csak háromra lesz szükségünk.
+            Ezeket is kicsi átírjuk és behelyettesítjük a várt és kapott értéket az assertEquals() függvénybe.
+            A teszt futtatása végül sikeres, vagyi minden számításunk a hibahatáron belül volt.
+        </para>
+        <programlisting language="xml">
+        <![CDATA[ public class LZWBinFaTest {
+    
+   LZWBinFa binfa = new LZWBinFa();
+    
+    String str = "1101000011100001";
+
+    @Test
+    public void testGetAtlag() {
+        System.out.println("getAtlag");
+        for(int i = 0; i < str.length(); i++){
+            binfa.push_back(str.charAt(i));
+        }
+        double atlag = binfa.getAtlag();
+        assertEquals(2.5, atlag, 0.001);
+    }
+
+    /**
+     * Test of getMelyseg method, of class LZWBinFa.
+     */
+    @Test
+    public void testGetMelyseg() {
+        System.out.println("getMelyseg");
+        for(int i = 0; i < str.length(); i++){
+        binfa.push_back(str.charAt(i));
+        }
+        double melyseg = binfa.getMelyseg();
+        assertEquals(3, melyseg, 0.001);
+    }
+
+    /**
+     * Test of getSzoras method, of class LZWBinFa.
+     */
+    @Test
+    public void testGetSzoras() {
+        System.out.println("getSzoras");
+         for(int i = 0; i < str.length(); i++){
+            binfa.push_back(str.charAt(i));
+        }
+        double szoras = binfa.getSzoras();
+        assertEquals(0.57735, szoras, 0.001);
+    }
+
+        ]]>
+         </programlisting>
+         <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/success.png"   />
+                </imageobject>
+        </mediaobject>
+    </section>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+</chapter>                
