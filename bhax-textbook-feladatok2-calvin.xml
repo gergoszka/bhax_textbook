@@ -39,7 +39,7 @@
         <para>
            A pontosságot minél több hidden réteggel és noda-al tudjuk növelni.
 Tehát az egész egy valószín ˝uségi értéket figyel ha megüti a meghatározott küszöböt ez az érték és a hiba
-mértéke kevés akkor a program elfogadja mint megoldást. A programmal 28*28 pixeles képekrol döntjük ˝
+mértéke kevés akkor a program elfogadja mint megoldást. A programmal 28*28 pixeles képekrol döntjük 
 el, hogy milyen szám szerepel a képen:
         </para>
         <programlisting language="Python">
