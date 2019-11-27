@@ -1,6 +1,6 @@
 <chapter xmlns="http://docbook.org/ns/docbook" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xi="http://www.w3.org/2001/XInclude" version="5.0" xml:lang="hu">
     <info>
-        <title>Helló, Stroustrup!</title>
+        <title>Helló, Calvin!</title>
         <keywordset>
             <keyword/>
         </keywordset>
@@ -12,7 +12,7 @@
             Megoldás forrása:                
         </para>
         <para>
-            Itt a feladatunk a tensorflow szám felismerő alguritmusát felélesztenünk és kipróbáénunk.
+            Itt a feladatunk a tensorflow szám felismerő alguritmusát felélesztenünk és kipróbálnunk.
             Maga a tensorflow a google egy opensource machine learning projektje. A python programba először importálnunk
             kell a tensorflow-t, hogy használhassuk. A readimg beveszi a képet amit fel szeretnénk ismerni  és dekódolja nekünk.
             Ahhoz, hogy fel tudjon ismerni egy számot, ezt meg kell neki tanítani. Ehhez szükséges egy modellt létrehozni, amin gyakorol a program.
@@ -39,11 +39,12 @@
         <para>
            A pontosságot minél több hidden réteggel és noda-al tudjuk növelni.
 Tehát az egész egy valószín ˝uségi értéket figyel ha megüti a meghatározott küszöböt ez az érték és a hiba
-mértéke kevés akkor a program elfogadja mint megoldást. A programmal 28*28 pixeles képekrol döntjük 
-el, hogy milyen szám szerepel a képen:
+mértéke kevés akkor a program elfogadja mint megoldást. A működéséshez 28*28-as képekre vans szügségünk, melyek nem lehetnek csak sima paintes rajzolt számok.
+Ugyanis miután megrajzoltuk, még egy képszerkesztő programmal a fehér és fekete határát kicsit össze kell mosnunk. Én ezt a gimp Blur eszközével
+tettem, ezt végighúzva a megrajzolt számon szépen szürke átmenetessé teszi a képet.
         </para>
         <programlisting language="Python">
-        <![CDATA[print("-- A sajat kezi 8-asom felismerese, mutatom a szamot, a tovabblepeshez csukd be az ablakat")
+        <![CDATA[print("-- A sajat kezi 5-os felismerese, mutatom a szamot, a tovabblepeshez csukd be az ablakat")
   img = readimg()
   image = img.eval()
   image = image.reshape(28*28)
@@ -54,6 +55,11 @@ el, hogy milyen szám szerepel a képen:
   classification = sess.run(tf.argmax(y, 1), feed_dict={x: [image]})
         ]]>
          </programlisting>
+         <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/mnist.png" scale="130"/>
+                </imageobject>
+        </mediaobject>
          
         
     </section>        
@@ -86,7 +92,7 @@ el, hogy milyen szám szerepel a képen:
 
         <mediaobject>
                 <imageobject>
-                    <imagedata fileref="img/tensor1.png"/>
+                    <imagedata fileref="img/tensor2.png"/>
                 </imageobject>
         </mediaobject>
         
