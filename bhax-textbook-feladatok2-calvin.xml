@@ -39,9 +39,9 @@
         <para>
            A pontosságot minél több hidden réteggel és noda-al tudjuk növelni.
 Tehát az egész egy valószín ˝uségi értéket figyel ha megüti a meghatározott küszöböt ez az érték és a hiba
-mértéke kevés akkor a program elfogadja mint megoldást. A működéséshez 28*28-as képekre vans szügségünk, melyek nem lehetnek csak sima paintes rajzolt számok.
+mértéke kevés akkor a program elfogadja mint megoldást. A működéséhez 28*28-as képekre van szükségünk, melyek nem lehetnek csak sima paintes rajzolt számok.
 Ugyanis miután megrajzoltuk, még egy képszerkesztő programmal a fehér és fekete határát kicsit össze kell mosnunk. Én ezt a gimp Blur eszközével
-tettem, ezt végighúzva a megrajzolt számon szépen szürke átmenetessé teszi a képet.
+tettem, ezt végig húzva a megrajzolt számon szépen szürke átmenetessé teszi a képet.
         </para>
         <programlisting language="Python">
         <![CDATA[print("-- A sajat kezi 5-os felismerese, mutatom a szamot, a tovabblepeshez csukd be az ablakat")
@@ -53,6 +53,25 @@ tettem, ezt végighúzva a megrajzolt számon szépen szürke átmenetessé tesz
   matplotlib.pyplot.show()
 
   classification = sess.run(tf.argmax(y, 1), feed_dict={x: [image]})
+        ]]>
+         </programlisting>
+         <para>
+            A modellünket megadó egyenlet nagyban hasonlít egy vonalat megadó egyenlethez, mivel az is! Ez a vonal választja el
+            majd az adatoknál a jó megoldásokat a rosszaktól. 
+            A teszthez használt egyenletben (y=W*x+b) x lesz a bemenő érték ezért csak placeholderként deklarájuk, 
+            W a súlyokat jelöli, b pedig a bias amelyekt változókként az értékeikkel együtt deklarálunk. Végül az y-t
+            ezeknek a kiszámolt érékével adjuk meg;
+            Végül pedig mielőtt elkezdhetjük tanítani a modellt, meg kell adni a tanulási lépést. Nálunk ez 0.5-re van állítva, ami 
+            azt jelenti, hogy 0.5 lépésenként újra kalibrálja a súlyokat és a bias-t amíg véget nem ér a tanulás. 
+         </para>
+           <programlisting language="Python">
+        <![CDATA[  # Create the model
+  x = tf.placeholder(tf.float32, [None, 784])
+  W = tf.Variable(tf.zeros([784, 10]))
+  b = tf.Variable(tf.zeros([10]))
+  y = tf.matmul(x, W) + b
+
+  train_step = tf.train.GradientDescentOptimizer(0.5).minimize(cross_entropy)
         ]]>
          </programlisting>
          <mediaobject>
@@ -70,10 +89,10 @@ tettem, ezt végighúzva a megrajzolt számon szépen szürke átmenetessé tesz
             Megoldás forrása:                
         </para>
         <para>
-          A feladat a tensorflow telefonra készült különböző mesterséges inteligenciát használó programjait telepítsük és 
-          teszteljük. A Classify és a Detict is képfelismerő algoritmusok azzal a különbséggel, hogy a Classify csak fent bizonyos
+          A feladat a tensorflow telefonra készült különböző mesterséges intelligenciát használó programjait telepítsük és 
+          teszteljük. A Classify és a Detect is képfelismerő algoritmusok azzal a különbséggel, hogy a Classify csak fent bizonyos
           esélyt ír a képen látható objektumokra a detect ki is jelöli nekünk azokat. Az egyértelműen kivehető tárgyaknál
-          meglepően pontosak de nagyon sok mindenet persze még nem ismernek fel és a tv-t egy mikrótól is nehéz neki megkülönbözettni.
+          meglepően pontosak de nagyon sok mindent persze még nem ismernek fel és a tv-t egy mikrótól is nehéz neki megkülönböztetni.
           A speech hangfelismerő program a felsorolt szavakat tudja felismerni. Itt a go és no szavakat gyakran felcseréli a többit viszont
           mindig megérti. Végül a Stylizer-el érdekes filtereket rakhatunk a képünkre.
         </para>
@@ -107,7 +126,7 @@ tettem, ezt végighúzva a megrajzolt számon szépen szürke átmenetessé tesz
             Megoldás forrása:                
         </para>
         <para>
-            A Minecraft Malo egy a Microsoft általt készített játszó ágens. Az ágens segítségével python vagy c++ kód
+            A Minecraft Malo egy a Microsoft által készített játszó ágens. Az ágens segítségével python vagy c++ kód
             segítségével programozhatjuk a minecraftos karakterünk, Steve cselekvéseit. Először is viszont fel kell telepítenünk azt. 
             Ehhez leszedjük a github repót a microsoft hivatalos oldaláról, majd telepítjük a következő szükséges függőségeket:
             <emphasis role="strong">sudo apt-get install libboost-all-dev libpython3.6 openjdk-8-jdk ffmpeg python-tk python-imaging-tk.</emphasis>
@@ -125,9 +144,9 @@ tettem, ezt végighúzva a megrajzolt számon szépen szürke átmenetessé tesz
 
         <para>
             Most, hogy megvagyunk el is indíthatjuk a <emphasis role="strong">./launchClient.sh</emphasis> paranccsal.
-            Viszon ez még csak a minecratot és a szervert indítja el, ahhoz hogy küldetéseket futtassunk nyitnunk kell egy külön 
+            Viszont ez még csak a minecraftot és a szervert indítja el, ahhoz hogy küldetéseket futtassunk nyitnunk kell egy külön 
             terminált és ott elnavigálni a python-examples mappába. Itt különböző bemutató python küldetések vannak amikkel tökéletesen
-            be lehet mutatni a porgram működését.
+            be lehet mutatni a program működését.
         </para>
         <para>
             A küldetések alapja a python kódba ágyazott xml-ek. Itt adhatjuk meg a világ random generált kódját, a játékmódot, a chaten
@@ -161,9 +180,9 @@ tettem, ezt végighúzva a megrajzolt számon szépen szürke átmenetessé tesz
         ]]>
          </programlisting>
         <para>
-            Ebben a példa küldetésben Steve feladata a túlélés. Alapból egyenesen megy amíg akadályba nem ütközik, ekkor megpróbaálja kikerülni azt.
-            Ha ez nem müködik képes átugrani, átütni és  a nagy akadájok esetén maga alá építve átjutni rajtuk.  Ez sokban hasonlít a Steve Szemüvege programhoz
-            bár ez sokkal butább, hiszen nem érékeljük mi is van körülöttünk, csak random próbálgatja a kijutásra beprogramozott scripteket.
+            Ebben a példa küldetésben Steve feladata a túlélés. Alapból egyenesen megy amíg akadályba nem ütközik, ekkor megpróbálja kikerülni azt.
+            Ha ez nem müködik képes átugrani, átütni és  a nagy akadályok esetén maga alá építve átjutni rajtuk.  Ez sokban hasonlít a Steve Szemüvege programhoz
+            bár ez sokkal butább, hiszen nem értékeljük mi is van körülöttünk, csak random próbálgatja a kijutásra beprogramozott scripteket.
         </para>
          <programlisting language="xml">
         <![CDATA[# Attempt to start the mission:
@@ -194,3 +213,4 @@ while not world_state.has_mission_begun:
         </mediaobject>
     </section>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
 </chapter>                
+

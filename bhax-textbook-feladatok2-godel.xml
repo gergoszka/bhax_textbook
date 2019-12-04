@@ -12,7 +12,7 @@
             Megoldás forrása:                
         </para>
         <para>
-            Ebben a feladatban egy táblazatot fogunk az érékeik szerint csökkenő sorba rendezni. 
+            Ebben a feladatban egy táblázatot fogunk az értékeik szerint csökkenő sorba rendezni. 
             Ehhez az std map adattípusára és lambda kifejezésekre lesz szükségünk. Először is a map olyan absztrakt adattípus,
              ami kulcs érték párokat tárol el, úgy hogy minden kulcsnak egyedinek kell lennie. A maphoz képesek vagyunk értéket hozzá adni és az elérni. 
              Ezt vagy a hosszabb insert-el végezzük vagy egyszerűen megadhatunk egy kulcsot, mintha indexelnénk egy tömböt és ahhoz rendelünk értéket. 
@@ -79,11 +79,16 @@
             Megoldás forrása:                
         </para>
         <para>
-            Az alternatív tabella program egy másik alternatívát kínál a sportok eredméyneinek kimutatására. Itt nem csak a győztes/vesztes meccsek arányát 
+            Az alternatív tabella program egy másik alternatívát kínál a sportok eredményeinek kimutatására. Itt nem csak a győztes/vesztes meccsek arányát 
             vesszük figyelembe, hanem azt is hogy ez egy erős vagy gyengének számító csapat ellen történt e. Miután megvannak az újonnan kiszámított értékeink 
             ezeket nem szimpla integerekben tároljuk, hanem a Csapat osztályban, a csapat nevével és a normális tabellás pontjával egyetemben.
             Ahhoz, hogy ezeket rendezzük, használnunk kell a Comperable T  Interfacet, ami lehetővé teszi az ilyen interface-el ellátott objektumokat, hogy 
             alkalmazzuk rajtuk rendező metódusokat. 
+        </para>
+        <para>
+            A Comperable interface az újdonság a feladatban, így gyorsan rá is keresünk, hogy hogyan kell használni. Az első néhány
+            google találatból tökéletesen rá lehet jönni az implementálására, én például a következő weboldalt használtam a 
+            megértéséhez: https://howtodoinjava.com/java/collections/java-comparable-interface/
         </para>
                 <programlisting language="Java">
         <![CDATA[
@@ -110,11 +115,11 @@ class Csapat implements Comparable<Csapat> {
         ]]>
          </programlisting>
         <para>
-            Ez a gyakorlatban nálunk a következő képpen néz ki. Az osztály mint látjuk használja a Comperable T  Interfacet, a konstruktorában csak a paraméterként
-            megadott értékeket eltároljuk az objektum változóiban. Majd felülírjuk a Comperable egyetlen függvényét, a compareto()-t. Ez összehasonlítja az objektumot 
+            Ez a gyakorlatban nálunk a következőképpen néz ki. Az osztály mint látjuk használja a Comperable T  Interfacet, a konstruktorában csak a paraméterként
+            megadott értékeket eltároljuk az objektum változóiban. Majd felülírjuk a Comperable egyetlen függvényét, a compareTo()-t. Ez összehasonlítja az objektumot 
             a megkapott objektummal, és visszatérési értéke -1 , 0, vagy 1 , attól függően, hogy az átvevő objektum kisebb, egyenlő vagy nagyobb, mint a megkapott objektum.
             Mi ennek felhasználásával növekvő sorrendbe állítjuk a csapatok pontjai szerint, de a csapatokat abc szerint rendeztük, így majd meg kell fordítanunk a reverse
-            fügvénnyel.
+            függvénnyel.
         </para>
                 <programlisting language="Java">
         <![CDATA[
@@ -125,8 +130,8 @@ class Csapat implements Comparable<Csapat> {
          </programlisting>
         <para>
             Ezen felül frissítettük a 2018-as eredményekkel a programot. Ehhez a Wiki2Matrixban az aktuális eredményekhez kellett igazítani a mátrixot. 
-            Itt vettük a végeredmény kereszttáblázatát és a színek alapján -üres:0, zöld:1, sárga:2, piros:3- áttranszformáltuk számokká. Majd az új adtaokkal lefuttatjuk
-            A Wiki2Matrixot és a végeredményül kiadott mátrixot beillesztjük az Alternatív tábella double [][] két dimenziós mátrixába. Ez útán még annyi a teendőnk, hogy 
+            Itt vettük a végeredmény kereszttáblázatát és a színek alapján -üres:0, zöld:1, sárga:2, piros:3- transzformáltuk számokká. Majd az új adatokkal lefuttatjuk
+            A Wiki2Matrixot és a végeredményül kiadott mátrixot beillesztjük az Alternatív tábella double [][] két dimenziós mátrixába. Ez után még annyi a teendőnk, hogy 
             a csapatok nevét és végleges pontjaikat is átírjuk az aktuálisra. Így futtatáskor meg is kapjuk a 2018-as év alternatív tabelláját: 
         </para>
         <mediaobject>
@@ -145,12 +150,12 @@ class Csapat implements Comparable<Csapat> {
         </para>
         <para>
             A gimp Script-fu funkciójával a mostani scriptünkkkel a mandela hatást próbáljuk elérni. Először létrehozzuk az
-            új képet és a rétegeket. A gimp-image-new eljárással létrehozunk egy listát az attribútumokról amikre szügségünk lesz.Ezt a listát
+            új képet és a rétegeket. A gimp-image-new eljárással létrehozunk egy listát az attribútumokról amikre szükségünk lesz.Ezt a listát
             car függvénnyel érjük el, ami lista első elemét veszi ki. A mandala effektust úgy érjük el, hogy a user által megadott szöveget forgatjuk
             egy középső pontban először 90, 45 és végül 30 fokkal. Itt érdemes egy rövidebb szót választani egy szép betűtípussal, így szebb lesz a végeredmény.
-            Ehhez a gimp-item-transform-rotate-simple eljárást használjuk. Mivel a betűk mérete nem állandó, hiszen váltohat betűtípusonként, ezt 
+            Ehhez a gimp-item-transform-rotate-simple eljárást használjuk. Mivel a betűk mérete nem állandó, hiszen változhat betűtípusonként, ezt 
             ezt a text-wh függvény segítségével kérdezzük le és használjuk a továbbiakban. A forgatások után a plug-in-autocrop-layer törli az üres szegélyeket. Majd
-            megadjuk a szélesség és magasságnak a kirajzolható méreteket a drawable-el és ez alapján újraméretezzük a layert a resize- al.
+            megadjuk a szélesség és magasságnak a kirajzolható méreteket a drawable-el és ez alapján újra méretezzük a layert a resize- al.
         </para>
          <programlisting language="lisp">
         <![CDATA[
@@ -163,9 +168,7 @@ class Csapat implements Comparable<Csapat> {
         <para>
             Az ecset méreteit a 
             gimpcontext-set-brush-size-al tudjuk módosítani ez pixelben adja meg a méreteket. Ezzel adjuk meg majd a
-            mandala keretének a vastagságát, amelyet az gimp-image-select-ellipse-el hozunk létre. Ebbol 2 van az ˝
-            egyik a külso körív a vastagabb 22 pixel míg a véknyabb 8 pixel vastag. Párbeszéd ablakokat a gimp- ˝
-            message-el tudunk készíteni. Az elkészített képet a gimp-display-new-al jelenítsük meg új ablakban.
+            mandala keretének a vastagságát, amelyet az gimp-image-select-ellipse-el hozunk létre. Ebbol 2 van az egyik a külső körív a vastagabb 22 pixel míg a vékonyabb 8 pixel vastag. Párbeszéd ablakokat a gimp-message-el tudunk készíteni. Az elkészített képet a gimp-display-new-al jelenítsük meg új ablakban.
         </para>
          <programlisting language="lisp">
         <![CDATA[
@@ -189,9 +192,9 @@ class Csapat implements Comparable<Csapat> {
         ]]>
          </programlisting>
          <para>
-            Ezt a scrpitet végül vagy betesszük egy olyan mappába amit a gimp ismer mint script mapp, vagy a jelenlegit hozzáadjuk ezen mappák
-            listájához. Ahhoz pedig, hogy futtassuk a gimpen Filters menüjében a Script-fu consolját kell megnyitni. Itt csak bemásoljuk a 
-            script-fu-bhax-mandala kezdetű parancsot bagy kiválasztjuk a listából és kiegészítjük a megfelelő attríbútumokkkal é
+            Ezt a scriptet végül vagy betesszük egy olyan mappába amit a gimp ismer mint script mapp, vagy a jelenlegit hozzáadjuk ezen mappák
+            listájához. Ahhoz pedig, hogy futtatjuk a gimpben Filters menüjében a Script-fu consolját kell megnyitni. Itt csak bemásoljuk a 
+            script-fu-bhax-mandala kezdetű parancsot vagy kiválasztjuk a listából és kiegészítjük a megfelelő attribútumokkal é
             s a gimp le is generálja a képünket:
         </para>
         <mediaobject>
@@ -204,3 +207,4 @@ class Csapat implements Comparable<Csapat> {
                                             
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 </chapter>                
+

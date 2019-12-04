@@ -12,7 +12,7 @@
             Megoldás forrása:                
         </para>
         <para>
-           A MandelbrotHalmazNagyító.java szinte teljessen megyegyezik a Prog1-en kivesézett nagyító programmal. Azzal az egy
+           A MandelbrotHalmazNagyító.java szinte teljesen megegyezik a Prog1-en kivesézett nagyító programmal. Azzal az egy
            különbséggel fogunk most foglalakozni, hogy az osztálynevekben és metódusokban megjelentek az ékezetes betűk.
            A Java már támogatja az ékezetes betűket, ehhez fordításkor az -encoding kapcsoló után kell megadni a kívánt 
            karakter kódolási formát, jelen esetünkben az ISO-8859-2 karakterkészletet.
@@ -30,7 +30,7 @@
                 </imageobject>
         </mediaobject>
         <para>
-            Viszont ha egy olyan karakterkészlettel futtajuk, amiben nincs benne a magyar ábc a következő hibaüzenetet kapjuk: 
+            Viszont ha egy olyan karakterkészlettel futtatjuk, amiben nincs benne a magyar ábc a következő hibaüzenetet kapjuk: 
         </para>
          <mediaobject>
                 <imageobject>
@@ -131,7 +131,7 @@
         </para>
          <para>
             Ennek az egyik vizualizáló programja a para12.cpp, ami OpenGL segítségével egy 3D-s térben jeleníti meg a homunkuluszokat.
-            Itt lehetőségünk van a WASD gombokkal mozgatni a kamerát, QE gombokkal le és fel mozogni, egérrel körbe nézni és a nyilakkal 
+            Itt lehetőségünk van a WASD gombokkal mozgatni a kamerát, QE gombokkal le és fel mozogni, egérrel körbenézni és a nyilakkal 
             pedig a legközelebbi kockát forgatni. 
         </para>
         <para>
@@ -143,7 +143,7 @@
                 </imageobject>
         </mediaobject>
         <para>
-            Narancs és piros színű bemeneti képekkel és a programban lévő színezési értékek átállításásval pedig a következő képet kaptam:
+            Narancs és piros színű bemeneti képekkel és a programban lévő színezési értékek átállításával pedig a következő képet kaptam:
         </para>
          <mediaobject>
                 <imageobject>
@@ -159,23 +159,32 @@
             Megoldás forrása:                
         </para>
         <para>
-            Egy perceptron a gépi tanulás egyik legegyszerűbb megvalósítása. Az elképzelés szerint egyetlen neuront
-            ábrázolunk, ami véges sok input alapján egy algoritmus segítségével két csoportba sorolja. Ehhez nem-
+            Jelen feladatban a neurális hálózatok legegyszerűbb változatát, a perceptront vesszük elő.
+            A neurális hálók neuronokból állnak amelyek valamilyen függvény alapján vátoztatnak a megkapott értéken
+            és továbbadják azt. Jelenleg egyetlen neuront
+            ábrázolunk viszont több darabbal egy layeren vagy több leyeren már bonyolultabb hálózatoakt ábrázolhatunk
+            ,de ez a neuronunk véges sok input alapján egy algoritmus segítségével két csoportba sorolja az adatot. Ehhez nem-
             csak a bemenő adatokat adjuk meg, hanem a megoldást is, így az algoritmus az adatokhoz rendelt súlyok
-            változtatásával megpróbálja megközelíteni az elvárt megoldást. Maga az algoritmus általában a szignum
-            függvény ami az adatok és súlyaik szorzatának összegét egy -1 és 1 közötti tört számként ábrázolja. Logi-
-            kusan egy elem akkor tartozik az egyik csoprtba ha 0-nál nagyobb, a másikba ha kisebb.
+            változtatásával megpróbálja megközelíteni az elvárt megoldást.
         </para>
         <para>
-            A perceptront lehet tanítani arra, hogy dolgokat különböztessen meg egymástól. Mi a perceptron program tovább
-            fejlesztésében arra fogjuk rávenni, hogy különböztesse meg a más-más színű pixeleket, majd cserélje ki azokat
-            egy másik színnel, esetünkben a fehéret pirosra.
+             Maga az algoritmus általában a szignum
+            függvény ami az adatok és súlyaik szorzatának összegét egy -1 és 1 közötti tört számként ábrázolja. Logi-
+            kusan egy elem akkor tartozik az egyik csoportba ha 0-nál nagyobb, a másikba ha kisebb.A program legelső
+            próbálkozása alkalmával random súlyokat választ és az alapján, hogy a megoldása helyes vagy helytelen,
+            csökkenti vagy növeli a súlyokat amíg a megfelelő megoldást nem kapjuk.
         </para>
+       
         <mediaobject>
                 <imageobject>
                     <imagedata fileref="img/kimenet.png" scale="65"  />
                 </imageobject>
         </mediaobject>
+         <para>
+            Így képesek vagyunk tanítani a perceptront (machine learning!), ha adottak az adatok és azok kimenetelét
+            is tudjuk, akkor a súlyparaméterek állítgatásával megtudjuk keresni azokat a
+            számokat amelyek ugyanazokat a kimeneti eredményeket eredményezi, mint a mi megoldásunk.
+        </para>
         <programlisting language="Java">
         <![CDATA[
 //perceptron.cpp
@@ -216,3 +225,4 @@ int main (int argc, char **argv)
                                             
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 </chapter>                
+

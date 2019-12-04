@@ -15,7 +15,7 @@
             A Java JDK src mappájában lévő összes java fájl kiíratását a fénykard.cpp alapján kezdtem el kidolgozni. 
             A read_acts egy rekurzív metódus, ami a boost fájlkezelője segítségével végigjár mindent egy mappában: 
             ha az egy .java végződésű fájl hozzáadjuk a v vektorunkhoz és növeljük a java fájl-counter számát, ha pedig mappa, akkor bele lépünk,
-            hozzá adjuk a vektorhoz és rekurzívan meghívjuk a read_acts-ot.  
+            hozzáadjuk a vektorhoz és rekurzívan meghívjuk a read_acts-ot.  
      
         </para>
          <programlisting language="C++">
@@ -55,7 +55,7 @@ void read_acts ( path p)
          </programlisting>
         <para>
            Amint ez végigjárja az src mappát meg is van a v vektorunk, amit mainben kiíratunk az összes java fájl számával együtt.
-           Még hozzáadtam egy kis szépítést is, a mappákat + jelölölés előzi meg, a belé tartozó fájlok pedig behúzva vannak alatta.
+           Még hozzáadtam egy kis szépítést is, a mappákat + jelölés előzi meg, a belé tartozó fájlok pedig behúzva vannak alatta.
         </para>
         <mediaobject>
                 <imageobject>
@@ -72,8 +72,8 @@ void read_acts ( path p)
             Megoldás forrása:                
         </para>
         <para>
-            A másoló konstruktor és érékadás mindig is a C++ része volt, míg a mozgatás az rvalue-val együtt a C++11-ben mutatták be.
-            A szemantikák szemléltetésére egy Inventory osztályt írtam, ami egy bizonyos videójátékos karakter felszerelését tárolja egy stringekből álló tömbben.
+            A másoló konstruktor és értékadás mindig is a C++ része volt, míg a mozgatás az rvalue-val együtt a C++11-ben mutatták be.
+            A szemantikák szemléltetésére egy Inventory osztályt írtam, ami egy bizonyos videojátékos karakter felszerelését tárolja egy stringekből álló tömbben.
             Először lássuk az osztály sima konstruktorát és destruktorát:
         </para>
         <programlisting language="C++">
@@ -131,7 +131,7 @@ void read_acts ( path p)
             C++-ban folyamatosan másolunk értékeket még ha nem is vesszük észre, így mindig van is egy másoló konstruktorunk,
             amit a kompiler magától generál le. Ez amikor lefut egy shallow(sekély) másolást hajt végre, amivel lényegében átmásolja egy másik 
             memóriacímre az összes deklarált változónkat. Ez nagyon jól működik addig, amíg nem próbálunk meg egy pointert másolni. 
-            Ugyanis ekkor a pointerben lévő memóriacímet másoljuk, így mind a kettő osztály inventory pointere uyganoda fog mutatni. 
+            Ugyanis ekkor a pointerben lévő memóriacímet másoljuk, így mind a kettő osztály inventory pointere ugyanoda fog mutatni. 
             Ez pedig a tömb törlésénél eredményez gebaszt, mivel kétszer akarjuk felszabadítani ugyanazt a memóriát.
         </para>
         <para>
@@ -288,7 +288,7 @@ void read_acts ( path p)
          </programlisting>
         <para>
             Ahhoz pedig, hogy ki tudjuk írni a szöveget és az 
-            egyik karakterére is hivatkozhassunk túltöltjük a >> és [] opertátorokat.
+            egyik karakterére is hivatkozhatunk túltöltjük a >> és [] operátorokat.
         </para>
         <programlisting language="C++">
         <![CDATA[
@@ -330,7 +330,7 @@ ostream& operator<<(ostream& stream, const String& string)
             csak a bemenő adatokat adjuk meg, hanem a megoldást is, így az algoritmus az adatokhoz rendelt súlyok
             változtatásával megpróbálja megközelíteni az elvárt megoldást. Maga az algoritmus általában a szignum
             függvény ami az adatok és súlyaik szorzatának összegét egy -1 és 1 közötti tört számként ábrázolja. Logi-
-            kusan egy elem akkor tartozik az egyik csoprtba ha 0-nál nagyobb, a másikba ha kisebb.
+            kusan egy elem akkor tartozik az egyik csoportba ha 0-nál nagyobb, a másikba ha kisebb.
         </para>
         <para>
             A perceptront lehet tanítani arra, hogy dolgokat különböztessen meg egymástól. Mi a perceptron program tovább
@@ -339,30 +339,28 @@ ostream& operator<<(ostream& stream, const String& string)
         </para>
         <mediaobject>
                 <imageobject>
-                    <imagedata fileref="img/kimenet.png" scale="65"  />
+                    <imagedata fileref="img/kimenet2.png" scale="65"  />
                 </imageobject>
         </mediaobject>
-        <programlisting language="Java">
+         <programlisting language="Java">
         <![CDATA[
 //perceptron.cpp
 
-int main (int argc, char **argv)
-{
-    png::image <png::rgb_pixel> png_image (argv[1]);
-
-    int size = png_image.get_width() * png_image.get_height();
-    
     Perceptron* p = new Perceptron (3, size, 256, size);
-    
-    double* image = new double[size];
-    
-    
-    for (int i = 0; i<png_image.get_width(); ++i)
-        for (int j = 0; j<png_image.get_height(); ++j)
-            image[i*png_image.get_width() + j] = png_image[i][j].red;
-    
-    double* value = (*p) (image);
 
+        ]]>
+         </programlisting>
+         <para>
+            A mainben a perceptron konstuktora 4 argumentumot vár: layerek száma, súlyok száma, rejtett layerek azáma
+            és az várt kimenetek száma.
+            Az eredeti konstruktorban 1 szerepelt a súlyok számaként, így akkor nem megfelelően színezett képet kaptunk, ezt
+            ki kell cserélni size-ra ha megfelelő eredméynt akarunk.
+            Mivel már nem egy számot akarunk kapni ezért a value-t átkell írnunk double* value-ra, hogy egy
+            tömb legyen.
+            Majd legvégül végig bekell járnunk a képet és módosítani a pixeleket és elmenteni egy fájlba.
+         </para>
+        <programlisting language="Java">
+        <![CDATA[
     for (int i = 0; i<png_image.get_width(); ++i)
         for (int j = 0; j<png_image.get_height(); ++j)
         {
@@ -371,14 +369,11 @@ int main (int argc, char **argv)
         }
     
     png_image.write("kimenet.png");
-    
-    delete p;
-    delete [] image;
-    
-}
+
         ]]>
          </programlisting>
     </section>
                                             
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 </chapter>                
+

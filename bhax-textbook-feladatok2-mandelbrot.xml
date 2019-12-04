@@ -14,7 +14,7 @@
         <para>
             Az UML osztálydiagram a programunk osztályainak és azok kapcsolatainak összefoglaló diagramja. Általában a tervezési fázisban
             használjuk a projekt jobb átláthatósága miatt, de kész kódból is generálhatunk diagramot. Az ábrázolásmód alapja az osztályt
-            jelölő doboz. Ez 3 részre van osztva felülről lefelé: felülre írjuk az ostály nevét, középre az osztályhot tartozó attribútumokat
+            jelölődoboz. Ez 3 részre van osztva felülről lefelé: felülre írjuk az osztály nevét, középre az osztályhoz tartozó attribútumokat
             a típusával együtt. A legalsó részbe kerülnek az osztály metódusai. A változók és metódusok láthatóságát is jelölni szoktuk
             a következő szimbólumokkal: + public, # protected, ~ csomagszintű, - private.
         </para>
@@ -29,7 +29,7 @@
                 </imageobject>
         </mediaobject>
         <para>
-            Az UML-ek nagyon fontos része az ostályok között lévő kapcsolatok ábrázolása. Ezek az alapvető kapcsolatok az asszociáció, aggregáció, kompozíció
+            Az UML-ek nagyon fontos része az osztályok között lévő kapcsolatok ábrázolása. Ezek az alapvető kapcsolatok az asszociáció, aggregáció, kompozíció
             és öröklődés. A modelleken ezeket egy sima vagy szaggatott vonallal és különböző fejű nyilakkal ábrázoljuk.
         </para>
         <mediaobject>
@@ -41,21 +41,21 @@
             Asszociáció:
         </para>
         <para>
-            Két független osztály közötti összeköttetést jelent. A végére lehet nyílat írni, ez azt jelenti, hogy a másik oldalon álló osztály ismeri 
-            az osztályt amire a nyíl mutat. Ha nincs nyíl a vonalon az két írányú kapcsolatot jelent.
+            Két független osztály közötti összeköttetést jelent. A végére lehet nyilat írni, ez azt jelenti, hogy a másik oldalon álló osztály ismeri 
+            az osztályt amire a nyíl mutat. Ha nincs nyíl a vonalon az kétirányú kapcsolatot jelent.
         </para>
         <para>
             Aggregáció:
         </para>
         <para>
             Az asszociáció egy fajtája. Ilyenkor az egyik osztály "van-egy" kapcsolatban áll egy másikkal. pl: a diáknak van egy tanórája, ilyenkor a 
-            kettő függ egymástól de az óra megszüntével a diák nem szűnik meg.
+            kettő függ egymástól de az óra megszűnésével a diák nem szűnik meg.
         </para>
         <para>
             Kompozíció:
         </para>
          <para>
-            Az asszociáció egy erősebb fajtája. Itt az összekötött két osztály szoros kapcsolatban van egymással. Ha a fő osztályt eltöröljük, akkor a vele
+            Az asszociáció egy erősebb fajtája. Itt az összekötött két osztály szoros kapcsolatban van egymással. Ha a főosztályt eltöröljük, akkor a vele
             kapcsolatban lévő osztály is törlődik.
         </para>
     
@@ -69,7 +69,7 @@
             Megoldás forrása:                
         </para>
         <para>
-          Itt az előző feladat ellentettjét csináljuk: most UML osztálydiagramból kell programkódot generálni. Én példának egy 
+          Itt az előző feladat ellentettjét csináljuk: most UML osztálydiagramból kell program kódot generálni. Én példának egy 
           Jármű osztályt csináltam mint ősosztály és egy Auto és Bicikli gyermek osztályt. A folyamathoz Visual Paradigmot használtam és 
           a következő csoda jött létre:
         </para>
@@ -105,7 +105,7 @@ public class Autó extends Jármű {
          </programlisting>
            
          <para>
-           Mint látni lehet amit megadtunk neki adatok alapján megfelelően legenerálja a változókat és metóduasokat.
+           Mint látni lehet amit megadtunk neki adatok alapján megfelelően legenerálja a változókat és metódusokat.
            A gyermek osztályokat szépen külön fájlba rakja extend kulcsszóval. Viszont magát a kód részét egyértelmű nem tudja megtippelni,
            azt még mindig nekünk kell megírni. Cserébe egy kommentben emlékeztet, hogy ne felejtsük el az implementációt.
         </para>
@@ -119,13 +119,13 @@ public class Autó extends Jármű {
             Megoldás forrása:                
         </para>
         <para>
-            Az esettanos program egy informatikai boltban kapható eszközökről tárol és jelentít meg különböző adatokat.
-            A különböző termékek adatait a consolera és egy fájlba is kíirjuk.A programot úgy tervezzük, hogy a jövőbeli termékcsaládokat is támogassa. 
+            Az esettanos program egy informatikai boltban kapható eszközökről tárol és jelenít meg különböző adatokat.
+            A különböző termékek adatait a consolera és egy fájlba is kiírjuk.A programot úgy tervezzük, hogy a jövőbeli termékcsaládokat is támogassa. 
             Ezért minél több mindent az ős osztályban deklarálunk, amit aztán új gyermek osztályok máshogy implementálhatnak.
         </para>
          <para>
-           Ez az ős osztály a Product, ahol adattagként a beszerzési árat, beszerzési dáttumot és a termék nevét adtuk meg. Ezek protected tagok, szóval megadunk 
-           hozzájuk függvényeket amivel más osztályok is elérik értéküket, plusz egy rakás virtual függvényet amit csak a gyerekekben implementálunk.       
+           Ez az ősosztály a Product, ahol adattagként a beszerzési árat, beszerzési dátumot és a termék nevét adtuk meg. Ezek protected tagok, szóval megadunk 
+           hozzájuk függvényeket amivel más osztályok is elérik értéküket, plusz egy rakás virtual függvények amit csak a gyerekekben implementálunk.       
         </para>
          <programlisting language="C++">
         <![CDATA[
@@ -186,7 +186,7 @@ public:
         </para>
         <para>
             Business Process Model and Notation (BPMN) egy olyan modell amelyben, grafikusan reprezentálhatunk az üzleti folyamatokat.
-            A fő célja za, hogy az egy projekten dolgozó de különböző feladatokat ellátó emberek (programozó, manager, elemző) egy közös tervet alkathassanak,
+            A fő célja az, hogy az egy projekten dolgozó de különböző feladatokat ellátó emberek (programozó, manager, elemző) egy közös tervet alkothassanak,
             amit mindenki megért.
         </para>
         <para>
@@ -207,7 +207,7 @@ public:
                 Tevékenység (Activity)
             </para>
             <para>
-                Jele a lekerekített sarkú téglalap. Ezekben írjuk le a tevékenységeket, amit a modelezett entitás végez.
+                Jele a lekerekített sarkú téglalap. Ezekben írjuk le a tevékenységeket, amit a modellezett entitás végez.
             </para>
         </listitem>
         <listitem>
@@ -215,7 +215,7 @@ public:
                 Átjáró (Gateway)
             </para>
             <para>
-                Jele a rombusz. Több kimenetelű kérdést írunk bele, a kivezető vonalakra pedig lehetséges válaszokat.
+                Jele a rombusz. Többkimenetelű kérdést írunk bele, a kivezető vonalakra pedig lehetséges válaszokat.
             </para>
         </listitem>
         </itemizedlist>
@@ -226,9 +226,9 @@ public:
                 </imageobject>
         </mediaobject>
         <para>
-            Példának egy átlagos éttermi látogatást modelleztem. Itt a Start event uyge ha, megéhezunk, ezután elmegyünk az étterembe és szeretnénk helyet foglalni.
+            Példának egy átlagos éttermi látogatást modelleztem. Itt a Start event ugye ha, megéhezünk, ezután elmegyünk az étterembe és szeretnénk helyet foglalni.
             Viszont ha nem volt foglalásunk lehet, hogy várni kell amíg felszabadul egy hely. Ezután ugyanaz a folyamat történik mintha foglaltunk volna helyet.
-            Amint helyet foglaltunk a pincér felveszi a rendelést, kihozza az ételt, mi pedig elfogyasztjuk, a folyamat szembontjából nem túl izgalmas.
+            Amint helyet foglaltunk a pincér felveszi a rendelést, kihozza az ételt, mi pedig elfogyasztjuk, a folyamat szempontjából nem túl izgalmas.
             Viszont a végén attól függően, hogy milyen volt a kiszolgálás borravalóval vagy anélkül fejezzük be a folyamatot.
         </para>
         
@@ -236,3 +236,4 @@ public:
                                             
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 </chapter>                
+

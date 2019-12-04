@@ -13,7 +13,7 @@
         </para>
        
         <para>
-            A polárgenerátor C++ os változata 3 fájból áll össze: polargen.h.polargen.cpp és polargenteszt.cpp.
+            A polárgenerátor C++ os változata 3 fájlból áll össze: polargen.h.polargen.cpp és polargenteszt.cpp.
             
             A polatgen headerjében deklaráljuk a destruktort és a konstruktort, amely példányosításkor igazra állítja a nincsTarolt változónkat és a randomizáló függvényünket igazán véletlenszerűvé tesszük a rendszeridővel.
             Majd prototype-oljuk a kovetkezo() függvényt és deklaráljuk a privát nincsTarolt és tarolt változókat.
@@ -26,7 +26,7 @@
             hamisra állítjuk; ha van eltárolt számunk akkor azt visszaadjuk és a nincsTárolt változót igazra állítjuk.
         </para>
         <para>
-            A polarteszt.cpp-benpéldányosítjuk a polatgen osztályt pg néven és forral csinálunk 10 példát a kimenetre. A java megfelelője nagyon hasonló a programnak, bár ott egy fájlon belül tartjuk a forráskódot.         
+            A polarteszt.cpp-ben példányosítjuk a polatgen osztályt pg néven és forral csinálunk 10 példát a kimenetre. A java megfelelője nagyon hasonló a programnak, bár ott egy fájlon belül tartjuk a forráskódot.         
         </para>
          <programlisting language="c++">
         <![CDATA[
@@ -134,7 +134,7 @@
         ]]>
         </programlisting> 
         <para>
-            Ez a folyamat bizonyítható a JDK Integer forrásából, amiben látható hogyha az értékünk a poolon kívül van (nem Cache.low és Cache.high között)
+            Ez a folyamat bizonyítható a JDK Integer forrásából, amiben látható hogy ha az értékünk a poolon kívül van (nem Cache.low és Cache.high között)
             akkor a return new Integer(i); fog lefutni amikor csináljuk a két Integert.
         </para>
         <programlisting language="c++">
@@ -169,7 +169,7 @@
         </para>
         
         <para>
-           A Yoda féle feltétel írás a Star Wars kis zöld jedi mesteréről kapta nevét, aki sok más mellet fura szintaxtisú beszédével tűnik ki, amiben 
+           A Yoda féle feltétel írás a Star Wars kis zöld jedi mesteréről kapta nevét, aki sok más mellet fura szintaxisú beszédével tűnik ki, amiben 
            az alanyok és állítmányok helye felcserélődik. Ezt teszi esetünkben most is, ugyanis ha Yoda condition-ban írunk, akkor az összehasonlításokban
            a két szereplő tagok megcseréljük. Ennek előnye, hogy nem változó lesz elől, aminek null is lehet az értéke és így NullPointerExceptions-t is dobhat.
             Ez akkor következik be, ha egy metódust null értékkel hívunk meg.
@@ -207,18 +207,18 @@ A BBP algoritmus alapján:
 
 
 A PiBBP public osztály argumentumaként bekérünk egy d számot, ami
-d+ helyiértéket adja meg. Inicializáljuk a  számoláshoz szügséges váltzozókat.
-A d16pi-nek a 0.0d kezdő értkéket adunk, az S1,S4,S5,S6 számoknak pedig a d16Sj 
+d+ helyi értéket adja meg. Inicializáljuk a  számoláshoz szükséges változókat.
+A d16pi-nek a 0.0d kezdő értéket adunk, az S1,S4,S5,S6 számoknak pedig a d16Sj 
 függvénnyel számoljuk ki az értékét. 
 d16Pi-t kiszámoljuk a BBP algoritmusa szerint és kivonjuk a lefelé kerekített
 értékét. Példányosítjuk a StringBuffert sb néven, ami egy üres stringet hoz létre
 és ezt bővítjük számonként. A hexaJegyek tömbben tároljuk 16-os számrendszer
-betű tagjait, mivel 10 fölöt A-F számok is becsatlakoznak.
+betű tagjait, mivel 10 fölött A-F számok is becsatlakoznak.
 Aztán indítunk egy while ciklust, ami addig megy amíg a d16pi
-értéke nullával egyenlő nem lesz. Majd a d16Pi-t lefelé kerekítjük és belekényszerítjük
+értéke nullával egyenlő nem lesz. Majd a d16Pi-t lefelé kerekítjük és bele kényszerítjük
 egy int jegy változóba. 
 Ha a szám 10-nél kisebb szimplán konkatenáljuk az sb-hez, viszont 
-ha 10-nél nagyobb, akkor kivonunk belőle 10, így megkapjuk a hexaJegyek tömbböl a neke megfelelő betűt.
+ha 10-nél nagyobb, akkor kivonunk belőle 10, így megkapjuk a hexaJegyek tömbből a neki megfelelő betűt.
 Például ha 16-ot kapunk eredményül, akkor abból 10-et kivonva
  a tömb 6. indexű elemét kapjuk meg,a mi F.
 Az osztály végén pedig toString-el stringgé konvertáljuk és betöltjük a 
@@ -264,3 +264,4 @@ d16PiHexaJegyek változóba.
     </section>                                             
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 </chapter>                
+

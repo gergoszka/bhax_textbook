@@ -12,10 +12,10 @@
             Megoldás forrása:                
         </para>
         <para>
-            A tevékenység szerkesztő program a FUTURE projek keretein belül lévő játékosok különböző tevékenységeit és hozzájuk társított
-            értékeitket lehet megtekinteni és szerkeszteni. Jelenleg viszont bugos, ezért feladatunk megtalálni és javítani azt.
-            Először is viszont, hogy futtatni tudjuk telepítenünk kell néhány dolgot. Szükségünk lesz az Intellij Idea IDE-re, egy java skd-ra és
-            a javafx egy változatára, ami a faszerkezet függvényeit és szebb UI elemeket biztosít. Miután minden fent van beimportáljuk a projektet
+            A tevékenység szerkesztő program a FUTURE projekt keretein belül lévő játékosok különböző tevékenységeit és hozzájuk társított
+            értékeket lehet megtekinteni és szerkeszteni. Jelenleg viszont bugos, ezért feladatunk megtalálni és javítani azt.
+            Először is viszont, hogy futtatni tudjuk telepíteni kell néhány dolgot. Szükségünk lesz az Intellij Idea IDE-re, egy java sdk-ra és
+            a javafx egy változatára, ami a faszerkezet függvényeit és szebb UI elemeket biztosít. Miután minden fent van importáljuk a projektet
             és hozzá társítjuk a javafx könyvtárakat. 
         </para>
          <mediaobject>
@@ -24,7 +24,7 @@
                 </imageobject>
         </mediaobject>
         <para>
-           Még mielőtt viszont futtathatnánk meg kell adni néhány futási opciót a javafx-nek és a programhoz használt fájlok 
+           Még mielőtt viszont futtathatnánk, meg kell adni néhány futási opciót a javafx-nek és a programhoz használt fájlok 
            helyét. Ezt a Run menü  <emphasis>Edit configurations </emphasis>opciójában tehetjük meg:
         </para>
         <mediaobject>
@@ -43,9 +43,9 @@
                 </imageobject>
         </mediaobject>
         <para>
-          Ezt kijavítani viszont nagyon egyszerű. A program editCell() metódusában végezzük a fájlok átnevezését. A probléma
+          Ezt javítani viszont nagyon egyszerű. A program editCell() metódusában végezzük a fájlok átnevezését. A probléma
           abból adódik, hogy amikor átnevezni kéni mi az mkdir és createNewFile függvényeket hívjuk meg így új fájlokat létrehozva.
-          Ezekez csak le kell cseréni a renameTo eljárásra és már működik is:
+          Ezeket csak le kell cseréni a renameTo eljárásra és már működik is:
         </para>
         <programlisting language="Java">
         <![CDATA[try {
@@ -75,18 +75,18 @@
         </para>
         <para>
           A SamuCam beüzemeléséhez először is szükségünk lesz az opencv képfeldolhozó eszközre, Qt Creatorra és eszköztől függően
-          egy kamera szoftverére. Az opencv-t lehet parancsorról telepíteni, a qt futtatható teleítóje pedig a hivatalos oldalról letölthető.
+          egy kamera szoftverére. Az opencv-t lehet parancssorból telepíteni, a qt futtatható telepítője pedig a hivatalos oldalról letölthető.
           Én laptopot használok a futtatáshoz, ezért a <emphasis>motion</emphasis> nevű szoftvert telepítettem, amivel localhostként streamelhetem 
           a laptopom webkameráját. Alapjáraton a program másodpercenként csinál egy képet a kamerán keresztül, ezt az opciót érdemes
           viszont még az indítása előtt a <emphasis role="strong"> /etc/motion/motion.conf </emphasis> található config fájlban kikapcsolni.
           Most, hogy működik a kamera, a Samut tartalmazó mappából ki is adhatjuk a <emphasis role="strong">~/Qt/5."VERSION"/gcc_64/bin/qmake SamuLife.pro</emphasis>
-          parancsot, ami a qt mappákából meghívja a szükséges headereket. Ezután egy <emphasis role="strong">make</emphasis> és 
+          parancsot, ami a qt mappából meghívja a szükséges headereket. Ezután egy <emphasis role="strong">make</emphasis> és 
           <emphasis role="strong">./SamuCam --ip http://127.0.0.1:8081/ 2>out</emphasis> parancs kell még, ez megadja a kamaránk ip címét
           (ez eszközönként változhat) a programnak és egy out fájlba irányítja a kimenetet.
         </para>
 
         <para>
-            Minket a programból a kamerát kezelő kód érdekel, így elöször nézzük a SamuCam.h fájlt. 
+            Minket a programból a kamerát kezelő kód érdekel, így először nézzük a SamuCam.h fájlt. 
         </para>
         
         <programlisting language="Java">
@@ -124,9 +124,9 @@ SamuCam::SamuCam ( std::string videoStream, int width = 176, int height = 144 )
          </programlisting>
         <para>
             Ez már érdekesebb , a cpp fájlban a konstruktor mostmár konkrét adatokkal szerepel és 
-            a testéban meg is hív egy openVideoStream() függvényt. Ez mindt neve is sugallja, megnyitja a vido streamjét,
+            a testében meg is hív egy openVideoStream() függvényt. Ez mint a neve is sugallja, megnyitja a video streamjét,
             és beállítja a kamera szélesség, magasság és fps értékeit. Majd jön a run függvény, amiben maga a beérkező kép
-            feldolgozása történik. Elöször is létrehozunk egy CascadeClassifier-t, amihez githubról lekérünk egy emberi arcok
+            feldolgozása történik. Először is létrehozunk egy CascadeClassifier-t, amihez githubról lekérünk egy emberi arcok
             adatait tartozó xml fájlt, a csacade pedig összeveti vele a beérkező képeket és megpróbálja eldönteni, hogy egyeznek e.
         </para>
             <programlisting language="Java">
@@ -149,9 +149,9 @@ void SamuCam::run()
         ]]>
          </programlisting>
          <para>
-            Aztán beteöltjük a kamera feed-jét és várunk 50ms-et, majd ha a kép nem üres feldolgozzuk.
-            Itt a képet újraméretezzük, hogy elkerüljük a nagy fájlokkal való munkát.
-            Ezt átalakítjuk egy szürkeárnyalatú képpé, ami a gyakorlatban majd a reality-t fogja ábrázolni. Az emit
+            Aztán betöltjük a kamera feed-jét és várunk 50ms-et, majd ha a kép nem üres feldolgozzuk.
+            Itt a képet újra méretezzük, hogy elkerüljük a nagy fájlokkal való munkát.
+            Ezt átalakítjuk egy szürkeárnyalatos képpé, ami a gyakorlatban majd a reality-t fogja ábrázolni. Az emit
             érzékeli , hogy két kép között változott e valami, majd matematikai csodákkal kiszámítjuk a Samu által látott képet.
             A ciklus végén újra várunk 80ms-et és kezdjük előről egészen addig amíg van kép bemenet. 
 
@@ -228,7 +228,7 @@ void SamuCam::run()
         </para>
         <para>
             A BrainB benchmark program lényege a felhasználó koncentrációs képességének mérése. A teszt lényege, hogy az egér kurzort folyamatosan a 'Samu entropy' nevű nényzet közepén, a kék körben kell tartani.
-            Samu és a többi objektum is random mozognak, a feladatot nehezíti, hogy minél tovább tartjuk rajta az egeret annál több új entropyt spawnolunk és gyorsaságuk is nő.Viszont ha elveszjük Samut csökken az entropyk száma és sebessége. A teszt 10 percig tart, amit kicsit soknak érzek mert elfárad az ember szeme és a keze is a folyamatos egérgomb lenyomástól a végére.
+            Samu és a többi objektum is random mozognak, a feladatot nehezíti, hogy minél tovább tartjuk rajta az egeret annál több új entropyt spawnolunk és gyorsaságuk is nő.Viszont ha elvesztjük Samut csökken az entropyk száma és sebessége. A teszt 10 percig tart, amit kicsit soknak érzek mert elfárad az ember szeme és a keze is a folyamatos egérgomb lenyomástól a végére.
             Ha teljesítettük a tesztet a program egy külön fájlba elmenti eredményünket, amit a lost2found és found2lost változókból így számolunk:
         </para>   
          <programlisting language="c++"><![CDATA[
@@ -241,8 +241,8 @@ void SamuCam::run()
             ]]>
         </programlisting>   
         <para>
-            A BrainBThred konstruktorában deklaráljuk a hős osztályt,és állítjuk be a mozgásukat, amit random számolunk.  Ezen felül itt írjuk meg az adatok méréséhez szügséges get_bps,get_w,lost, stb. függvényeket.
-            A BrainWin-ben írjuk meg az eventeket amik érzékelik hogy az egér gombja le van-e nyomva vagy sem és ez alapján indítja vagy állítja meg a játékot.Ha Samun van ez egér új entropykat hozunk létre és növeljük az agilitijét, ha elvesztjük entropykat törlünk és lassítjuk.Ezen felül impementáljuk hogy a P gomb lenyomásával meglehessen állítani a játékot.
+            A BrainBThred konstruktorában deklaráljuk a hős osztályt,és állítjuk be a mozgásukat, amit random számolunk.  Ezen felül itt írjuk meg az adatok méréséhez szükséges get_bps,get_w,lost, stb. függvényeket.
+            A BrainWin-ben írjuk meg az eventeket amik érzékelik hogy az egér gombja le van-e nyomva vagy sem és ez alapján indítja vagy állítja meg a játékot.Ha Samun van ez egér új entropykat hozunk létre és növeljük az agilitijét, ha elveszítjük entropykat törlünk és lassítjuk.Ezen felül implementáljuk hogy a P gomb lenyomásával meglehessen állítani a játékot.
             
         </para>
         <mediaobject>
@@ -251,9 +251,15 @@ void SamuCam::run()
                 </imageobject>
         </mediaobject>
         <para>
+            A slotokat és signalokat qt-ben objektumok közötti kommunikációra hasznájuk. A QT biztosít előre létrehozott fajtákat mindekettőből
+            ,de mi is létrehozhatunk egyedieket magunknak. Maguk a signalok és slotok nem tárolják el, hogy mihez vannak kapcsolódva ez runtime dő
+            el mindig. A signalokat objektumok bocsájthatják ki, amikor megváltozik az állapota és továbbítania kell egy másik függvénynek.
+            A slotok normális függvények azzal a kivétellel, hogy signalok kapcsolódhatnak rájuk; így információt átadva.
+        </para>
+        <para>
             A signalok kapcsolása a connect-el történik a slotokhoz. A slotokat akkor kell meghívni ha egy signal
             bekövetkezik. Ezzel elkerülhetjük, hogy ne kelljen egy másik osztály függvényét meghívni. A connecteket
-            a win.cpp-ben találjuk. A signalok és a slotok felépítésének megkell egyezni:
+            a win.cpp-ben találjuk. A signalok és a slotok felépítésének meg kell egyezni:
         </para>
            
         <programlisting language="c++"><![CDATA[
@@ -273,3 +279,4 @@ void SamuCam::run()
     
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
 </chapter>                
+

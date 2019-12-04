@@ -13,13 +13,13 @@
         </para>
           <para>
             A liskov elv azt jelenti, hogy ha származtatunk egy osztályt annak behelyettesíthetőnek kell lennie
-            minden olyan esetben ahol az őse is használható. Ezt jelölésekkel a következö képpen tudjuk leírni:
-            legyen S T-nek egy leszármazottja, ekkor minden T típúsú objektum legyen helyettesíthető S objektumokkal.
+            minden olyan esetben ahol az őse is használható. Ezt jelölésekkel a következőképpen tudjuk leírni:
+            legyen S T-nek egy leszármazottja, ekkor minden T típusú objektum legyen helyettesíthető S objektumokkal.
         </para>
         <para>
-            Ezt a gyakorlatban több féle módon is megelőzhetjuk. Először is figyelnünk kell, hogy ne adjunk meg szorosabb megkötéseket
+            Ezt a gyakorlatban többféle módon is megelőzhetjük. Először is figyelnünk kell, hogy ne adjunk meg szorosabb megkötéseket
             a bemenetre a gyerek osztályban mint ősénél, mivel ha behelyettesítenénk ez kivételt okozhat. Ugyanúgy a kimeneti típus sem térhet el a 
-            kettő között uyganazon okokból. Másodszor pedig figyelnünk kell az osztályok logikájának helyes megtervezésre, erre látunk is egy példát . 
+            kettő között ugyanazon okokból. Másodszor pedig figyelnünk kell az osztályok logikájának helyes megtervezésre, erre látunk is egy példát . 
         </para>
        <programlisting language="Java">
         <![CDATA[
@@ -57,7 +57,7 @@
         ebben a programban T az a madár és az S-ek a pingvin és a sas osztályok. Sérül a liskov elv, ugyanis
          így szerintünk a pingvin képes repülni. A probléma az, hogy feltételeztük, hogy minden madár tud repülni.
          A megoldás az, ha csinálunk egy külön interface-t, amely a repülés tulajdonságot jelenti,bár ekkor
-         a madár osztályt is interface-ve kell alakítanunk, mivel a többszörös öröklődés nem lehetséges javaban.
+         a madár osztályt is interface-é kell alakítanunk, mivel a többszörös öröklődés nem lehetséges javaban.
         </para>
        
         
@@ -70,12 +70,12 @@
         </para>
         <para>
             A polimorfizmus szabálya szerint egy gyermek osztály örököl minden olyan metódust ,ami deklarálva van a szülő
-            osztályban. Ez viszont fordítva nem érnvényes, még akkor sem ha maga a szülő referencia egy gyerek objektumra hivatkozik.
+            osztályban. Ez viszont fordítva nem érvényes, még akkor sem ha maga a szülő referencia egy gyerek objektumra hivatkozik.
             Ezt a szülő-gyermek kapcsolatot fugjuk bebizonyítani Java és C++ nyelveken. 
         </para>
         <para>
             Példáinkban lesz egy Szülő és egy Gyerek osztály, mindegyik egy saját metódussal ami kiírat valamilyen szöveget a konzolra.
-            A Gyerek osztályt a Szülőből származatjuk és adunk nekik egy-egy print metódust. A Mainben példányosítjuk a szülőn keresztül 
+            A Gyerek osztályt a Szülőből származtatjuk és adunk nekik egy-egy print metódust. A Mainben példányosítjuk a szülőn keresztül 
             példányosítjunk egy Szülő és egy Gyerek osztályt. Így látjuk, hogy nem tudja meghívni a Gyerek print metódusát 
             sem az sz1 (mondjuk neki tényleg nincs esélye) sem az sz2, ami a Gyerek osztályra hivatkozik.
         </para>
@@ -128,10 +128,10 @@
             Megoldás forrása:                
         </para>
         <para>
-        A BBP kódját java nyelven már kebeszéltük az előző fejezetben, ez írtuk át C, C++ és C# nyelvekre.
-        Legegyszerűbb egyértelműen C#-ra volt, csak néhány függvény nevét kellett megváltoztatni és mág futott is a program.
+        A BBP kódját java nyelven már kibeszéltük az előző fejezetben, ez írtuk át C, C++ és C# nyelvekre.
+        Legegyszerűbb egyértelműen C#-ra volt, csak néhány függvény nevét kellett megváltoztatni és már futott is a program.
         C-nél az objektum orientáltság elhagyása miatt több időbe telt. C#-os kód linux futtatása .Net Core 3 és
-        Visual Studio kominációjával volt futtatva, ez a windowsol programozási nyelvnek virtuális gépet generál
+        Visual Studio kombinációjával volt futtatva, ez a windowsos programozási nyelvnek virtuális gépet generál
         ,ami közel nem olyan fejlett mint a java-é, ez meg is fog látszani a teszten.
         </para>
         <table border="1">
@@ -170,13 +170,13 @@
             </tbody>
         </table>
         <para>
-            Apropó, ami a tesztet illeti meglepő eredméynek születtek. Én a C-t tiipeltem volna meg első heylezettnek a hardver közeli 
+            Apropó, ami a tesztet illeti meglepő eredmények születtek. Én a C-t tippeltem volna meg első helyezettnek a hardverközeli 
             felépítése miatt de végül a Java győzedelmeskedett mindegyik fordulóban. Úgy tűnik a Java interpretere már annyira 
-            optimalizált, hogy az gyorsaság terén a többi magas színtű programozási nyelvet kenterbe veri.
+            optimalizált, hogy az gyorsaság terén a többi magas szintű programozási nyelvet kenterbe veri.
             A lista másik végén nem meglepően pedig a C# szerepel, a linuxos környezet most nem neki kedvezett. 
         </para>
         <para>
-        A C# kódja a Java-éhoz, a C++ kódja pedig a C-éhez nagyon hasonlít és mivel a Java programkódját már láttuk,
+        A C# kódja a Java-éhoz, a C++ kódja pedig a C-éhez nagyon hasonlít és mivel a Java program kódját már láttuk,
         a spamelést elkerülve most csak egy C kódcsipetet illesztek be.
         </para>
         <programlisting language="C">
@@ -280,9 +280,9 @@ int main ()
             Megoldás forrása:                
         </para>
         <para>
-            A ciklomatikus komlexitás egy program bonyolultságát méri a programkód alapján egy számértékben kifejezve.
-            Egy lineáris program komlexitása e módon 1 lenne, ha bele írunk egy if szerkezetet azzal egy elágazást hozunk létre és a 
-            komplexités 2-re növekszik. A módszer ilyen szinten növeli a komplexitást minden elágazás, ciklus, try catch, 
+            A ciklomatikus komplexitás egy program bonyolultságát méri a programkód alapján egy szám értékben kifejezve.
+            Egy lineáris program komplexitása e módon 1 lenne, ha beleírunk egy if szerkezetet azzal egy elágazást hozunk létre és a 
+            komplexitás 2-re növekszik. A módszer ilyen szinten növeli a komplexitást minden elágazás, ciklus, try catch, 
             logikai operátor, a ?: operátor és a ?. operátor esetén.
         </para>
         <para>
@@ -311,3 +311,4 @@ int main ()
     </section>                                             
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
 </chapter>                
+
