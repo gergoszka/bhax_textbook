@@ -86,9 +86,24 @@
             alkalmazzuk rajtuk rendező metódusokat. 
         </para>
         <para>
-            A Comperable interface az újdonság a feladatban, így gyorsan rá is keresünk, hogy hogyan kell használni. Az első néhány
-            google találatból tökéletesen rá lehet jönni az implementálására, én például a következő weboldalt használtam a 
-            megértéséhez: https://howtodoinjava.com/java/collections/java-comparable-interface/
+            A Comperable interface az újdonság a feladatban, így gyorsan rá is keresünk, hogy hogyan néz ki a JDKban.
+            A Comperable a Collections.java része, így ott nézzük először:
+        </para>
+                 <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/collections.png" scale="160"  />
+                </imageobject>
+        </mediaobject>
+        <para>
+            Mint látjuk csak egy list.sort függyvényt tartalmaz,ez nem mond el nekünk túl sokat, irány a List.java:
+        </para>
+        <mediaobject>
+                <imageobject>
+                    <imagedata fileref="img/list.png" scale="160"  />
+                </imageobject>
+        </mediaobject>
+        <para>
+            Itt pedig az Array.sort-ot használják rendezéshez, amit már ismerünk.
         </para>
                 <programlisting language="Java">
         <![CDATA[
